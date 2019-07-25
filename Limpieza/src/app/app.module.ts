@@ -3,16 +3,24 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { TableComponent } from './table/table.component';
+import {MockServerResultsService} from "./service/service";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgxDatatableModule,
+    BrowserModule
+
   ],
-  providers: [],
+  providers: [MockServerResultsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
