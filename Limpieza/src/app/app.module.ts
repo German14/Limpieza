@@ -10,11 +10,20 @@ import {MatProgressSpinnerModule, MatSortModule, MatTableModule} from "@angular/
 import {CdkTableModule} from "@angular/cdk/table"
 import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
+import { FormsModule }   from '@angular/forms';
+import { FormComponent } from './form/form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TableComponent
+    TableComponent,
+    FormComponent
   ],
   imports: [
     BrowserModule,
@@ -27,8 +36,14 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     MatSortModule,
     CdkTableModule,
     HttpClientModule,
-    BrowserAnimationsModule
-
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatCardModule,
+    FormsModule
   ],
   providers: [MockServerResultsService],
   bootstrap: [AppComponent]

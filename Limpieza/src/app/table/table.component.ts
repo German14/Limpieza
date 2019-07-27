@@ -1,10 +1,10 @@
 import {HttpClient} from "@angular/common/http";
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from "@angular/material";
-
+import { ModalService } from '../_modal';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -18,6 +18,7 @@ export class TableComponent implements OnInit {
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
+  private modalservice: ModalService;
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
@@ -25,13 +26,17 @@ export class TableComponent implements OnInit {
   ngOnInit() {
 
   }
-
+  openForm(row){
+    console.log(row)
+  }
+  openModal(id: string) {
+    this.modalService.open(id);
+  }
   ngAfterViewInit() {
     this.exampleDatabase = new ExampleHttpDatabase(this._httpClient);
 
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
