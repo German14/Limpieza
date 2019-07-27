@@ -1,7 +1,9 @@
+import {HttpClient} from "@angular/common/http";
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {MockServerResultsService} from "../service/service";
-import {Page} from "../page/page";
-import {CorporateEmployee} from "../page/corporate";
+import {merge, Observable, of as observableOf} from 'rxjs';
+import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from "@angular/material";
 
 @Component({
   selector: 'app-table',
@@ -10,63 +12,72 @@ import {CorporateEmployee} from "../page/corporate";
 })
 export class TableComponent implements OnInit {
 
+  displayedColumns: string[] = ['created', 'state', 'number', 'title'];
+  exampleDatabase: ExampleHttpDatabase | null;
+  data: GithubIssue[] = [];
+  resultsLength = 0;
+  isLoadingResults = true;
+  isRateLimitReached = false;
 
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
+  constructor(private _httpClient: HttpClient) {}
   ngOnInit() {
-  }
-  page = new Page();
-  rows = new Array<CorporateEmployee>();
-  cache: any = {};
 
-  @ViewChild('myTable', {static: false}) table;
-
-    private isLoading: boolean = false;
-
-  constructor(private serverResultsService: MockServerResultsService) {
-    this.setPage({offset: 0, pageSize: 10});
   }
 
   ngAfterViewInit() {
-    this.table.bodyComponent.updatePage = function(direction: string): void {
-      let offset = this.indexes.first / this.pageSize;
+    this.exampleDatabase = new ExampleHttpDatabase(this._httpClient);
 
-      if (direction === 'up') {
-        offset = Math.ceil(offset);
-      } else if (direction === 'down') {
-        offset = Math.floor(offset);
-      }
+    // If the user changes the sort order, reset back to the first page.
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
-      if (direction !== undefined && !isNaN(offset)) {
-        this.page.emit({ offset });
-      }
-    }
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults = true;
+          return this.exampleDatabase!.getRepoIssues(
+            this.sort.active, this.sort.direction, this.paginator.pageIndex);
+        }),
+        map(data => {
+          // Flip flag to show that loading has finished.
+          this.isLoadingResults = false;
+          this.isRateLimitReached = false;
+          this.resultsLength = data.total_count;
+
+          return data.items;
+        }),
+        catchError(() => {
+          this.isLoadingResults = false;
+          // Catch if the GitHub API has reached its rate limit. Return empty data.
+          this.isRateLimitReached = true;
+          return observableOf([]);
+        })
+      ).subscribe(data => this.data = data);
   }
+}
+export interface GithubApi {
+  items: GithubIssue[];
+  total_count: number;
+}
 
-  /**
-   * Populate the table with new data based on the page number
-   * @param page The page to select
-   */
-  setPage(pageInfo) {
-    this.isLoading = true;
-    this.page.pageNumber = pageInfo.offset;
-    this.page.size = pageInfo.pageSize;
+export interface GithubIssue {
+  created_at: string;
+  number: string;
+  state: string;
+  title: string;
+}
 
-    this.serverResultsService.getResults(this.page).subscribe(pagedData => {
-      this.page = pagedData.page;
+/** An example database that the data source uses to retrieve data for the table. */
+export class ExampleHttpDatabase {
+  constructor(private _httpClient: HttpClient) {}
 
-      let rows = this.rows;
-      if (rows.length !== pagedData.page.totalElements) {
-        rows = Array.apply(null, Array(pagedData.page.totalElements));
-        rows = rows.map((x, i) => this.rows[i]);
-      }
+  getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
+    const href = 'https://api.github.com/search/issues';
+    const requestUrl =
+      `${href}?q=repo:angular/components&sort=${sort}&order=${order}&page=${page + 1}`;
 
-      // calc start
-      const start = this.page.pageNumber * this.page.size;
-
-      // set rows to our new rows
-      pagedData.data.map((x, i) => rows[i + start] = x);
-      this.rows = rows;
-      this.isLoading = false;
-    });
+    return this._httpClient.get<GithubApi>(requestUrl);
   }
-
 }
