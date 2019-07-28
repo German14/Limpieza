@@ -3,14 +3,15 @@ import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
 import {merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from "@angular/material";
-import { ModalService } from '../_modal';
+import {MatDialog, MatDialogConfig, MatSort} from "@angular/material";
+import {FormComponent} from "../form/form.component";
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
+  [x: string]: any;
 
   displayedColumns: string[] = ['created', 'state', 'number', 'title'];
   exampleDatabase: ExampleHttpDatabase | null;
@@ -18,19 +19,24 @@ export class TableComponent implements OnInit {
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
-  private modalservice: ModalService;
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
-  constructor(private _httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient, private dialog: MatDialog) {}
   ngOnInit() {
 
   }
   openForm(row){
+
+    const dialogConfig = new MatDialogConfig();
     console.log(row)
-  }
-  openModal(id: string) {
-    this.modalService.open(id);
+    dialogConfig.data = row;
+    dialogConfig.width= '500px';
+    let dialogRef = this.dialog.open(FormComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+
   }
   ngAfterViewInit() {
     this.exampleDatabase = new ExampleHttpDatabase(this._httpClient);

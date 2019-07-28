@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TableComponent } from './table/table.component';
 import {MockServerResultsService} from "./service/service";
-import {MatProgressSpinnerModule, MatSortModule, MatTableModule} from "@angular/material";
+import {MatDialog, MatDialogModule, MatProgressSpinnerModule, MatSortModule, MatTableModule} from "@angular/material";
 import {CdkTableModule} from "@angular/cdk/table"
 import {HttpClientModule} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -43,10 +43,12 @@ import { FormComponent } from './form/form.component';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule
   ],
-  providers: [MockServerResultsService],
-  bootstrap: [AppComponent]
+  providers: [MockServerResultsService, MatDialog],
+  bootstrap: [AppComponent],
+  entryComponents: [FormComponent]
 })
 export class AppModule { }
 

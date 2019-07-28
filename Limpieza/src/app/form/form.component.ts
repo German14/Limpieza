@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-form',
@@ -12,7 +13,7 @@ export class FormComponent implements OnInit {
   submitted = false;
   titulo = 'Crear un Formulario con Angular 7 y Bootstrap 4 + Validación';
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.contacto = this.formBuilder.group({
@@ -22,6 +23,7 @@ export class FormComponent implements OnInit {
       postre: ['', Validators.required],
       mensaje: ['', [Validators.required, Validators.minLength(6)]]
     });
+    this.contacto.patchValue({nya: this.data.repository_url ,email: this.data.url, asunto: this.data.number});
   }
 
   get f() { return this.contacto.controls; }
@@ -34,5 +36,9 @@ export class FormComponent implements OnInit {
     }
 
     alert('Mensaje Enviado !')
+  }
+
+  onClose(){
+    console.log('hola')
   }
 }

@@ -1,12 +1,13 @@
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal"  (click)="openForm('')">
+  Open Modal
+</button>
+
+
 <div class="example-container mat-elevation-z8">
   <div class="example-loading-shade"
        *ngIf="isLoadingResults || isRateLimitReached">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-    <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
-      GitHub's API rate limit has been reached. It will be reset in one minute.
-    </div>
   </div>
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
   <div class="example-table-container">
 
     <table mat-table [dataSource]="data" class="example-table"
