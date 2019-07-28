@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TableComponent } from './table/table.component';
-import {MockServerResultsService} from "./service/service";
+import {DataService} from "./service/service";
 import {MatDialog, MatDialogModule, MatProgressSpinnerModule, MatSortModule, MatTableModule} from "@angular/material";
 import {CdkTableModule} from "@angular/cdk/table"
 import {HttpClientModule} from "@angular/common/http";
@@ -46,7 +46,7 @@ import { FormComponent } from './form/form.component';
     FormsModule,
     MatDialogModule
   ],
-  providers: [MockServerResultsService, MatDialog],
+  providers: [DataService, MatDialog],
   bootstrap: [AppComponent],
   entryComponents: [FormComponent]
 })

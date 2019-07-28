@@ -39,6 +39,5 @@ export class FormComponent implements OnInit {
   }
 
   onClose(){
-    console.log('hola')
   }
 }

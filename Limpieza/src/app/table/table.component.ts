@@ -1,10 +1,12 @@
 import {HttpClient} from "@angular/common/http";
 import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
-import {merge, Observable, of as observableOf} from 'rxjs';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import {merge, Observable, of as observableOf, ReplaySubject} from 'rxjs';
+import {catchError, debounce, debounceTime, map, startWith, switchMap} from 'rxjs/operators';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog, MatDialogConfig, MatSort} from "@angular/material";
 import {FormComponent} from "../form/form.component";
+import {DataService, GithubIssue} from "../service/service";
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -14,18 +16,25 @@ export class TableComponent implements OnInit {
   [x: string]: any;
 
   displayedColumns: string[] = ['created', 'state', 'number', 'title'];
-  exampleDatabase: ExampleHttpDatabase | null;
+  exampleDatabase: DataService | null;
   data: GithubIssue[] = [];
   resultsLength = 0;
   isLoadingResults = true;
   isRateLimitReached = false;
 
+  private newCoordinate = new ReplaySubject<any>();
+  private newCoordinate$ = this.newCoordinate.asObservable();
+
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   constructor(private _httpClient: HttpClient, private dialog: MatDialog) {}
-  ngOnInit() {
 
+
+  ngOnInit() {
+    this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.refresh);
   }
+
+
   openForm(row){
 
     const dialogConfig = new MatDialogConfig();
@@ -34,12 +43,11 @@ export class TableComponent implements OnInit {
     dialogConfig.width= '500px';
     let dialogRef = this.dialog.open(FormComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
-
   }
+
   ngAfterViewInit() {
-    this.exampleDatabase = new ExampleHttpDatabase(this._httpClient);
+    this.exampleDatabase = new DataService(this._httpClient);
 
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -67,28 +75,13 @@ export class TableComponent implements OnInit {
         })
       ).subscribe(data => this.data = data);
   }
-}
-export interface GithubApi {
-  items: GithubIssue[];
-  total_count: number;
-}
 
-export interface GithubIssue {
-  created_at: string;
-  number: string;
-  state: string;
-  title: string;
-}
-
-/** An example database that the data source uses to retrieve data for the table. */
-export class ExampleHttpDatabase {
-  constructor(private _httpClient: HttpClient) {}
-
-  getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
-    const href = 'https://api.github.com/search/issues';
-    const requestUrl =
-      `${href}?q=repo:angular/components&sort=${sort}&order=${order}&page=${page + 1}`;
-
-    return this._httpClient.get<GithubApi>(requestUrl);
+  applyFilter(filterValue: string) {
+    this.dataSource = filterValue.trim().toLocaleLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+    this.newCoordinate.next(this.dataSource);
   }
 }
+

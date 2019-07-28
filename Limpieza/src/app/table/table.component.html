@@ -9,7 +9,11 @@
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
   <div class="example-table-container">
-
+    <mat-form-field>
+      <label>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </label>
+    </mat-form-field>
     <table mat-table [dataSource]="data" class="example-table"
            matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
       <!-- Number Column -->
