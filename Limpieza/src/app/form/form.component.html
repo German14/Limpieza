@@ -1,5 +1,5 @@
 <form [formGroup]="contacto" (ngSubmit)="onSubmit()">
-  <div class="form-group">
+  <div class="form-group" style="display: none">
     <label>Id</label>
     <input type="text" formControlName="id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.id.errors }" />
     <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
@@ -30,8 +30,8 @@
     </div>
   </div>
   <div class="form-group">
-    <button [disabled]="loading" class="btn btn-primary">Aceptar</button>
-    <button  class="btn btn-primary" (click)="onClose()">Close</button>
+    <button type="submit"   [disabled]="loading" class="btn btn-primary">Submit</button>
+    <button  class="btn btn-primary" mat-dialog-close>Close</button>
   </div>
 
 </form>

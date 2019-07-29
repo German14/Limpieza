@@ -32,7 +32,6 @@ export class TableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.ngAfterViewInit());
-
   }
 
   ngOnDestroy() {
@@ -57,7 +56,6 @@ export class TableComponent implements OnInit, OnDestroy {
 
   ngAfterViewInit() {
     this.exampleDatabase = new DataService(this._httpClient);
-
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 

@@ -29,14 +29,12 @@ export class FormComponent implements OnInit {
   get f() { return this.contacto.controls; }
 
   onSubmit() {
+
     this.submitted = true;
 
     if (this.contacto.invalid) {
       return;
     }
     this.service.PostRepoIssues(this.contacto.value);
-  }
-
-  onClose(){
   }
 }
