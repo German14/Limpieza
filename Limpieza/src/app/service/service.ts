@@ -40,4 +40,10 @@ export class DataService {
     }
   }
 
+  DeleteRepoIssues(data){
+    const href = 'http://localhost:3000/users/' + data.id ;
+    const requestUrl =href;
+    return this._httpClient.delete (requestUrl, data).subscribe();
+  }
+
 }

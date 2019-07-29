@@ -1,5 +1,5 @@
 import {HttpClient} from "@angular/common/http";
-import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {merge, Observable, of as observableOf, ReplaySubject} from 'rxjs';
 import {catchError, debounce, debounceTime, map, startWith, switchMap} from 'rxjs/operators';
 import {MatPaginator} from '@angular/material/paginator';
@@ -12,10 +12,10 @@ import {DataService, GithubIssue} from "../service/service";
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnDestroy {
   [x: string]: any;
 
-  displayedColumns: string[] = ['id', 'fullName', 'birthday', 'isActive'];
+  displayedColumns: string[] = ['id', 'fullName', 'birthday', 'isActive', 'Delete'];
   exampleDatabase: DataService | null;
   data: GithubIssue[] = [];
   resultsLength = 0;
@@ -35,8 +35,12 @@ export class TableComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+  this.newCoordinate.unsubscribe();
 
-  openForm(row){
+  }
+
+  openForm(row) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = row;
     dialogConfig.width= '500px';
@@ -44,6 +48,11 @@ export class TableComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.newCoordinate.next(this.ngAfterViewInit())
     });
+  }
+
+  deleteRow(row) {
+    this.exampleDatabase.DeleteRepoIssues(row);
+    this.newCoordinate.next(this.ngAfterViewInit())
   }
 
   ngAfterViewInit() {
