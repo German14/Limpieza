@@ -3,15 +3,14 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 export interface GithubApi {
-  items: GithubIssue[];
   total_count: number;
 }
 
 export interface GithubIssue {
-  created_at: string;
-  number: string;
-  state: string;
-  title: string;
+  id: number;
+  fullName: string;
+  birthday: string;
+  isActive: boolean;
 }
 
 
@@ -22,11 +21,23 @@ export class DataService {
 
   constructor(private _httpClient: HttpClient) {}
 
-  getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
-    const href = 'https://api.github.com/search/issues';
-    const requestUrl =
-      `${href}?q=repo:angular/components&sort=${sort}&order=${order}&page=${page + 1}`;
+  getRepoIssues(): Observable <any> {
+    const href = 'http://localhost:3000/users';
+    const requestUrl =href;
 
-    return this._httpClient.get<GithubApi>(requestUrl);
+    return this._httpClient.get (requestUrl);
   }
+  PostRepoIssues(data) {
+    const href = 'http://localhost:3000/users';
+    const requestUrl =href;
+    if(data.id === undefined) {
+      return this._httpClient.post (requestUrl, data).subscribe();
+    }
+    else{
+      const href = 'http://localhost:3000/users/'+ data.id;
+      const requestUrl =href;
+      return this._httpClient.put (requestUrl, data).subscribe();
+    }
+  }
+
 }

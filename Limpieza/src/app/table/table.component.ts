@@ -15,7 +15,7 @@ import {DataService, GithubIssue} from "../service/service";
 export class TableComponent implements OnInit {
   [x: string]: any;
 
-  displayedColumns: string[] = ['created', 'state', 'number', 'title'];
+  displayedColumns: string[] = ['id', 'fullName', 'birthday', 'isActive'];
   exampleDatabase: DataService | null;
   data: GithubIssue[] = [];
   resultsLength = 0;
@@ -31,18 +31,18 @@ export class TableComponent implements OnInit {
 
 
   ngOnInit() {
-    this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.refresh);
+    this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.ngAfterViewInit());
+
   }
 
 
   openForm(row){
-
     const dialogConfig = new MatDialogConfig();
-    console.log(row)
     dialogConfig.data = row;
     dialogConfig.width= '500px';
     let dialogRef = this.dialog.open(FormComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
+      this.newCoordinate.next(this.ngAfterViewInit())
     });
   }
 
@@ -51,21 +51,20 @@ export class TableComponent implements OnInit {
 
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.exampleDatabase!.getRepoIssues(
-            this.sort.active, this.sort.direction, this.paginator.pageIndex);
+          return this.exampleDatabase!.getRepoIssues();
         }),
         map(data => {
           // Flip flag to show that loading has finished.
           this.isLoadingResults = false;
           this.isRateLimitReached = false;
-          this.resultsLength = data.total_count;
-
-          return data.items;
+          this.resultsLength = 3;
+          return data;
         }),
         catchError(() => {
           this.isLoadingResults = false;

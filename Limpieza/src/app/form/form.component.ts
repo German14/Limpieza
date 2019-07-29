@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA} from '@angular/material';
+import {DataService} from '../service/service';
 
 @Component({
   selector: 'app-form',
@@ -13,17 +14,16 @@ export class FormComponent implements OnInit {
   submitted = false;
   titulo = 'Crear un Formulario con Angular 7 y Bootstrap 4 + Validación';
 
-  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private service: DataService) { }
 
   ngOnInit() {
     this.contacto = this.formBuilder.group({
-      nya: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      asunto: ['', Validators.required],
-      postre: ['', Validators.required],
-      mensaje: ['', [Validators.required, Validators.minLength(6)]]
+      id: ['',[]],
+      fullName: ['', [Validators.required]],
+      birthday: ['', Validators.required],
+      isActive: ['', [Validators.required, Validators.minLength(6)]]
     });
-    this.contacto.patchValue({nya: this.data.repository_url ,email: this.data.url, asunto: this.data.number});
+    this.contacto.patchValue({id: this.data.id ,fullName: this.data.fullName, birthday: this.data.birthday , isActive: this.data.isActive});
   }
 
   get f() { return this.contacto.controls; }
@@ -34,8 +34,7 @@ export class FormComponent implements OnInit {
     if (this.contacto.invalid) {
       return;
     }
-
-    alert('Mensaje Enviado !')
+    this.service.PostRepoIssues(this.contacto.value);
   }
 
   onClose(){
