@@ -1,7 +1,7 @@
 import {HttpClient} from "@angular/common/http";
-import {AfterContentInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {merge, Observable, of as observableOf, ReplaySubject} from 'rxjs';
-import {catchError, debounce, debounceTime, map, startWith, switchMap} from 'rxjs/operators';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {merge, of as observableOf, ReplaySubject} from 'rxjs';
+import {catchError, debounceTime, map, startWith, switchMap} from 'rxjs/operators';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog, MatDialogConfig, MatSort} from "@angular/material";
 import {FormComponent} from "../form/form.component";
@@ -27,7 +27,11 @@ export class TableComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
-  constructor(private _httpClient: HttpClient, private dialog: MatDialog) {}
+  constructor(private _httpClient: HttpClient, private dialog: MatDialog) {
+    this.filteredData = this.data;
+    this.listFilter = '';
+
+  }
 
 
   ngOnInit() {
@@ -35,7 +39,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-  this.newCoordinate.unsubscribe();
+    this.newCoordinate.unsubscribe();
 
   }
 
@@ -83,11 +87,23 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   applyFilter(filterValue: string) {
-    this.dataSource = filterValue.trim().toLocaleLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+
+    filterValue = filterValue.toLocaleLowerCase();
+    this.filteredData = this.data.filter((dat: GithubIssue) =>
+      dat.fullName.toLocaleLowerCase().indexOf(filterValue) !== -1);
+    if(filterValue ===''){
+      this.newCoordinate.next(this.ngAfterViewInit())
     }
-    this.newCoordinate.next(this.dataSource);
+    this.data= this.filteredData;
+
   }
+
+  exportAsXLSX():void {
+    console.log(this.data)
+    this.exampleDatabase.exportAsExcelFile(this.data, 'tRABAJADORAS');
+  }
+
+
+
 }
 
