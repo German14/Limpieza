@@ -8,8 +8,9 @@
 
 .Table-table-container {
   position: relative;
-  max-height: 400px;
+  max-height: 770px;
   overflow: auto;
+  height: auto;
 }
 
 table {
@@ -43,4 +44,12 @@ table {
 
 .mat-column-created {
   max-width: 124px;
+}
+
+.addNewElement {
+  width: 48%;
+  margin-right: 4%;
+}
+.exportNewElement {
+  width: 48%;
 }

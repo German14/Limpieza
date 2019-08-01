@@ -1,9 +1,9 @@
 <div style="display: flex; padding:10px">
-  <button style="width: 48%;margin-right: 4%;" type="button" class="btn btn-primary btn-lg "  data-toggle="modal"  (click)="openForm('')">
-    Open Modal
+  <button style="" type="button" class="btn btn-primary btn-lg addNewElement "  data-toggle="modal"  (click)="openForm('')">
+    <i class="fa fa-plus"> Agregar</i>
   </button>
-  <button style="width: 48%;" type="button" class="btn btn-primary btn-lg " data-toggle="modal"  (click)="exportAsXLSX()">
-    Export
+  <button type="button" class="btn btn-primary btn-lg exportNewElement " data-toggle="modal"  (click)="exportAsXLSX()">
+    <i class="fa fa-file-excel-o"> Export</i>
   </button>
 </div>
 <div class="Table-container mat-elevation-z8">
@@ -21,8 +21,8 @@
            matSort matSortActive="Phone" matSortDisableClear matSortDirection="desc">
 
       <!-- Number Column -->
-      <ng-container matColumnDef="id" >
-        <th mat-header-cell *matHeaderCellDef>Id</th>
+      <ng-container matColumnDef="id"  >
+        <th mat-header-cell *matHeaderCellDef >Id</th>
         <td mat-cell *matCellDef="let row">
           <div>
             {{row.id}}
@@ -31,9 +31,9 @@
       </ng-container>
 
       <!-- Title Column -->
-      <ng-container matColumnDef="Name">
+      <ng-container matColumnDef="Name" >
         <th mat-header-cell *matHeaderCellDef>Nombre</th>
-        <td mat-cell *matCellDef="let row"  (click)="openForm(row)">
+        <td mat-cell *matCellDef="let row"  (click)="openForm(row)" style="cursor:pointer">
           {{row.Name}}
         </td>
       </ng-container>
@@ -73,17 +73,14 @@
           Delete
         </th>
         <td mat-cell *matCellDef="let row">
-
           <button class="btn btn-primary btn-lg" (click)="deleteRow(row)">
             <i class="fa fa-trash"></i>
           </button>
-
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
   </div>
-
   <mat-paginator [length]="resultsLength" [pageSize]="30"></mat-paginator>
 </div>

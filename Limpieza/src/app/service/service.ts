@@ -6,9 +6,7 @@ import * as FileSaver from 'file-saver';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
-export interface GithubApi {
-  total_count: number;
-}
+
 
 export interface GithubIssue {
   id: number;
@@ -26,42 +24,42 @@ export class DataService {
 /** An Table database that the data source uses to retrieve data for the table. */
 
   constructor(private _httpClient: HttpClient) {}
-
+public href;
+  public requestUrl
   getRepoIssues(): Observable <any> {
-    const href = 'http://localhost:3000/users';
-    const requestUrl =href;
+     this.href = 'http://localhost:3000/users';
+     this.requestUrl = this.href;
 
-    return this._httpClient.get (requestUrl);
+    return this._httpClient.get (this.requestUrl);
   }
   PostRepoIssues(data) {
-    const href = 'http://localhost:3000/users';
-    const requestUrl =href;
+    this.href = 'http://localhost:3000/users';
+    this.requestUrl =this.href;
     if(data.id === undefined) {
-      return this._httpClient.post (requestUrl, data).subscribe();
+      return this._httpClient.post (this.requestUrl, data).subscribe();
     }
     else{
-      const href = 'http://localhost:3000/users/'+ data.id;
-      const requestUrl =href;
-      return this._httpClient.put (requestUrl, data).subscribe();
+      this.href = 'http://localhost:3000/users/'+ data.id;
+      this.requestUrl =this.href;
+      return this._httpClient.put (this.requestUrl, data).subscribe();
     }
   }
 
   DeleteRepoIssues(data){
-    const href = 'http://localhost:3000/users/' + data.id ;
-    const requestUrl =href;
-    return this._httpClient.delete (requestUrl, data).subscribe();
+    this.href = 'http://localhost:3000/users/' + data.id ;
+    this.requestUrl =this.href;
+    return this._httpClient.delete (this.requestUrl, data).subscribe();
   }
   public exportAsExcelFile(json: any[], excelFileName: string): void {
 
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    console.log('worksheet',worksheet);
     const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     //const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }
 
-  private saveAsExcelFile(buffer: any, fileName: string): void {
+   private saveAsExcelFile(buffer: any, fileName: string): void {
     const data: Blob = new Blob([buffer], {
       type: EXCEL_TYPE
     });
