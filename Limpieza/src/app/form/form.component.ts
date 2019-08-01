@@ -1,6 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {DataService} from '../service/service';
 
 @Component({
@@ -8,22 +8,26 @@ import {DataService} from '../service/service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
+
 export class FormComponent implements OnInit {
 
   contacto: FormGroup;
   submitted = false;
-  titulo = 'Crear un Formulario con Angular 7 y Bootstrap 4 + Validación';
+  titulo = 'Agregar / Editar nuevo Usuario';
 
-  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private service: DataService) { }
+  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private service: DataService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.contacto = this.formBuilder.group({
       id: ['',[]],
-      fullName: ['', [Validators.required]],
-      birthday: ['', Validators.required],
-      isActive: ['', [Validators.required, Validators.minLength(6)]]
+      Name: ['', [Validators.required]],
+      Phone: ['', Validators.required],
+      Portal: ['', Validators.required],
+      Dias: ['', Validators.required],
+      Observations: ['', Validators.required]
     });
-    this.contacto.patchValue({id: this.data.id ,fullName: this.data.fullName, birthday: this.data.birthday , isActive: this.data.isActive});
+    this.contacto.patchValue({id: this.data.id , Name: this.data.Name, Phone: this.data.Phone ,
+      Portal: this.data.Portal, Dias: this.data.Dias, Observations: this.data.Observations});
   }
 
   get f() { return this.contacto.controls; }
@@ -36,5 +40,6 @@ export class FormComponent implements OnInit {
       return;
     }
     this.service.PostRepoIssues(this.contacto.value);
+    this.dialog.closeAll();
   }
 }

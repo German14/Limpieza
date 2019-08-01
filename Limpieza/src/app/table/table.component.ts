@@ -15,8 +15,8 @@ import {DataService, GithubIssue} from "../service/service";
 export class TableComponent implements OnInit, OnDestroy {
   [x: string]: any;
 
-  displayedColumns: string[] = ['id', 'fullName', 'birthday', 'isActive', 'Delete'];
-  exampleDatabase: DataService | null;
+  displayedColumns: string[] = ['id', 'Name', 'Phone', 'Portal', 'Dias', 'Observations', 'Delete'];
+  TableDatabase: DataService | null;
   data: GithubIssue[] = [];
   resultsLength = 0;
   isLoadingResults = true;
@@ -29,8 +29,6 @@ export class TableComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   constructor(private _httpClient: HttpClient, private dialog: MatDialog) {
     this.filteredData = this.data;
-    this.listFilter = '';
-
   }
 
 
@@ -54,12 +52,12 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   deleteRow(row) {
-    this.exampleDatabase.DeleteRepoIssues(row);
+    this.TableDatabase.DeleteRepoIssues(row);
     this.newCoordinate.next(this.ngAfterViewInit())
   }
 
   ngAfterViewInit() {
-    this.exampleDatabase = new DataService(this._httpClient);
+    this.TableDatabase = new DataService(this._httpClient);
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
@@ -68,7 +66,7 @@ export class TableComponent implements OnInit, OnDestroy {
         startWith({}),
         switchMap(() => {
           this.isLoadingResults = true;
-          return this.exampleDatabase!.getRepoIssues();
+          return this.TableDatabase!.getRepoIssues();
         }),
         map(data => {
           // Flip flag to show that loading has finished.
@@ -90,7 +88,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
     filterValue = filterValue.toLocaleLowerCase();
     this.filteredData = this.data.filter((dat: GithubIssue) =>
-      dat.fullName.toLocaleLowerCase().indexOf(filterValue) !== -1);
+      dat.Name.toLocaleLowerCase().indexOf(filterValue) !== -1);
     if(filterValue ===''){
       this.newCoordinate.next(this.ngAfterViewInit())
     }
@@ -100,7 +98,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
   exportAsXLSX():void {
     console.log(this.data)
-    this.exampleDatabase.exportAsExcelFile(this.data, 'tRABAJADORAS');
+    this.TableDatabase.exportAsExcelFile(this.data, 'Trabajadoras');
   }
 
 

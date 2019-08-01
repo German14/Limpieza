@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "~8.1.2",
     "@angular/router": "~8.1.2",
     "@material/dialog": "^3.1.0",
+    "@mdi/font": "^3.8.95",
     "@swimlane/ngx-datatable": "^15.0.2",
     "angular-paginator": "^2.0.2",
     "angular-table-sort": "^0.8.1",

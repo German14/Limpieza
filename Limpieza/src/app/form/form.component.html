@@ -1,3 +1,7 @@
+<h5 class="card-header info-color white-text text-center py-4">
+  <strong>{{titulo}}</strong>
+</h5>
+
 <form [formGroup]="contacto" (ngSubmit)="onSubmit()">
   <div class="form-group" style="display: none">
     <label>Id</label>
@@ -6,31 +10,48 @@
       <div *ngIf="f.id.errors.required">Por favor, ingresa tus Id</div>
     </div>
   </div>
-  <div class="form-group">
-    <label>Nombre</label>
-    <input type="text" formControlName="fullName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fullName.errors }" />
-    <div *ngIf="submitted && f.fullName.errors" class="invalid-feedback">
-      <div *ngIf="f.fullName.errors.required">El name es obligatorio</div>
-      <div *ngIf="f.fullName.errors.fullName">Por favor, ingresa tu name</div>
+  <div class="form-group row">
+    <div class=" col-6">
+      <label>Nombre</label>
+      <input type="text" formControlName="Name" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" />
+      <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+        <div *ngIf="f.Name.errors.required">El nombre es obligatorio</div>
+        <div *ngIf="f.Name.errors.Name">Por favor, ingresa tu Nombre</div>
+      </div>
+    </div>
+    <div class="col-6">
+      <label>Teléfono</label>
+      <input type="text" formControlName="Phone" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.Phone.errors }" />
+      <div *ngIf="submitted && f.Phone.errors" class="invalid-feedback">
+        <div *ngIf="f.Phone.errors.required">Por favor, ingresa el número de teléfono</div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class=" col-6">
+      <label>Portal</label>
+      <input type="text" formControlName="Portal" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Portal.errors }" />
+      <div *ngIf="submitted && f.Portal.errors" class="invalid-feedback">
+        <div *ngIf="f.Portal.errors.required">Por favor, ingresa el Portal</div>
+      </div>
+    </div>
+    <div class="col-6">
+      <label>Dias</label>
+      <input type="text" formControlName="Dias" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Dias.errors }" />
+      <div *ngIf="submitted && f.Dias.errors" class="invalid-feedback">
+        <div *ngIf="f.Dias.errors.required">Por favor, ingresa el número de Dias</div>
+      </div>
     </div>
   </div>
   <div class="form-group">
-    <label>Asunto</label>
-    <input type="text" formControlName="birthday" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.birthday.errors }" />
-    <div *ngIf="submitted && f.birthday.errors" class="invalid-feedback">
-      <div *ngIf="f.birthday.errors.required">Por favor, ingresa la fecha de cumpleaños</div>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="isActive">isActive</label>
-    <textarea class="form-control" formControlName="isActive" rows="3" [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }"></textarea>
-    <div *ngIf="submitted && f.isActive.errors" class="invalid-feedback">
-      <div *ngIf="f.isActive.errors.required">Por favor, ingresa el isActive ( 6 Caracteres mínimo )</div>
+    <label for="Observations">Observations</label>
+    <textarea class="form-control" formControlName="Observations" rows="3" [ngClass]="{ 'is-invalid': submitted && f.Observations.errors }"></textarea>
+    <div *ngIf="submitted && f.Observations.errors" class="invalid-feedback">
+      <div *ngIf="f.Observations.errors.required">Por favor, ingresa las observaciones</div>
     </div>
   </div>
   <div class="form-group">
-    <button type="submit"   [disabled]="loading" class="btn btn-primary">Submit</button>
+    <button type="submit" style="margin-right: 4%;"  [disabled]="loading" class="btn btn-primary">Submit</button>
     <button  class="btn btn-primary" mat-dialog-close>Close</button>
   </div>
 

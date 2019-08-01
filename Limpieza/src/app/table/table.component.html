@@ -1,24 +1,27 @@
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal"  (click)="openForm('')">
-  Open Modal
-</button>
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal"  (click)="exportAsXLSX()">
- Export
-</button>
-<div class="example-container mat-elevation-z8">
-  <div class="example-loading-shade"
+<div style="display: flex; padding:10px">
+  <button style="width: 48%;margin-right: 4%;" type="button" class="btn btn-primary btn-lg "  data-toggle="modal"  (click)="openForm('')">
+    Open Modal
+  </button>
+  <button style="width: 48%;" type="button" class="btn btn-primary btn-lg " data-toggle="modal"  (click)="exportAsXLSX()">
+    Export
+  </button>
+</div>
+<div class="Table-container mat-elevation-z8">
+  <div class="Table-loading-shade"
        *ngIf="isLoadingResults || isRateLimitReached">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
-  <div class="example-table-container">
+  <div class="Table-table-container">
     <mat-form-field>
       <label>
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
       </label>
     </mat-form-field>
-    <table mat-table [dataSource]="data" class="example-table"
-           matSort matSortActive="birthday" matSortDisableClear matSortDirection="desc">
+    <table mat-table [dataSource]="data" class="Table-table"
+           matSort matSortActive="Phone" matSortDisableClear matSortDirection="desc">
+
       <!-- Number Column -->
-      <ng-container matColumnDef="id">
+      <ng-container matColumnDef="id" >
         <th mat-header-cell *matHeaderCellDef>Id</th>
         <td mat-cell *matCellDef="let row">
           <div>
@@ -28,36 +31,53 @@
       </ng-container>
 
       <!-- Title Column -->
-      <ng-container matColumnDef="fullName">
-        <th mat-header-cell *matHeaderCellDef>Fullname</th>
+      <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
         <td mat-cell *matCellDef="let row"  (click)="openForm(row)">
-          {{row.fullName}}
+          {{row.Name}}
         </td>
       </ng-container>
 
       <!-- State Column -->
-      <ng-container matColumnDef="birthday">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header disableClear>birthday</th>
-        <td mat-cell *matCellDef="let row">{{row.birthday |date}}</td>
+      <ng-container matColumnDef="Phone">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header disableClear>Teléfono</th>
+        <td mat-cell *matCellDef="let row">{{row.Phone }}</td>
       </ng-container>
 
       <!-- Created Column -->
-      <ng-container matColumnDef="isActive">
+      <ng-container matColumnDef="Portal">
         <th mat-header-cell *matHeaderCellDef>
-          isActive
+          Portal
         </th>
-        <td mat-cell *matCellDef="let row">{{row.isActive }}</td>
+        <td mat-cell *matCellDef="let row">{{row.Portal}}</td>
       </ng-container>
 
+      <!-- Created Column -->
+      <ng-container matColumnDef="Dias">
+        <th mat-header-cell *matHeaderCellDef>
+          Dias
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.Dias}}</td>
+      </ng-container>
+
+      <!-- Created Column -->
+      <ng-container matColumnDef="Observations">
+        <th mat-header-cell *matHeaderCellDef>
+          Observaciones
+        </th>
+        <td mat-cell *matCellDef="let row">{{row.Observations}}</td>
+      </ng-container>
       <!-- Created Column -->
       <ng-container matColumnDef="Delete">
         <th mat-header-cell *matHeaderCellDef>
           Delete
         </th>
         <td mat-cell *matCellDef="let row">
-          <div (click)="deleteRow(row)">
-            borrar
-          </div>
+
+          <button class="btn btn-primary btn-lg" (click)="deleteRow(row)">
+            <i class="fa fa-trash"></i>
+          </button>
+
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

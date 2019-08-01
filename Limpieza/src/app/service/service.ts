@@ -12,16 +12,18 @@ export interface GithubApi {
 
 export interface GithubIssue {
   id: number;
-  fullName: string;
-  birthday: string;
-  isActive: boolean;
+  Name: string;
+  Phone: string;
+  Portal: string;
+  Dias: string;
+  Observations: string;
 }
 
 
 @Injectable()
 export class DataService {
 
-/** An example database that the data source uses to retrieve data for the table. */
+/** An Table database that the data source uses to retrieve data for the table. */
 
   constructor(private _httpClient: HttpClient) {}
 
