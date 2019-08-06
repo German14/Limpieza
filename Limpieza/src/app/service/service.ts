@@ -29,7 +29,6 @@ public href;
   getRepoIssues(): Observable <any> {
      this.href = 'http://192.168.1.40:3000/users';
      this.requestUrl = this.href;
-
     return this._httpClient.get (this.requestUrl);
   }
   PostRepoIssues(data) {
@@ -50,6 +49,7 @@ public href;
     this.requestUrl =this.href;
     return this._httpClient.delete (this.requestUrl, data).subscribe();
   }
+
   public exportAsExcelFile(json: any[], excelFileName: string): void {
 
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);

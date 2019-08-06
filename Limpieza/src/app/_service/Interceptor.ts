@@ -14,11 +14,11 @@ export class InterceptorService implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     let reqUrl = environment.apiUrl;
-    localStorage.setItem(req.body.email, "hola");
+    localStorage.setItem('email', "hola");
     req = req.clone({
       headers: req.headers.set(
         "Authorization",
-        "Bearer " + localStorage.getItem(req.body.email)
+        "Bearer " + localStorage.getItem('email')
       ),
       url: reqUrl +""+ req.url
     });

@@ -60,7 +60,6 @@ export class TableComponent implements OnInit, OnDestroy {
     this.TableDatabase = new DataService(this._httpClient);
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-
     merge(this.sort.sortChange, this.paginator.page)
       .pipe(
         startWith({}),

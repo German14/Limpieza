@@ -29,6 +29,7 @@ export class AuthenticationService {
 
         return user;
       }));
+
   }
 
   logout() {
