@@ -6,9 +6,16 @@ import { AppComponent } from './app.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TableComponent } from './table/table.component';
 import {DataService} from "./service/service";
-import {MatDialog, MatDialogModule, MatProgressSpinnerModule, MatSortModule, MatTableModule} from "@angular/material";
+import {
+  MatDialog,
+  MatDialogModule,
+  MatProgressSpinnerModule,
+  MatSortModule,
+  MatTableModule,
+  MatToolbarModule
+} from "@angular/material";
 import {CdkTableModule} from "@angular/cdk/table"
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -18,12 +25,17 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { FormsModule }   from '@angular/forms';
 import { FormComponent } from './form/form.component';
+import { LoginComponent } from './login/login.component';
+import {InterceptorService} from "./_service/Interceptor";
+import {AuthenticationService} from "./_service/AuthentificationService";
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
-    FormComponent
+    FormComponent,
+    LoginComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -44,9 +56,11 @@ import { FormComponent } from './form/form.component';
     MatRadioModule,
     MatCardModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatToolbarModule
   ],
-  providers: [DataService, MatDialog],
+  providers: [DataService, MatDialog,AuthenticationService,
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }  ],
   bootstrap: [AppComponent],
   entryComponents: [FormComponent]
 })

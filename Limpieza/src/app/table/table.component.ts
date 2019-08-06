@@ -96,8 +96,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
   }
 
-  exportAsXLSX():void {
-    console.log(this.data)
+  exportAsXLSX() {
     this.TableDatabase.exportAsExcelFile(this.data, 'Trabajadoras');
   }
 

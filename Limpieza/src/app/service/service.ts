@@ -27,26 +27,26 @@ export class DataService {
 public href;
   public requestUrl
   getRepoIssues(): Observable <any> {
-     this.href = 'http://localhost:3000/users';
+     this.href = 'http://192.168.1.40:3000/users';
      this.requestUrl = this.href;
 
     return this._httpClient.get (this.requestUrl);
   }
   PostRepoIssues(data) {
-    this.href = 'http://localhost:3000/users';
+    this.href = 'http://192.168.1.40:3000/users';
     this.requestUrl =this.href;
     if(data.id === undefined) {
       return this._httpClient.post (this.requestUrl, data).subscribe();
     }
     else{
-      this.href = 'http://localhost:3000/users/'+ data.id;
+      this.href = 'http://192.168.1.40:3000/users/'+ data.id;
       this.requestUrl =this.href;
       return this._httpClient.put (this.requestUrl, data).subscribe();
     }
   }
 
   DeleteRepoIssues(data){
-    this.href = 'http://localhost:3000/users/' + data.id ;
+    this.href = 'http://192.168.1.40:3000/users/' + data.id ;
     this.requestUrl =this.href;
     return this._httpClient.delete (this.requestUrl, data).subscribe();
   }
