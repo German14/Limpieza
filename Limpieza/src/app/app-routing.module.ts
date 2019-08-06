@@ -8,7 +8,7 @@ import {AuthGuard} from "./_service/AuthGuard";
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
   { path: 'login', component: LoginComponent },
-  { path: 'table', component: TableComponent  },
+  { path: 'table', component: TableComponent},
   { path: 'form', component: FormsModule },
 
 ];

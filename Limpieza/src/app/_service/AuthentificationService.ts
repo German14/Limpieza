@@ -20,13 +20,12 @@ export class AuthenticationService {
   }
 
   login(email: string, password: string) {
-    return this.http.post<any>('login', { email, password })
+    return this.http.post<any>('auth/login', { email, password })
       .pipe(map(user => {
         if (user && user.token) {
-          localStorage.setItem('currentUser', JSON.stringify(user.result));
+          localStorage.setItem('hola', JSON.stringify(user.result));
           this.currentUserSubject.next(user);
         }
-
         return user;
       }));
 
