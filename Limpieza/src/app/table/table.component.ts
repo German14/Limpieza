@@ -33,7 +33,6 @@ export class TableComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.ngAfterViewInit());
   }
 
   ngOnDestroy() {
@@ -98,8 +97,6 @@ export class TableComponent implements OnInit, OnDestroy {
   exportAsXLSX() {
     this.TableDatabase.exportAsExcelFile(this.data, 'Trabajadoras');
   }
-
-
 
 }
 
