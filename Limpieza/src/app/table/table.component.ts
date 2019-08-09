@@ -33,6 +33,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.ngAfterViewInit());
   }
 
   ngOnDestroy() {
