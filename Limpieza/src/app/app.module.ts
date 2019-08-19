@@ -28,6 +28,9 @@ import { FormComponent } from './form/form.component';
 import { LoginComponent } from './login/login.component';
 import {InterceptorService} from "./_service/Interceptor";
 import {AuthenticationService} from "./_service/AuthentificationService";
+import { ClientsComponent } from './clients/clients.component';
+import { FormClientsComponent } from './form-clients/form-clients.component';
+import {DataServiceClients} from "./service/serviceClients";
 
 @NgModule({
   declarations: [
@@ -35,6 +38,8 @@ import {AuthenticationService} from "./_service/AuthentificationService";
     TableComponent,
     FormComponent,
     LoginComponent,
+    ClientsComponent,
+    FormClientsComponent,
 
   ],
   imports: [
@@ -59,10 +64,10 @@ import {AuthenticationService} from "./_service/AuthentificationService";
     MatDialogModule,
     MatToolbarModule
   ],
-  providers: [DataService, MatDialog,AuthenticationService,
+  providers: [DataService,DataServiceClients, MatDialog,AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }  ],
   bootstrap: [AppComponent],
-  entryComponents: [FormComponent]
+  entryComponents: [FormComponent,FormClientsComponent]
 })
 export class AppModule { }
 
