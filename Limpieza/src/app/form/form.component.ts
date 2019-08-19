@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {MAT_DIALOG_DATA, MatCalendar, MatDialog} from '@angular/material';
 import {DataService} from '../service/service';
 
 @Component({
@@ -8,14 +8,16 @@ import {DataService} from '../service/service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss']
 })
-
 export class FormComponent implements OnInit {
+
+  @ViewChild('calendar', {static:false}) calendar: MatCalendar<any>;
 
   contacto: FormGroup;
   submitted = false;
   titulo = 'Agregar / Editar nuevo Usuario';
 
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private service: DataService, public dialog: MatDialog) { }
+
 
   ngOnInit() {
     this.contacto = this.formBuilder.group({

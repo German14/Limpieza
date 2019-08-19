@@ -7,6 +7,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { TableComponent } from './table/table.component';
 import {DataService} from "./service/service";
 import {
+  MatDatepickerModule,
   MatDialog,
   MatDialogModule,
   MatProgressSpinnerModule,
@@ -31,6 +32,9 @@ import {AuthenticationService} from "./_service/AuthentificationService";
 import { ClientsComponent } from './clients/clients.component';
 import { FormClientsComponent } from './form-clients/form-clients.component';
 import {DataServiceClients} from "./service/serviceClients";
+import { DatepickerComponent } from './datepicker/datepicker.component';
+import {CalendarModule, DateAdapter} from "angular-calendar";
+import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 
 @NgModule({
   declarations: [
@@ -40,6 +44,7 @@ import {DataServiceClients} from "./service/serviceClients";
     LoginComponent,
     ClientsComponent,
     FormClientsComponent,
+    DatepickerComponent
 
   ],
   imports: [
@@ -62,7 +67,12 @@ import {DataServiceClients} from "./service/serviceClients";
     MatCardModule,
     FormsModule,
     MatDialogModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDatepickerModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
   providers: [DataService,DataServiceClients, MatDialog,AuthenticationService,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }  ],
