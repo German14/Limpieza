@@ -27,6 +27,13 @@
           <div *ngIf="f.Phone.errors.required">Por favor, ingresa el número de teléfono</div>
         </div>
       </div>
+      <div class="col-6">
+        <label>Fecha</label>
+        <input type="text" formControlName="Date" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.Phone.errors }" />
+        <div *ngIf="submitted && f.Date.errors" class="invalid-feedback">
+          <div *ngIf="f.Date.errors.required">Por favor, ingresa una fecha</div>
+        </div>
+      </div>
     </div>
     <div class="form-group">
       <label for="Observations">Observations</label>

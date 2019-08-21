@@ -7,6 +7,7 @@ import {MatDialog, MatDialogConfig, MatSort} from "@angular/material";
 import {DataServiceClients, GithubIssue} from "../service/serviceClients";
 import {DataService} from "../service/service";
 import {FormClientsComponent} from "../form-clients/form-clients.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-clients',
@@ -17,7 +18,7 @@ export class ClientsComponent implements OnInit , OnDestroy{
 
   [x: string]: any;
 
-  displayedColumns: string[] = ['id', 'Name', 'Phone', 'Observations', 'Delete'];
+  displayedColumns: string[] = ['id', 'Name', 'Phone','Date', 'Observations', 'Delete', 'DateRow'];
   TableDatabaseClients: DataServiceClients | null;
   TableDatabaseUser: DataService | null;
 
@@ -31,7 +32,8 @@ export class ClientsComponent implements OnInit , OnDestroy{
 
   @ViewChild(MatPaginator,{static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
-  constructor(private _httpClient: HttpClient, private dialog: MatDialog) {
+  constructor(private _httpClient: HttpClient, private dialog: MatDialog,
+              private router: Router) {
     this.filteredData = this.data;
   }
 
@@ -58,6 +60,11 @@ export class ClientsComponent implements OnInit , OnDestroy{
   deleteRow(row) {
     this.TableDatabaseClients.DeleteRepoClients(row);
     this.newCoordinate.next(this.ngAfterViewInit())
+  }
+
+  dateRow(row){
+    console.log(row)
+    this.router.navigate(['/date'], { queryParams: {id: row.id, Year: new Date(row.Date).getFullYear(), Month: new Date(row.Date).getMonth(), Day: new Date(row.Date).getDate()}});
   }
 
   ngAfterViewInit() {

@@ -19,9 +19,10 @@ export class FormClientsComponent implements OnInit {
       id: ['',[]],
       Name: ['', [Validators.required]],
       Phone: ['', Validators.required],
+      Date: ['', Validators.required],
       Observations: ['', Validators.required]
     });
-    this.contacto.patchValue({id: this.data.id , Name: this.data.Name, Phone: this.data.Phone, Observations: this.data.Observations});
+    this.contacto.patchValue({id: this.data.id , Name: this.data.Name, Phone: this.data.Phone,Date: this.data.date, Observations: this.data.Observations});
   }
 
   get f() { return this.contacto.controls; }

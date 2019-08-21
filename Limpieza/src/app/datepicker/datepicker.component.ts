@@ -5,6 +5,8 @@ import {CalendarEvent,CalendarEventAction,CalendarEventTimesChangedEvent,Calenda
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import {FormComponent} from "../form/form.component";
 import {FormClientsComponent} from "../form-clients/form-clients.component";
+import {ActivatedRoute} from '@angular/router';
+import {switchMap} from 'rxjs/internal/operators/switchMap';
 
 const colors: any = {
   red: {
@@ -59,37 +61,12 @@ export class DatepickerComponent implements OnInit {
 
   events: CalendarEvent[] = [
     {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
+      start: subDays(startOfDay(new Date(parseInt(this.route.snapshot.queryParamMap.get("Year")), parseInt(this.route.snapshot.queryParamMap.get("Month")) ,parseInt(this.route.snapshot.queryParamMap.get("Day")))), 1),
+      end: addDays(new Date(2019,8,30), 1),
       title: 'A 3 day event',
       color: colors.red,
       actions: this.actions,
       allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      },
-      draggable: true
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: new Date(),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
       resizable: {
         beforeStart: true,
         afterEnd: true
@@ -100,9 +77,20 @@ export class DatepickerComponent implements OnInit {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private route: ActivatedRoute) {
+    this.year = this.route.snapshot.queryParamMap.get("Year");
+    this.Month= this.route.snapshot.queryParamMap.get("Month")
+    this.day=this.route.snapshot.queryParamMap.get("Day");
+    console.log(this.day)
+
+  }
 
   ngOnInit() {
+    this.route.queryParamMap.subscribe(queryParams => {
+      this.name = queryParams.get("Year")
+      console.log(this.name)
+
+    })
   }
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -138,8 +126,8 @@ export class DatepickerComponent implements OnInit {
     let modal: any
     this.modalData = { event, action };
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = '';
   this.dialog.open(FormClientsComponent, dialogConfig);
-   // this.modal.open(this.modalContent, { size: 'lg' });
   }
 
   addEvent(): void {
@@ -147,8 +135,8 @@ export class DatepickerComponent implements OnInit {
       ...this.events,
       {
         title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
+        start: startOfDay(new Date(this.name, 9,8)),
+        end: endOfDay(new Date(2019,9,18)),
         color: colors.red,
         draggable: true,
         resizable: {

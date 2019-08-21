@@ -43,6 +43,11 @@
             <th mat-header-cell *matHeaderCellDef  mat-sort-header disableClear>Teléfono</th>
             <td mat-cell *matCellDef="let row">{{row.Phone }}</td>
           </ng-container>
+          <!-- State Column -->
+          <ng-container matColumnDef="Date">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header disableClear>Fecha</th>
+            <td mat-cell *matCellDef="let row">{{row.Date }}</td>
+          </ng-container>
           <!-- Created Column -->
           <ng-container matColumnDef="Observations">
             <th mat-header-cell *matHeaderCellDef>
@@ -58,6 +63,17 @@
             <td mat-cell *matCellDef="let row">
               <button class="btn btn-primary btn-lg" (click)="deleteRow(row)">
                 <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </ng-container>
+          <!-- Created Column -->
+          <ng-container matColumnDef="DateRow">
+            <th mat-header-cell *matHeaderCellDef>
+              Date
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <button class="btn btn-primary btn-lg" (click)="dateRow(row)">
+                <i class="fa fa-calendar"></i>
               </button>
             </td>
           </ng-container>
