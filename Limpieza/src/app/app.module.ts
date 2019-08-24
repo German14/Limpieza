@@ -36,7 +36,9 @@ import { DatepickerComponent } from './datepicker/datepicker.component';
 import {CalendarModule, DateAdapter} from "angular-calendar";
 import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 
-import localeEsAr from '@angular/common/locales/es-AR';
+import { NotificationsComponent } from './notifications/notifications.component';
+import {NotificationService} from "./service/notificationService";
+import {NotifierService} from "angular-notifier";
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import localeEsAr from '@angular/common/locales/es-AR';
     LoginComponent,
     ClientsComponent,
     FormClientsComponent,
-    DatepickerComponent
+    DatepickerComponent,
+    NotificationsComponent
 
   ],
   imports: [
@@ -76,7 +79,7 @@ import localeEsAr from '@angular/common/locales/es-AR';
       useFactory: adapterFactory
     })
   ],
-  providers: [DataService,DataServiceClients, MatDialog,AuthenticationService,
+  providers: [DataService,DataServiceClients, MatDialog,AuthenticationService,NotificationService,NotifierService,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
     ],
   bootstrap: [AppComponent],

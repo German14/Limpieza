@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {DataServiceClients} from "../service/serviceClients";
 import {DatePipe} from "@angular/common";
+import {NotificationsComponent} from "../notifications/notifications.component";
+import {NotificationService} from "../service/notificationService";
 
 @Component({
   selector: 'app-form-clients',
@@ -11,10 +13,13 @@ import {DatePipe} from "@angular/common";
 })
 
 export class FormClientsComponent implements OnInit {
+
   contacto: FormGroup;
   submitted = false;
   titulo = 'Agregar / Editar nuevo Cliente';
-  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private service: DataServiceClients, public dialog: MatDialog) { }
+
+  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private service: DataServiceClients,
+              public dialog: MatDialog, private notification:NotificationService) { }
   ngOnInit() {
     this.contacto = this.formBuilder.group({
       id: ['',[]],
@@ -30,6 +35,7 @@ export class FormClientsComponent implements OnInit {
       Tiro: new DatePipe('en-US').transform(this.data.Tiro),
       Portal:new DatePipe('en-US').transform(this.data.Portal),
       Observations: this.data.Observations});
+    //this.notification.showNotification('info','hola')
   }
 
   get f() { return this.contacto.controls; }
