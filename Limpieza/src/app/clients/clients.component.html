@@ -44,9 +44,17 @@
             <td mat-cell *matCellDef="let row">{{row.Phone }}</td>
           </ng-container>
           <!-- State Column -->
-          <ng-container matColumnDef="Date">
-            <th mat-header-cell *matHeaderCellDef  mat-sort-header disableClear>Fecha</th>
-            <td mat-cell *matCellDef="let row">{{row.Date }}</td>
+          <ng-container matColumnDef="Tiro">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header disableClear>Fecha Tiro</th>
+            <td mat-cell *matCellDef="let row">{{row.Tiro | date:'dd-MM-yy'  }}</td>
+          </ng-container>
+          <ng-container matColumnDef="Portal">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header disableClear>Fecha Portal</th>
+            <td mat-cell *matCellDef="let row">{{row.Portal  | date:'dd-MM-yy'  }}</td>
+          </ng-container>
+          <ng-container matColumnDef="Garaje">
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header disableClear>Fecha Garaje</th>
+            <td mat-cell *matCellDef="let row">{{row.Garaje  | date:'dd-MM-yy'  }}</td>
           </ng-container>
           <!-- Created Column -->
           <ng-container matColumnDef="Observations">

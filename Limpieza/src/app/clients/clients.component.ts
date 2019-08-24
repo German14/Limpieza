@@ -18,7 +18,7 @@ export class ClientsComponent implements OnInit , OnDestroy{
 
   [x: string]: any;
 
-  displayedColumns: string[] = ['id', 'Name', 'Phone','Date', 'Observations', 'Delete', 'DateRow'];
+  displayedColumns: string[] = ['id', 'Name', 'Phone','Tiro','Garaje', 'Portal', 'Observations', 'Delete', 'DateRow'];
   TableDatabaseClients: DataServiceClients | null;
   TableDatabaseUser: DataService | null;
 
@@ -63,8 +63,21 @@ export class ClientsComponent implements OnInit , OnDestroy{
   }
 
   dateRow(row){
-    console.log(row)
-    this.router.navigate(['/date'], { queryParams: {id: row.id, Year: new Date(row.Date).getFullYear(), Month: new Date(row.Date).getMonth(), Day: new Date(row.Date).getDate()}});
+    this.router.navigate(['/date'], { queryParams: {
+        id: row.id,
+        YearT: new Date(row.Tiro).getFullYear(),
+        MonthT: new Date(row.Tiro).getMonth(),
+        DayT: new Date(row.Tiro).getDate(),
+
+        YearG: new Date(row.Garaje).getFullYear(),
+        MonthG: new Date(row.Garaje).getMonth(),
+        DayG: new Date(row.Garaje).getDate(),
+
+        YearP: new Date(row.Portal).getFullYear(),
+        MonthP: new Date(row.Portal).getMonth(),
+        DayP: new Date(row.Portal).getDate()
+
+    }});
   }
 
   ngAfterViewInit() {

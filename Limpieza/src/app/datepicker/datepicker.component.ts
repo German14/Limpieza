@@ -5,12 +5,25 @@ import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, Cale
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import {FormClientsComponent} from "../form-clients/form-clients.component";
 import {ActivatedRoute} from '@angular/router';
+import {DataServiceClients} from '../service/serviceClients';
+import {DatePipe, formatDate, registerLocaleData} from "@angular/common";
 
+import localeEsAr from '@angular/common/locales/es-AR';
 const colors: any = {
   red: {
     primary: '#ad2121',
     secondary: '#FAE3E3'
-  }
+  },
+  blue: {
+    primary: '#09ad18',
+    secondary: '#FAE3E3'
+  },
+  yellow: {
+    primary: '#ada70b',
+    secondary: '#FAE3E3'
+  },
+
+
 };
 
 @Component({
@@ -51,10 +64,72 @@ export class DatepickerComponent implements OnInit {
 
   events: CalendarEvent[] = [
     {
-      start: subDays(startOfDay(new Date(parseInt(this.route.snapshot.queryParamMap.get("Year")), parseInt(this.route.snapshot.queryParamMap.get("Month")) ,parseInt(this.route.snapshot.queryParamMap.get("Day")))), 0),
-      end: addDays(endOfDay(new Date(parseInt(this.route.snapshot.queryParamMap.get("Year")), parseInt(this.route.snapshot.queryParamMap.get("Month")) ,parseInt(this.route.snapshot.queryParamMap.get("Day")))), 0),
-      title: this.route.snapshot.queryParamMap.get("id").toString(),
+      start: subDays(
+        startOfDay(
+          new Date(
+            parseInt(this.route.snapshot.queryParamMap.get("YearT")),
+            parseInt(this.route.snapshot.queryParamMap.get("MonthT")),
+            parseInt(this.route.snapshot.queryParamMap.get("DayT")))),
+        0),
+      end: addDays(
+        endOfDay(
+          new Date(
+            parseInt(this.route.snapshot.queryParamMap.get("YearT")),
+            parseInt(this.route.snapshot.queryParamMap.get("MonthT")),
+            parseInt(this.route.snapshot.queryParamMap.get("DayT")))),
+        0),
+      title: 'Tiro',
+      color: colors.blue,
+      actions: this.actions,
+      allDay: true,
+      resizable: {
+        beforeStart: false,
+        afterEnd: false
+      },
+      draggable: true
+    },
+    {
+      start: subDays(
+        startOfDay(
+          new Date(
+            parseInt(this.route.snapshot.queryParamMap.get("YearP")),
+            parseInt(this.route.snapshot.queryParamMap.get("MonthP")),
+            parseInt(this.route.snapshot.queryParamMap.get("DayP")))),
+        0),
+      end: addDays(
+        endOfDay(
+          new Date(
+            parseInt(this.route.snapshot.queryParamMap.get("YearP")),
+            parseInt(this.route.snapshot.queryParamMap.get("MonthP")),
+            parseInt(this.route.snapshot.queryParamMap.get("DayP")))),
+        0),
+      title: 'Portal',
       color: colors.red,
+      actions: this.actions,
+      allDay: true,
+      resizable: {
+        beforeStart: false,
+        afterEnd: false
+      },
+      draggable: true
+    },
+    {
+      start: subDays(
+        startOfDay(
+          new Date(
+            parseInt(this.route.snapshot.queryParamMap.get("YearG")),
+            parseInt(this.route.snapshot.queryParamMap.get("MonthG")),
+            parseInt(this.route.snapshot.queryParamMap.get("DayG")))),
+        0),
+      end: addDays(
+        endOfDay(
+          new Date(
+            parseInt(this.route.snapshot.queryParamMap.get("YearG")),
+            parseInt(this.route.snapshot.queryParamMap.get("MonthG")),
+            parseInt(this.route.snapshot.queryParamMap.get("DayG")))),
+        1),
+      title: 'Garaje',
+      color: colors.yellow,
       actions: this.actions,
       allDay: true,
       resizable: {
@@ -67,11 +142,31 @@ export class DatepickerComponent implements OnInit {
 
   activeDayIsOpen: boolean = true;
 
-  constructor(private dialog: MatDialog, private route: ActivatedRoute) {
-    this.year = this.route.snapshot.queryParamMap.get("Year");
-    this.Month= this.route.snapshot.queryParamMap.get("Month");
-    this.day=this.route.snapshot.queryParamMap.get("Day");
-    this.id= this.route.snapshot.queryParamMap.get("id");
+  constructor(private dialog: MatDialog, private route: ActivatedRoute, private service: DataServiceClients) {
+    this.yearT = this.route.snapshot.queryParamMap.get("YearT");
+    this.MonthT = this.route.snapshot.queryParamMap.get("MonthT");
+    this.dayT =this.route.snapshot.queryParamMap.get("DayT");
+
+    this.yearG = this.route.snapshot.queryParamMap.get("YearG");
+    this.MonthG = this.route.snapshot.queryParamMap.get("MonthG");
+    this.dayG =this.route.snapshot.queryParamMap.get("DayG");
+
+    this.yearP = this.route.snapshot.queryParamMap.get("YearP");
+    this.MonthP = this.route.snapshot.queryParamMap.get("MonthP");
+    this.dayP =this.route.snapshot.queryParamMap.get("DayP");
+
+    this.id = this.route.snapshot.queryParamMap.get("id");
+    this.service.getRepoClient({id:this.id}).subscribe((data) =>{
+      this.name= data[0].Name;
+      this.Phone= data[0].Phone;
+      this.observations= data[0].Observations;
+
+      this.Garaje= new DatePipe('en-US').transform(data[0].Garaje);
+      this.Portal= new DatePipe('en-US').transform(data[0].Portal);
+      this.Tiro= new DatePipe('en-US').transform(data[0].Tiro);
+      }
+    );
+
   }
 
   ngOnInit() {}
@@ -103,7 +198,7 @@ export class DatepickerComponent implements OnInit {
     let modal: any;
     this.modalData = { event, action };
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = '';
+    dialogConfig.data = {Name:this.name,Phone:this.Phone, Observations: this.observations ,Tiro: this.Tiro, Portal:this.Portal, Garaje: this.Garaje};
     this.dialog.open(FormClientsComponent, dialogConfig);
   }
 

@@ -32,7 +32,11 @@ export class DataServiceClients {
     this.requestUrl = this.href;
     return this._httpClient.get (this.requestUrl);
   }
-
+  getRepoClient(data): Observable <any> {
+    this.href = 'http://localhost:3000/clients/'+ data.id;
+    this.requestUrl = this.href;
+    return this._httpClient.get (this.requestUrl);
+  }
   PostRepoClients(data) {
     this.href = 'http://localhost:3000/clients';
     this.requestUrl =this.href;

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {MatPaginatorModule} from "@angular/material/paginator"
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,6 +35,8 @@ import {DataServiceClients} from "./service/serviceClients";
 import { DatepickerComponent } from './datepicker/datepicker.component';
 import {CalendarModule, DateAdapter} from "angular-calendar";
 import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
+
+import localeEsAr from '@angular/common/locales/es-AR';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,8 @@ import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
     })
   ],
   providers: [DataService,DataServiceClients, MatDialog,AuthenticationService,
-    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }  ],
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
+    ],
   bootstrap: [AppComponent],
   entryComponents: [FormComponent,FormClientsComponent]
 })

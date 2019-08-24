@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {DataServiceClients} from "../service/serviceClients";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-form-clients',
@@ -19,10 +20,16 @@ export class FormClientsComponent implements OnInit {
       id: ['',[]],
       Name: ['', [Validators.required]],
       Phone: ['', Validators.required],
-      Date: ['', Validators.required],
+      Garaje: ['', Validators.required],
+      Tiro: ['', Validators.required],
+      Portal: ['', Validators.required],
       Observations: ['', Validators.required]
     });
-    this.contacto.patchValue({id: this.data.id , Name: this.data.Name, Phone: this.data.Phone,Date: this.data.date, Observations: this.data.Observations});
+    this.contacto.patchValue({id: this.data.id , Name: this.data.Name, Phone: this.data.Phone,
+      Garaje: new DatePipe('en-US').transform(this.data.Garaje),
+      Tiro: new DatePipe('en-US').transform(this.data.Tiro),
+      Portal:new DatePipe('en-US').transform(this.data.Portal),
+      Observations: this.data.Observations});
   }
 
   get f() { return this.contacto.controls; }
