@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {AuthenticationService} from "../_service/AuthentificationService";
+import {query} from "@angular/animations";
 
 @Component({
   selector: 'app-login',
@@ -45,7 +46,8 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data =>
         {
-          this.router.navigate(['/table']);
+          console.log(data)
+          this.router.navigate(['/table'], {queryParams: {user: data.username} });
         },
         error => {
 

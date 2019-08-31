@@ -7,7 +7,7 @@ import {MatDialog, MatDialogConfig, MatSort} from "@angular/material";
 import {FormComponent} from "../form/form.component";
 import {DataService, GithubIssue} from "../service/service";
 import {AuthenticationService} from "../_service/AuthentificationService";
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-table',
@@ -29,19 +29,28 @@ export class TableComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
+  user: any;
   constructor(private _httpClient: HttpClient, private dialog: MatDialog,
               private router: Router,
+              private route: ActivatedRoute,
               private authorization: AuthenticationService) {
     this.filteredData = this.data;
   }
 
 
   ngOnInit() {
+    this.sub = this.route.queryParams
+      .subscribe(params => {
+        // Defaults to 0 if no query param provided.
+        console.log(params)
+        this.user = params['user'] || 0;
+      });
     this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.ngAfterViewInit());
   }
 
   ngOnDestroy() {
     this.newCoordinate.unsubscribe();
+    this.sub.unsubscribe();
 
   }
 
