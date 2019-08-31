@@ -42,7 +42,6 @@ export class TableComponent implements OnInit, OnDestroy {
     this.sub = this.route.queryParams
       .subscribe(params => {
         // Defaults to 0 if no query param provided.
-        console.log(params)
         this.user = params['user'] || 0;
       });
     this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.ngAfterViewInit());
