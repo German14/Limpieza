@@ -6,6 +6,8 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog, MatDialogConfig, MatSort} from "@angular/material";
 import {FormComponent} from "../form/form.component";
 import {DataService, GithubIssue} from "../service/service";
+import {AuthenticationService} from "../_service/AuthentificationService";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-table',
@@ -27,7 +29,9 @@ export class TableComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
-  constructor(private _httpClient: HttpClient, private dialog: MatDialog) {
+  constructor(private _httpClient: HttpClient, private dialog: MatDialog,
+              private router: Router,
+              private authorization: AuthenticationService) {
     this.filteredData = this.data;
   }
 
@@ -97,6 +101,11 @@ export class TableComponent implements OnInit, OnDestroy {
 
   exportAsXLSX() {
     this.TableDatabase.exportAsExcelFile(this.data, 'Trabajadoras');
+  }
+
+  logout(){
+    this.authorization.logout()
+    this.router.navigate(['/login']);
   }
 
 }
