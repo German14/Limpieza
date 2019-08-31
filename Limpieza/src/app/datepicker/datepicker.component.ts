@@ -156,6 +156,7 @@ export class DatepickerComponent implements OnInit {
     this.dayP =this.route.snapshot.queryParamMap.get("DayP");
 
     this.id = this.route.snapshot.queryParamMap.get("id");
+
     this.service.getRepoClient({id:this.id}).subscribe((data) =>{
 
       this.name= data[0].Name;
@@ -165,6 +166,7 @@ export class DatepickerComponent implements OnInit {
       this.Garaje= new DatePipe('en-US').transform(data[0].Garaje);
       this.Portal= new DatePipe('en-US').transform(data[0].Portal);
       this.Tiro= new DatePipe('en-US').transform(data[0].Tiro);
+
       }
     );
 
@@ -195,12 +197,16 @@ export class DatepickerComponent implements OnInit {
     });
     this.handleEvent('Dropped or resized', event);
   }
+
   handleEvent(action: string, event: CalendarEvent): void {
     this.modalData = { event, action };
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {id:this.route.snapshot.queryParamMap.get("id"),Name:this.name,Phone:this.Phone, Observations: this.observations ,Tiro: this.Tiro, Portal:this.Portal, Garaje: this.Garaje};
+    dialogConfig.data = {id:this.route.snapshot.queryParamMap.get("id"),Name:this.name,Phone:this.Phone,
+      Observations: this.observations ,Tiro: this.Tiro, Portal:this.Portal, Garaje: this.Garaje};
     this.dialog.open(FormClientsComponent, dialogConfig);
+
   }
+
 
   addEvent(): void {
     this.events = [

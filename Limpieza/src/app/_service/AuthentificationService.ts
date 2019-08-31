@@ -19,17 +19,20 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  login(email: string, password: string) {
-    return this.http.post<any>('auth/login', { email, password })
+
+  login(username: string, password: string) {
+
+    return this.http.post<any>('http://localhost:3000/api/login', { username, password })
       .pipe(map(user => {
-        if (user && user.token) {
-          localStorage.setItem('hola', JSON.stringify(user.result));
-          this.currentUserSubject.next(user);
+        if (user.access_token) {
+          localStorage.setItem('currentUser', JSON.stringify(user.access_token));
+          this.currentUserSubject.next(user.access_token);
         }
         return user;
       }));
 
   }
+
 
   logout() {
 // remove user data from local storage for log out
