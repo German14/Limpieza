@@ -8,6 +8,7 @@ import {DataServiceClients, GithubIssue} from "../service/serviceClients";
 import {DataService} from "../service/service";
 import {FormClientsComponent} from "../form-clients/form-clients.component";
 import {Router} from "@angular/router";
+import {AuthenticationService} from "../_service/AuthentificationService";
 
 @Component({
   selector: 'app-clients',
@@ -33,7 +34,8 @@ export class ClientsComponent implements OnInit , OnDestroy{
   @ViewChild(MatPaginator,{static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   constructor(private _httpClient: HttpClient, private dialog: MatDialog,
-              private router: Router) {
+              private router: Router,
+              private authorization: AuthenticationService) {
     this.filteredData = this.data;
   }
 
@@ -123,6 +125,11 @@ export class ClientsComponent implements OnInit , OnDestroy{
     this.TableDatabaseUser.exportAsExcelFile(this.data, 'Clientes');
   }
 
+  logout() {
+      this.authorization.logout()
+      this.router.navigate(['/login']);
+
+  }
 }
 
 
