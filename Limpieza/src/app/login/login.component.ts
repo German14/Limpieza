@@ -35,6 +35,11 @@ export class LoginComponent implements OnInit {
 // for accessing to form fields
   get fval() { return this.loginForm.controls; }
 
+  keyDownFunction(event) {
+    if(event.keyCode == 13) {
+      this.onFormSubmit();
+    }
+  }
   onFormSubmit() {
     this.submitted = true;
     if (this.loginForm.invalid) {
