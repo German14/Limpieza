@@ -38,7 +38,8 @@ import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 
 import { NotificationsComponent } from './notifications/notifications.component';
 import {NotificationService} from "./service/notificationService";
-import {NotifierService} from "angular-notifier";
+import {NotifierService, NotifierModule} from "angular-notifier";
+import {NotifierQueueService} from "angular-notifier/src/services/notifier-queue.service";
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import {NotifierService} from "angular-notifier";
 
   ],
   imports: [
+    NotifierModule,
     BrowserModule,
     AppRoutingModule,
     NgxDatatableModule,
@@ -79,11 +81,11 @@ import {NotifierService} from "angular-notifier";
       useFactory: adapterFactory
     })
   ],
-  providers: [DataService,DataServiceClients, MatDialog,AuthenticationService,NotificationService,NotifierService,
-    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
-    ],
+  providers: [DataService,DataServiceClients, MatDialog,AuthenticationService,NotificationService,
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+  ],
   bootstrap: [AppComponent],
-  entryComponents: [FormComponent,FormClientsComponent]
+  entryComponents: [FormComponent,FormClientsComponent, NotificationsComponent]
 })
 export class AppModule { }
 

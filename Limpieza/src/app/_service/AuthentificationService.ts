@@ -19,9 +19,7 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-
   login(username: string, password: string) {
-
     return this.http.post<any>('http://localhost:3000/api/login', { username, password })
       .pipe(map(user => {
         if (user.access_token) {
@@ -30,7 +28,6 @@ export class AuthenticationService {
         }
         return user;
       }));
-
   }
 
 

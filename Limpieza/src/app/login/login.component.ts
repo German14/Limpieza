@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data =>
         {
-          this.router.navigate(['/table'], {queryParams: {user: data.username} });
+          this.router.navigate(['/table']);
         },
         error => {
           this.router.navigate(['/login']);

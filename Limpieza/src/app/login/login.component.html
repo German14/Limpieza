@@ -13,12 +13,14 @@
           </td>
         </tr>
         <tr>
-          <td><mat-form-field class="full-width">
-            <input  matInput  formControlName="password"
+          <td>
+            <mat-form-field class="full-width">
+                <input  matInput  formControlName="password"
                     placeholder="Password" name="password"
                     (keydown)="keyDownFunction($event)"
                     type="password">
-          </mat-form-field></td>
+            </mat-form-field>
+          </td>
         </tr>
       </table>
     </form>
@@ -27,3 +29,4 @@
     <button mat-raised-button (click)="onFormSubmit()" color="primary">LOGIN</button>
   </mat-card-actions>
 </mat-card>
+

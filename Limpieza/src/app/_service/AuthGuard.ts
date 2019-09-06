@@ -17,7 +17,6 @@ export class AuthGuard implements CanActivate {
     const currentUser = this.authenticationService.currentUserValue;
     const decoded = jwt_decode(currentUser);
     if(!isNullOrUndefined(currentUser)) {
-      console.log(new Date((decoded.exp)*1000))
       if((decoded.exp)*1000 > Date.now()){
         return true
       }

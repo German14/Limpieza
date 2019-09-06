@@ -3,7 +3,9 @@ import { Injectable } from "@angular/core";
 import {NotifierService} from "angular-notifier";
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NotificationService {
   constructor(private notifier: NotifierService) {
     this.notifier = notifier;
@@ -40,6 +42,8 @@ export class NotificationService {
    * @param {string} message Notification message
    */
   public showNotification( type: string, message: string ): void {
+    console.log(type)
+    console.log(message)
     this.notifier.notify( type, message );
   }
 

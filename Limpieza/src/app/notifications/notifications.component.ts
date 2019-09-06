@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NotificationService} from "../service/notificationService";
 @Component({
-  selector: 'app-notifications',
+  selector: 'notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss']
 })
@@ -13,7 +13,9 @@ export class NotificationsComponent implements  OnInit{
  ngOnInit(){
    this.notification.showNotification('info','hola')
  }
+  showNotification(){
 
-
+    this.notification.showSpecificNotification('info','hola','1')
+  }
 
 }

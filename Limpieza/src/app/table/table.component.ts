@@ -8,7 +8,7 @@ import {FormComponent} from "../form/form.component";
 import {DataService, GithubIssue} from "../service/service";
 import {AuthenticationService} from "../_service/AuthentificationService";
 import {Router, ActivatedRoute} from "@angular/router";
-
+import * as jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -37,20 +37,15 @@ export class TableComponent implements OnInit, OnDestroy {
     this.filteredData = this.data;
   }
 
-
   ngOnInit() {
-    this.sub = this.route.queryParams
-      .subscribe(params => {
-        // Defaults to 0 if no query param provided.
-        this.user = params['user'] || 0;
-      });
+    this.authorization.currentUser.subscribe((data) => {
+      this.user= jwt_decode(data).username;
+    });
     this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.ngAfterViewInit());
   }
 
   ngOnDestroy() {
     this.newCoordinate.unsubscribe();
-    this.sub.unsubscribe();
-
   }
 
   openForm(row) {
@@ -59,6 +54,7 @@ export class TableComponent implements OnInit, OnDestroy {
     dialogConfig.width= '500px';
     let dialogRef = this.dialog.open(FormComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result)
       this.newCoordinate.next(this.ngAfterViewInit())
     });
   }
