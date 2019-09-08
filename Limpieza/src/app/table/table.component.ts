@@ -95,7 +95,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
     filterValue = filterValue.toLocaleLowerCase();
     this.filteredData = this.data.filter((dat: GithubIssue) =>
-      dat.Name.toLocaleLowerCase().indexOf(filterValue) !== -1);
+      dat.Portal.toLocaleLowerCase().indexOf(filterValue) !== -1);
     if(filterValue ===''){
       this.newCoordinate.next(this.ngAfterViewInit())
     }

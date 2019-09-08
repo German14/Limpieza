@@ -45,14 +45,14 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="Observations">Observations</label>
+    <label for="Observations">Observaciones</label>
     <textarea class="form-control" formControlName="Observations" rows="3" [ngClass]="{ 'is-invalid': submitted && f.Observations.errors }"></textarea>
     <div *ngIf="submitted && f.Observations.errors" class="invalid-feedback">
       <div *ngIf="f.Observations.errors.required">Por favor, ingresa las observaciones</div>
     </div>
   </div>
   <div class="form-group">
-    <button type="submit" style="margin-right: 4%;"  [disabled]="loading" class="btn btn-primary">Submit</button>
+    <button type="submit" style="margin-right: 4%;"  [disabled]="loading" class="btn btn-primary">Agregar</button>
     <button  class="btn btn-primary" mat-dialog-close>Close</button>
   </div>
 </form>

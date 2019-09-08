@@ -6,10 +6,10 @@
         <i class="fa fa-plus"> Agregar</i>
       </button>
       <button type="button" class="btn btn-primary btn-lg exportNewElement " data-toggle="modal"  (click)="exportAsXLSX()">
-        <i class="fa fa-file-excel-o"> Export</i>
+        <i class="fa fa-file-excel-o"> Exportar</i>
       </button>
       <button type="button" class="btn btn-primary btn-lg logout " data-toggle="modal"  (click)="logout()">
-        <i class="fa fa-sign-out"> Logout</i>
+        <i class="fa fa-sign-out"> Salir</i>
       </button>
     </div>
   </mat-card>
@@ -49,11 +49,11 @@
           </ng-container>
           <!-- State Column -->
           <ng-container matColumnDef="Tiro">
-            <th mat-header-cell *matHeaderCellDef  mat-sort-header disableClear>Fecha Tiro</th>
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header disableClear>Fecha Cristal</th>
             <td mat-cell *matCellDef="let row">{{row.Tiro | date:'dd-MM-yy'  }}</td>
           </ng-container>
           <ng-container matColumnDef="Portal">
-            <th mat-header-cell *matHeaderCellDef  mat-sort-header disableClear>Fecha Portal</th>
+            <th mat-header-cell *matHeaderCellDef  mat-sort-header disableClear>Fecha Abrillantado</th>
             <td mat-cell *matCellDef="let row">{{row.Portal  | date:'dd-MM-yy'  }}</td>
           </ng-container>
           <ng-container matColumnDef="Garaje">
