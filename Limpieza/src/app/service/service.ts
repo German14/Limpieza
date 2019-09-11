@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import {MatTableDataSource} from "@angular/material";
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -16,6 +17,13 @@ export interface GithubIssue {
   Dias: string;
   Observations: string;
 }
+export interface UserData {
+  id: string;
+  name: string;
+  progress: string;
+  color: string;
+}
+
 
 
 @Injectable()
@@ -23,33 +31,36 @@ export class DataService {
 
 /** An Table database that the data source uses to retrieve data for the table. */
 
-  constructor(private _httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {}
 public href;
   public requestUrl;
-
-  getRepoIssues(): Observable <any> {
+  public data;
+  getRepoIssues(): any {
      this.href = 'http://localhost:3000/users';
      this.requestUrl = this.href;
-    return this._httpClient.get (this.requestUrl);
+     this.httpClient.get (this.requestUrl).subscribe((userdata) => {
+       console.log(userdata)
+       this.data = userdata;
+     } );
   }
 
   PostRepoIssues(data) {
     this.href = 'http://localhost:3000/users';
     this.requestUrl =this.href;
     if(data.id === undefined) {
-      return this._httpClient.post (this.requestUrl, data).subscribe();
+      return this.httpClient.post (this.requestUrl, data).subscribe();
     }
     else{
       this.href = 'http://localhost:3000/users/'+ data.id;
       this.requestUrl =this.href;
-      return this._httpClient.put (this.requestUrl, data).subscribe();
+      return this.httpClient.put (this.requestUrl, data).subscribe();
     }
   }
 
   DeleteRepoIssues(data){
     this.href = 'http://localhost:3000/users/' + data.id ;
     this.requestUrl =this.href;
-    return this._httpClient.delete (this.requestUrl, data).subscribe();
+    return this.httpClient.delete (this.requestUrl, data).subscribe();
   }
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
@@ -61,9 +72,11 @@ public href;
   }
 
    private saveAsExcelFile(buffer: any, fileName: string): void {
+
     const data: Blob = new Blob([buffer], {
       type: EXCEL_TYPE
     });
+    console.log(data)
     FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
   }
 }

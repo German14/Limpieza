@@ -19,10 +19,11 @@ export class FormClientsComponent implements OnInit {
   titulo = 'Agregar / Editar nuevo Cliente';
 
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private service: DataServiceClients,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog) {}
   ngOnInit() {
+    console.log(this.data)
     this.contacto = this.formBuilder.group({
-      id: ['',[]],
+      id: ['', []],
       Name: ['', [Validators.required]],
       Phone: ['', Validators.required],
       Garaje: ['', Validators.required],
@@ -30,7 +31,7 @@ export class FormClientsComponent implements OnInit {
       Portal: ['', Validators.required],
       Observations: ['', Validators.required]
     });
-    this.contacto.patchValue({id: this.data.id , Name: this.data.Name, Phone: this.data.Phone,
+    this.contacto.patchValue({id: this.data.id , Name: this.data.name, Phone: this.data.progress,
       Garaje: new DatePipe('en-US').transform(this.data.Garaje),
       Tiro: new DatePipe('en-US').transform(this.data.Tiro),
       Portal:new DatePipe('en-US').transform(this.data.Portal),

@@ -10,7 +10,7 @@ import {DataService} from '../service/service';
 })
 export class FormComponent implements OnInit {
 
-  @ViewChild('calendar', {static:false}) calendar: MatCalendar<any>;
+  @ViewChild('calendar', {static: true }) calendar: MatCalendar<any>;
 
   contacto: FormGroup;
   submitted = false;
@@ -21,14 +21,14 @@ export class FormComponent implements OnInit {
 
   ngOnInit() {
     this.contacto = this.formBuilder.group({
-      id: ['',[]],
+      id: ['', []],
       Name: ['', [Validators.required]],
       Phone: ['', Validators.required],
       Portal: ['', Validators.required],
       Dias: ['', Validators.required],
       Observations: ['', Validators.required]
     });
-    this.contacto.patchValue({id: this.data.id , Name: this.data.Name, Phone: this.data.Phone ,
+    this.contacto.patchValue({id: this.data.id , Name: this.data.name, Phone: this.data.progress ,
       Portal: this.data.Portal, Dias: this.data.Dias, Observations: this.data.Observations});
   }
 
