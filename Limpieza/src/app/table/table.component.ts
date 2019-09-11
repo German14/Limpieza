@@ -47,8 +47,9 @@ export class TableComponent implements OnInit, OnDestroy {
 
     this.tableDataBase.getRepoIssues().subscribe(
       (element) => {
-        const dataSources = Array.from( {length: 10 } , (_, k) => element);
-        this.data = new MatTableDataSource(element);
+        const dataSources = Array.from( {length: 1 } , (_, k) => element);
+        console.log(dataSources)
+        this.data = new MatTableDataSource(dataSources[0]);
         this.data.sort = this.sort;
         this.data.paginator = this.paginator;
       });

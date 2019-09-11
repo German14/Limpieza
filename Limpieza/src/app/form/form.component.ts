@@ -28,7 +28,7 @@ export class FormComponent implements OnInit {
       Dias: ['', Validators.required],
       Observations: ['', Validators.required]
     });
-    this.contacto.patchValue({id: this.data.id , Name: this.data.name, Phone: this.data.progress ,
+    this.contacto.patchValue({id: this.data.id , Name: this.data.Name, Phone: this.data.Phone ,
       Portal: this.data.Portal, Dias: this.data.Dias, Observations: this.data.Observations});
   }
 

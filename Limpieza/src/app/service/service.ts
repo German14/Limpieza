@@ -37,19 +37,19 @@ public href;
   public data;
   getRepoIssues(): Observable<any> {
      this.href = 'https://jsonplaceholder.typicode.com/todos';
+     // http://localhost:3000/users
      this.requestUrl = this.href;
-     return this.httpClient.get (this.requestUrl)
+     return this.httpClient.get (this.requestUrl);
   }
 
   PostRepoIssues(data) {
     this.href = 'http://localhost:3000/users';
-    this.requestUrl =this.href;
-    if(data.id === undefined) {
+    this.requestUrl = this.href;
+    if (data.id === undefined) {
       return this.httpClient.post (this.requestUrl, data).subscribe();
-    }
-    else{
-      this.href = 'http://localhost:3000/users/'+ data.id;
-      this.requestUrl =this.href;
+    } else {
+      this.href = 'http://localhost:3000/users/' + data.id;
+      this.requestUrl = this.href;
       return this.httpClient.put (this.requestUrl, data).subscribe();
     }
   }
