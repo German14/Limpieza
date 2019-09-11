@@ -36,8 +36,7 @@ public href;
   public requestUrl;
   public data;
   getRepoIssues(): Observable<any> {
-     this.href = 'https://jsonplaceholder.typicode.com/todos';
-     // http://localhost:3000/users
+     this.href = 'http://localhost:3000/users';
      this.requestUrl = this.href;
      return this.httpClient.get (this.requestUrl);
   }

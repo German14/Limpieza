@@ -23,15 +23,11 @@ export class TableComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns: string[] = ['id', 'Name', 'Phone', 'Portal', 'Dias', 'Observations', 'delete'];
-
   data: MatTableDataSource<GithubIssue>;
+  user: any;
 
   private newCoordinate = new ReplaySubject<any>();
   private newCoordinate$ = this.newCoordinate.asObservable();
-
-
-  user: any;
-  datas: any;
 
   constructor(private httpClient: HttpClient, private dialog: MatDialog,
               private router: Router,
@@ -54,7 +50,6 @@ export class TableComponent implements OnInit, OnDestroy {
       });
 
     this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.data);
-
   }
 
   ngOnDestroy() {
@@ -66,14 +61,14 @@ export class TableComponent implements OnInit, OnDestroy {
     dialogConfig.data = row;
     dialogConfig.width = '500px';
     const dialogRef = this.dialog.open(FormComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-      this.newCoordinate.next(this.data);
+    dialogRef.afterClosed().subscribe(() => {
+      this.newCoordinate.next(this.ngOnInit());
     });
   }
 
   deleteRow(row) {
     this.tableDataBase.DeleteRepoIssues(row);
-    this.newCoordinate.next(this.data);
+    this.newCoordinate.next(this.ngOnInit());
   }
 
   applyFilter(filterValue: string) {
@@ -87,9 +82,8 @@ export class TableComponent implements OnInit, OnDestroy {
   exportAsXLSX() {
     this.tableDataBase.exportAsExcelFile(this.data.data, 'Trabajadoras');
   }
-
   logout() {
-    this.authorization.logout()
+    this.authorization.logout();
     this.router.navigate(['/login']);
   }
 
