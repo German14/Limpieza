@@ -13,17 +13,6 @@ import * as jwt_decode from 'jwt-decode';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 
-
-/** Constants used to fill up our data base. */
-const COLORS: string[] = [
-  'maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal',
-  'aqua', 'blue', 'navy', 'black', 'gray'
-];
-const NAMES: string[] = [
-  'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver',
-  'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
-];
-
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -33,9 +22,9 @@ export class TableComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
+  displayedColumns: string[] = ['id', 'Name', 'Phone', 'Portal', 'Dias', 'Observations', 'delete'];
 
-  data: MatTableDataSource<UserData>;
+  data: MatTableDataSource<GithubIssue>;
 
   private newCoordinate = new ReplaySubject<any>();
   private newCoordinate$ = this.newCoordinate.asObservable();
@@ -57,9 +46,7 @@ export class TableComponent implements OnInit, OnDestroy {
     });
 
     this.datas = this.tableDataBase.getRepoIssues();
-    console.log(this.datas)
     const dataSources = Array.from( {length: 10 } , (_, k) => this.datas);
-    console.log(dataSources)
     this.data = new MatTableDataSource(dataSources);
     this.data.sort = this.sort;
     this.data.paginator = this.paginator;
@@ -104,15 +91,3 @@ export class TableComponent implements OnInit, OnDestroy {
 
 }
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const names = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-    NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-  return {
-    id: id.toString(),
-    name: names,
-    progress: Math.round(Math.random() * 100).toString(),
-    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-  };
-}

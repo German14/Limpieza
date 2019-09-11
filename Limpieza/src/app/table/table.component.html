@@ -36,23 +36,42 @@
           </ng-container>
 
           <!-- Title Column -->
-          <ng-container matColumnDef="name" >
+          <ng-container matColumnDef="Name" >
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
             <td mat-cell *matCellDef="let row"  (click)="openForm(row)" style="cursor:pointer">
-              {{row.name}}
+              {{row.Name}}
             </td>
           </ng-container>
 
           <!-- State Column -->
-          <ng-container matColumnDef="progress">
+          <ng-container matColumnDef="Phone">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
-            <td mat-cell *matCellDef="let row">{{row.progress }}</td>
+            <td mat-cell *matCellDef="let row">{{row.Phone}}</td>
           </ng-container>
 
           <!-- Created Column -->
-          <ng-container matColumnDef="color">
+          <ng-container matColumnDef="Portal">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Portal </th>
-            <td mat-cell *matCellDef="let row">{{row.color}}</td>
+            <td mat-cell *matCellDef="let row">{{row.Portal}}</td>
+          </ng-container>
+
+           <!-- Created Column -->
+           <ng-container matColumnDef="Dias">
+             <th mat-header-cell *matHeaderCellDef mat-sort-header> Dias </th>
+             <td mat-cell *matCellDef="let row">{{row.Dias}}</td>
+           </ng-container>
+
+           <!-- Created Column -->
+           <ng-container matColumnDef="Observations">
+             <th mat-header-cell *matHeaderCellDef mat-sort-header> Observations </th>
+             <td mat-cell *matCellDef="let row">{{row.Observations}}</td>
+           </ng-container>
+          <!-- Created Column -->
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Borrar </th>
+            <td mat-cell *matCellDef="let row" (click)="deleteRow(row)">
+              <i class="fa fa-trash"></i>
+            </td>
           </ng-container>
 
 
