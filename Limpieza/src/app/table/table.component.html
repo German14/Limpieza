@@ -39,7 +39,7 @@
           <ng-container matColumnDef="Name" >
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
             <td mat-cell *matCellDef="let row" (click)="openForm(row)" style="cursor:pointer">
-              {{row.title}}
+              {{row.Name}}
             </td>
           </ng-container>
 
@@ -69,8 +69,11 @@
           <!-- Created Column -->
           <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Borrar </th>
-            <td mat-cell *matCellDef="let row" (click)="deleteRow(row)">
-              <i class="fa fa-trash"></i>
+            <td mat-cell *matCellDef="let row" >
+
+              <button type="button" class="btn btn-primary btn-lg logout " data-toggle="modal"  (click)="deleteRow(row)">
+                <i class="fa fa-trash"></i>
+              </button>
             </td>
           </ng-container>
 
