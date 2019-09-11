@@ -19,7 +19,7 @@ table {
 }
 
 mat-card {
-   width: 100%;
+  width: 100%;
   padding: 10px;
   margin: 10px;
 }
@@ -73,4 +73,11 @@ mat-card {
 .navbar-inverse{
   background-color: transparent;
   border-color: transparent;
+}
+
+.ellipsis{
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

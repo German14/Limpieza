@@ -19,14 +19,14 @@
  <mat-card>
     <div class="Table-container mat-elevation-z8">
       <div class="Table-table-container ">
-        <mat-form-field>
+        <mat-form-field style="width: 100%">
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
 
          <table mat-table [dataSource]="data" matSort>
 
           <!-- Number Column -->
-          <ng-container matColumnDef="id" >
+          <ng-container matColumnDef="id" style="display: none">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
             <td mat-cell *matCellDef="let row">
               <div>
@@ -62,9 +62,13 @@
            </ng-container>
 
            <!-- Created Column -->
-           <ng-container matColumnDef="Observations">
-             <th mat-header-cell *matHeaderCellDef mat-sort-header> Observations </th>
-             <td mat-cell *matCellDef="let row">{{row.Observations}}</td>
+           <ng-container matColumnDef="Observations" >
+             <th mat-header-cell *matHeaderCellDef mat-sort-header> Observaciones </th>
+             <td mat-cell *matCellDef="let row">
+               <div class="ellipsis">
+                 {{row.Observations}}
+               </div>
+             </td>
            </ng-container>
           <!-- Created Column -->
           <ng-container matColumnDef="delete">

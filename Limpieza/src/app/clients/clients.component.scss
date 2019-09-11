@@ -73,3 +73,10 @@ mat-card {
   background-color: transparent;
   border-color: transparent;
 }
+
+.ellipsis{
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

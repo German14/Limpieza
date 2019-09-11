@@ -31,7 +31,7 @@ export class FormClientsComponent implements OnInit {
       Portal: ['', Validators.required],
       Observations: ['', Validators.required]
     });
-    this.contacto.patchValue({id: this.data.id , Name: this.data.name, Phone: this.data.progress,
+    this.contacto.patchValue({id: this.data.id , Name: this.data.Name, Phone: this.data.Phone,
       Garaje: new DatePipe('en-US').transform(this.data.Garaje),
       Tiro: new DatePipe('en-US').transform(this.data.Tiro),
       Portal:new DatePipe('en-US').transform(this.data.Portal),
