@@ -3,12 +3,18 @@ import {HttpClient} from '@angular/common/http';
 import {merge, of as observableOf, ReplaySubject} from 'rxjs';
 import {catchError, debounceTime, map, startWith, switchMap} from 'rxjs/operators';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatDialog, MatDialogConfig, MatSort} from "@angular/material";
+import {MatDialog, MatDialogConfig} from "@angular/material";
 import {DataServiceClients, GithubIssue} from "../service/serviceClients";
 import {DataService} from "../service/service";
 import {FormClientsComponent} from "../form-clients/form-clients.component";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService} from "../_service/AuthentificationService";
+import {FormComponent} from "../form/form.component";
+
+import * as jwt_decode from 'jwt-decode';
+
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-clients',
@@ -16,52 +22,66 @@ import {AuthenticationService} from "../_service/AuthentificationService";
   styleUrls: ['./clients.component.scss']
 })
 export class ClientsComponent implements OnInit , OnDestroy{
-
-  [x: string]: any;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns: string[] = ['id', 'Name', 'Phone','Tiro','Garaje', 'Portal', 'Observations', 'Delete', 'DateRow'];
-  TableDatabaseClients: DataServiceClients | null;
-  TableDatabaseUser: DataService | null;
-
-  data: GithubIssue[] = [];
-  resultsLength = 0;
-  isLoadingResults = true;
-  isRateLimitReached = false;
+  data: MatTableDataSource<GithubIssue>;
+  user: any;
 
   private newCoordinate = new ReplaySubject<any>();
   private newCoordinate$ = this.newCoordinate.asObservable();
 
-  @ViewChild(MatPaginator,{static: false}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: false}) sort: MatSort;
-  constructor(private _httpClient: HttpClient, private dialog: MatDialog,
+  constructor(private httpClient: HttpClient, private dialog: MatDialog,
               private router: Router,
-              private authorization: AuthenticationService) {
-    this.filteredData = this.data;
+              private route: ActivatedRoute,
+              private authorization: AuthenticationService,
+              private tableDataBase: DataService,
+              private tableDataBaseClient: DataServiceClients) {
   }
 
 
   ngOnInit() {
-    this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.ngAfterViewInit());
+    this.authorization.currentUser.subscribe((data) => {
+      this.user = jwt_decode(data).username;
+    });
+
+    this.tableDataBaseClient.getRepoClients().subscribe(
+      (element) => {
+        const dataSources = Array.from( {length: 1 } , () => element);
+        this.data = new MatTableDataSource(dataSources[0]);
+        this.data.sort = this.sort;
+        this.data.paginator = this.paginator;
+      });
+
+    this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.data);
   }
 
   ngOnDestroy() {
     this.newCoordinate.unsubscribe();
-
   }
 
   openFormClient(row) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = row;
-    dialogConfig.width= '500px';
-    let dialogRef = this.dialog.open(FormClientsComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-      this.newCoordinate.next(this.ngAfterViewInit())
+    dialogConfig.width = '500px';
+    const dialogRef = this.dialog.open(FormClientsComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(() => {
+      this.newCoordinate.next(this.ngOnInit());
     });
   }
 
   deleteRow(row) {
-    this.TableDatabaseClients.DeleteRepoClients(row);
-    this.newCoordinate.next(this.ngAfterViewInit())
+    this.tableDataBaseClient.DeleteRepoClients(row);
+    this.newCoordinate.next(this.ngOnInit());
+  }
+
+  applyFilter(filterValue: string) {
+    this.data.filter = filterValue.trim().toLowerCase();
+
+    if (this.data.paginator) {
+      this.data.paginator.firstPage();
+    }
   }
 
   dateRow(row){
@@ -82,54 +102,15 @@ export class ClientsComponent implements OnInit , OnDestroy{
     }});
   }
 
-  ngAfterViewInit() {
-    this.TableDatabaseClients = new DataServiceClients(this._httpClient);
-    // If the user changes the sort order, reset back to the first page.
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    merge(this.sort.sortChange, this.paginator.page)
-      .pipe(
-        startWith({}),
-        switchMap(() => {
-          this.isLoadingResults = true;
-          return this.TableDatabaseClients!.getRepoClients();
-        }),
-        map(data => {
-          // Flip flag to show that loading has finished.
-          this.isLoadingResults = false;
-          this.isRateLimitReached = false;
-          this.resultsLength = 3;
-          return data;
-        }),
-        catchError(() => {
-          this.isLoadingResults = false;
-          // Catch if the GitHub API has reached its rate limit. Return empty data.
-          this.isRateLimitReached = true;
-          return observableOf([]);
-        })
-      ).subscribe(data => this.data = data);
-  }
-
-  applyFilter(filterValue: string) {
-
-    filterValue = filterValue.toLocaleLowerCase();
-    this.filteredData = this.data.filter((dat: GithubIssue) =>
-      dat.Name.toLocaleLowerCase().indexOf(filterValue) !== -1);
-    if(filterValue ===''){
-      this.newCoordinate.next(this.ngAfterViewInit())
-    }
-    this.data= this.filteredData;
-
-  }
-
   exportAsXLSX() {
-    this.TableDatabaseUser.exportAsExcelFile(this.data, 'Clientes');
+    this.tableDataBase.exportAsExcelFile(this.data.data, 'Trabajadoras');
   }
-
   logout() {
-      this.authorization.logout()
-      this.router.navigate(['/login']);
-
+    this.authorization.logout();
+    this.router.navigate(['/login']);
   }
+
+
 }
 
 
