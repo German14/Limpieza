@@ -35,13 +35,10 @@ export class DataService {
 public href;
   public requestUrl;
   public data;
-  getRepoIssues(): any {
-     this.href = 'http://localhost:3000/users';
+  getRepoIssues(): Observable<any> {
+     this.href = 'https://jsonplaceholder.typicode.com/todos';
      this.requestUrl = this.href;
-     this.httpClient.get (this.requestUrl).subscribe((userdata) => {
-       console.log(userdata)
-       this.data = userdata;
-     } );
+     return this.httpClient.get (this.requestUrl)
   }
 
   PostRepoIssues(data) {

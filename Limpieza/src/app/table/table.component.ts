@@ -45,12 +45,16 @@ export class TableComponent implements OnInit, OnDestroy {
       this.user = jwt_decode(data).username;
     });
 
-    this.datas = this.tableDataBase.getRepoIssues();
-    const dataSources = Array.from( {length: 10 } , (_, k) => this.datas);
-    this.data = new MatTableDataSource(dataSources);
-    this.data.sort = this.sort;
-    this.data.paginator = this.paginator;
+    this.tableDataBase.getRepoIssues().subscribe(
+      (element) => {
+        const dataSources = Array.from( {length: 10 } , (_, k) => element);
+        this.data = new MatTableDataSource(element);
+        this.data.sort = this.sort;
+        this.data.paginator = this.paginator;
+      });
+
     this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.data);
+
   }
 
   ngOnDestroy() {
