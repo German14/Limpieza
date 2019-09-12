@@ -62,13 +62,15 @@ export class TableComponent implements OnInit, OnDestroy {
     dialogConfig.width = '500px';
     const dialogRef = this.dialog.open(FormComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(() => {
-      this.newCoordinate.next(this.ngOnInit());
+    this.ngOnInit();
     });
   }
 
   deleteRow(row) {
     this.tableDataBase.DeleteRepoIssues(row);
-    this.newCoordinate.next(this.ngOnInit());
+    setTimeout( () => {
+      this.newCoordinate.next(this.ngOnInit())
+    },500)
   }
 
   applyFilter(filterValue: string) {

@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'table', component: TableComponent,  canActivate: [AuthGuard]},
   { path: 'clients', component: ClientsComponent, canActivate: [AuthGuard] },
-  { path: 'date', component: DatepickerComponent , canActivate: [AuthGuard]},
+  { path: 'date', component: DatepickerComponent , canActivate: [AuthGuard]}
 
 ];
 

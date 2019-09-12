@@ -67,13 +67,15 @@ export class ClientsComponent implements OnInit , OnDestroy{
     dialogConfig.width = '500px';
     const dialogRef = this.dialog.open(FormClientsComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(() => {
-      this.newCoordinate.next(this.ngOnInit());
+      this.ngOnInit();
     });
   }
 
   deleteRow(row) {
     this.tableDataBaseClient.DeleteRepoClients(row);
-    this.newCoordinate.next(this.ngOnInit());
+    setTimeout( () => {
+      this.newCoordinate.next(this.ngOnInit())
+    },500)
   }
 
   applyFilter(filterValue: string) {
