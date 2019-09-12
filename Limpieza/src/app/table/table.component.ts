@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http';
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {merge, of as observableOf, ReplaySubject} from 'rxjs';
-import {catchError, debounceTime, map, startWith, switchMap} from 'rxjs/operators';
+import {catchError, debounceTime, map, startWith, switchMap, take} from 'rxjs/operators';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog, MatDialogConfig} from '@angular/material';
 import {FormComponent} from '../form/form.component';
