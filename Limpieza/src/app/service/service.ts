@@ -1,9 +1,11 @@
 import { Injectable } from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, ReplaySubject, Subject} from "rxjs";
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import {MatTableDataSource} from "@angular/material";
+import {GithubIssue} from "./serviceClients";
+import {any} from "prop-types";
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -30,11 +32,13 @@ export interface UserData {
 export class DataService {
 
 /** An Table database that the data source uses to retrieve data for the table. */
-
+public newCoordinateForm = new Subject<any>();
+public newCoordinateForm$=  this.newCoordinateForm.asObservable();
   constructor(private httpClient: HttpClient) {}
 public href;
   public requestUrl;
   public data;
+
   getRepoIssues(): Observable<any> {
      this.href = 'http://localhost:3000/users';
      this.requestUrl = this.href;

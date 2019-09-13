@@ -1,11 +1,12 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, ViewChild, Output} from '@angular/core';
 import {DataService, GithubIssue} from '../service/service';
 import {AuthenticationService} from '../_service/AuthentificationService';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {FormComponent} from '../form/form.component';
-import {ReplaySubject} from 'rxjs';
+import {ReplaySubject, Subject, Observable} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
+import {TableComponent} from "../table/table.component";
 
 @Component({
   selector: 'buttons-navigation',
@@ -13,14 +14,13 @@ import {debounceTime} from 'rxjs/operators';
   styleUrls: ['./buttons-navigation.component.scss']
 })
 export class ButtonsNavigationComponent implements OnInit {
-
+  @Output() childMessage = new EventEmitter();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   data: MatTableDataSource<GithubIssue>;
 
-  private newCoordinate = new ReplaySubject<any>();
-  private newCoordinate$ = this.newCoordinate.asObservable();
+  private newCoordinateForm = new Subject<any>();
 
   constructor(private tableDataBase: DataService,
               private dialog: MatDialog,
@@ -29,15 +29,16 @@ export class ButtonsNavigationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.tableDataBase.getRepoIssues().subscribe(
+ this.tableDataBase.getRepoIssues().subscribe(
       (element) => {
         const dataSources = Array.from( {length: 1 } , () => element);
         this.data = new MatTableDataSource(dataSources[0]);
         this.data.sort = this.sort;
         this.data.paginator = this.paginator;
+
+        this.tableDataBase.newCoordinateForm.next(this.data);
       });
 
-    this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.ngOnInit());
   }
 
  openForm(row) {
@@ -46,7 +47,7 @@ export class ButtonsNavigationComponent implements OnInit {
     dialogConfig.width = '500px';
     const dialogRef = this.dialog.open(FormComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
-     this.ngOnInit();
+      this.ngOnInit();
     });
   }
   exportAsXLSX() {

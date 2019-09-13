@@ -87,6 +87,7 @@ import { ButtonsNavigationComponent } from './buttons-navigation/buttons-navigat
     MatDialog,
     AuthenticationService,
     NotificationService,
+    ButtonsNavigationComponent,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
   ],
   bootstrap: [AppComponent],
