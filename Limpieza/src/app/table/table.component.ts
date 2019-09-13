@@ -27,36 +27,26 @@ export class TableComponent implements OnInit {
   data: MatTableDataSource<GithubIssue>;
   user: any;
 
-  private newCoordinate = new ReplaySubject<any>();
-  private newCoordinate$ = this.newCoordinate.asObservable();
 
   constructor(private httpClient: HttpClient, private dialog: MatDialog,
               private router: Router,
               private route: ActivatedRoute,
               private authorization: AuthenticationService,
               private tableDataBase: DataService,
-              private buttonComponents: ButtonsNavigationComponent) {
-
-
-
-
-  }
+              private buttonDataBase: ButtonsNavigationComponent
+) {}
 
   ngOnInit() {
     this.authorization.currentUser.subscribe((data) => {
       this.user = jwt_decode(data).username;
     });
-
-
     this.tableDataBase.newCoordinateForm$.subscribe((value =>{
       const dataSources = Array.from( {length: 1 } , () => value.data);
       this.data = new MatTableDataSource(dataSources[0]);
       this.data.sort = this.sort;
       this.data.paginator = this.paginator;
     }))
-
   }
-
 
   deleteRow(row) {
     this.tableDataBase.DeleteRepoIssues(row);
@@ -68,13 +58,11 @@ export class TableComponent implements OnInit {
           this.data.sort = this.sort;
           this.data.paginator = this.paginator;
         });
-
     },500)
   }
 
   applyFilter(filterValue: string) {
     this.data.filter = filterValue.trim().toLowerCase();
-
     if (this.data.paginator) {
       this.data.paginator.firstPage();
     }
