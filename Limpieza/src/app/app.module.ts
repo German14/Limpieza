@@ -92,7 +92,6 @@ import {ServiceDialog} from "./service/serviceDialog";
     ButtonsNavigationComponent,
     ServiceDialog,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
-    { provide: MAT_DIALOG_DATA, useClass: ServiceDialog, multi: true },
 
   ],
   bootstrap: [AppComponent],

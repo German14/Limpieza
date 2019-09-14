@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DataService, GithubIssue} from '../service/service';
 import {AuthenticationService} from '../_service/AuthentificationService';
 import {Router} from '@angular/router';
@@ -6,6 +6,7 @@ import {MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource} f
 import {FormComponent} from '../form/form.component';
 import {ServiceDialog} from '../service/serviceDialog';
 import {FormClientsComponent} from "../form-clients/form-clients.component";
+import {DataServiceClients} from "../service/serviceClients";
 
 
 @Component({
@@ -20,15 +21,15 @@ export class ButtonsNavigationComponent implements OnInit {
 
   data: MatTableDataSource<GithubIssue>;
 
-  constructor(private tableDataBase: DataService,
+  constructor(
+              private tableDataBase: DataService,
+              private tableClientDataBase: DataServiceClients,
               private dialog: MatDialog,
               private authorization: AuthenticationService,
               private router: Router,
-              private dialog2: ServiceDialog,
+              private ServiceDialog: ServiceDialog,
 
-  ) {
-
-  }
+  ) { }
 
   ngOnInit() {
     this.tableDataBase.getRepoIssues().subscribe(
@@ -41,22 +42,29 @@ export class ButtonsNavigationComponent implements OnInit {
         this.tableDataBase.newCoordinateForm.next(this.data);
       });
 
+    this.tableClientDataBase.getRepoClients().subscribe(
+      (element) => {
+        const dataSources = Array.from( {length: 1 } , () => element);
+        this.data = new MatTableDataSource(dataSources[0]);
+        this.data.sort = this.sort;
+        this.data.paginator = this.paginator;
+
+        this.tableClientDataBase.newCoordinateClientForm.next(this.data);
+      });
   }
 
   openForm(row,Form){
-
     if(Form==='FormComponent' || this.input==='FormComponent'){
-
       this.input= FormComponent;
     }
     else {
       this.input= FormClientsComponent;
     }
-
-    this.dialog2.open(this.input,row);
+    this.ServiceDialog.open(this.input,row);
   }
+
   exportAsXLSX() {
-    this.tableDataBase.exportAsExcelFile(this.data.data, 'Trabajadoras');
+    this.ServiceDialog.exportAsExcelFile(this.data.data, 'Trabajadoras');
   }
 
   logout() {

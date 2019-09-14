@@ -22,7 +22,7 @@ import {ButtonsNavigationComponent} from "../buttons-navigation/buttons-navigati
   templateUrl: './clients.component.html',
   styleUrls: ['./clients.component.scss']
 })
-export class ClientsComponent implements OnInit , OnDestroy{
+export class ClientsComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -30,8 +30,6 @@ export class ClientsComponent implements OnInit , OnDestroy{
   data: MatTableDataSource<GithubIssue>;
   user: any;
 
-  private newCoordinate = new ReplaySubject<any>();
-  private newCoordinate$ = this.newCoordinate.asObservable();
 
   constructor(private httpClient: HttpClient, private dialog: MatDialog,
               private router: Router,
@@ -49,27 +47,26 @@ export class ClientsComponent implements OnInit , OnDestroy{
       this.user = jwt_decode(data).username;
     });
 
-    this.tableDataBaseClient.getRepoClients().subscribe(
-      (element) => {
-        const dataSources = Array.from( {length: 1 } , () => element);
-        this.data = new MatTableDataSource(dataSources[0]);
-        this.data.sort = this.sort;
-        this.data.paginator = this.paginator;
-      });
-
-    this.newCoordinate$.pipe(debounceTime(100)).subscribe( () => this.data);
+    this.tableDataBaseClient.newCoordinateClientForm$.subscribe((value =>{
+      console.log(value.data)
+      const dataSources = Array.from( {length: 1 } , () => value.data);
+      this.data = new MatTableDataSource(dataSources[0]);
+      this.data.sort = this.sort;
+      this.data.paginator = this.paginator;
+    }))
   }
-
-  ngOnDestroy() {
-    this.newCoordinate.unsubscribe();
-  }
-
 
   deleteRow(row) {
     this.tableDataBaseClient.DeleteRepoClients(row);
-    setTimeout( () => {
-      this.newCoordinate.next(this.ngOnInit())
-    },500)
+     setTimeout( () => {
+        this.tableDataBaseClient.getRepoClients().subscribe(
+          (element) => {
+            const dataSources = Array.from( {length: 1 } , () => element);
+            this.data = new MatTableDataSource(dataSources[0]);
+            this.data.sort = this.sort;
+            this.data.paginator = this.paginator;
+          });
+      },500)
   }
 
   applyFilter(filterValue: string) {

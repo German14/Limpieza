@@ -40,6 +40,7 @@ export class TableComponent implements OnInit {
     this.authorization.currentUser.subscribe((data) => {
       this.user = jwt_decode(data).username;
     });
+
     this.tableDataBase.newCoordinateForm$.subscribe((value =>{
       const dataSources = Array.from( {length: 1 } , () => value.data);
       this.data = new MatTableDataSource(dataSources[0]);
@@ -47,6 +48,7 @@ export class TableComponent implements OnInit {
       this.data.paginator = this.paginator;
     }))
   }
+
 
   deleteRow(row) {
     this.tableDataBase.DeleteRepoIssues(row);

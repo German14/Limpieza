@@ -22,7 +22,6 @@ export class FormClientsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private service: DataServiceClients,
               public dialog: MatDialog, private dialog2: ServiceDialog) {}
   ngOnInit() {
-    console.log(this.data)
     this.contacto = this.formBuilder.group({
       id: ['', []],
       Name: ['', [Validators.required]],
@@ -37,7 +36,6 @@ export class FormClientsComponent implements OnInit {
       Tiro: new DatePipe('en-US').transform(this.data.Tiro),
       Portal:new DatePipe('en-US').transform(this.data.Portal),
       Observations: this.data.Observations});
-    //this.notification.showNotification('info','hola')
   }
 
   get f() { return this.contacto.controls; }
