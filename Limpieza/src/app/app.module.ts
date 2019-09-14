@@ -7,6 +7,7 @@ import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {TableComponent} from './table/table.component';
 import {DataService} from "./service/service";
 import {
+  MAT_DIALOG_DATA,
   MatDatepickerModule,
   MatDialog,
   MatDialogModule,
@@ -39,6 +40,7 @@ import {NotificationService} from "./service/notificationService";
 import {NotifierService, NotifierModule} from "angular-notifier";
 import {NotifierQueueService} from "angular-notifier/src/services/notifier-queue.service";
 import { ButtonsNavigationComponent } from './buttons-navigation/buttons-navigation.component';
+import {ServiceDialog} from "./service/serviceDialog";
 
 @NgModule({
   declarations: [
@@ -88,11 +90,15 @@ import { ButtonsNavigationComponent } from './buttons-navigation/buttons-navigat
     AuthenticationService,
     NotificationService,
     ButtonsNavigationComponent,
+    ServiceDialog,
     { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+    { provide: MAT_DIALOG_DATA, useClass: ServiceDialog, multi: true },
+
   ],
   bootstrap: [AppComponent],
   entryComponents: [FormComponent,
     FormClientsComponent,
+    ButtonsNavigationComponent,
     NotificationsComponent]
 })
 export class AppModule { }

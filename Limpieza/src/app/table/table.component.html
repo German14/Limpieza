@@ -3,7 +3,7 @@
     Bienvenido {{user}}
   </h3>
  <mat-card>
-   <buttons-navigation></buttons-navigation>
+   <buttons-navigation [input]="'FormComponent'" ></buttons-navigation>
  </mat-card>
  <mat-card>
     <div class="Table-container mat-elevation-z8">
@@ -27,7 +27,7 @@
           <!-- Title Column -->
           <ng-container matColumnDef="Name" >
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-            <td mat-cell *matCellDef="let row" (click)="this.buttonDataBase.openForm(row)" style="cursor:pointer">
+            <td mat-cell *matCellDef="let row" (click)="this.buttonDataBase.openForm(row, 'FormComponent')" style="cursor:pointer">
               {{row.Name}}
             </td>
           </ng-container>

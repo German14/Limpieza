@@ -15,6 +15,7 @@ import * as jwt_decode from 'jwt-decode';
 
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {ButtonsNavigationComponent} from "../buttons-navigation/buttons-navigation.component";
 
 @Component({
   selector: 'app-clients',
@@ -37,7 +38,9 @@ export class ClientsComponent implements OnInit , OnDestroy{
               private route: ActivatedRoute,
               private authorization: AuthenticationService,
               private tableDataBase: DataService,
-              private tableDataBaseClient: DataServiceClients) {
+              private tableDataBaseClient: DataServiceClients,
+              private buttonDataBase: ButtonsNavigationComponent
+              ) {
   }
 
 
@@ -61,15 +64,6 @@ export class ClientsComponent implements OnInit , OnDestroy{
     this.newCoordinate.unsubscribe();
   }
 
-  openFormClient(row) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = row;
-    dialogConfig.width = '500px';
-    const dialogRef = this.dialog.open(FormClientsComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(() => {
-      this.ngOnInit();
-    });
-  }
 
   deleteRow(row) {
     this.tableDataBaseClient.DeleteRepoClients(row);
@@ -103,15 +97,6 @@ export class ClientsComponent implements OnInit , OnDestroy{
 
     }});
   }
-
-  exportAsXLSX() {
-    this.tableDataBase.exportAsExcelFile(this.data.data, 'Trabajadoras');
-  }
-  logout() {
-    this.authorization.logout();
-    this.router.navigate(['/login']);
-  }
-
 
 }
 

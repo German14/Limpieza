@@ -5,6 +5,7 @@ import {DataServiceClients} from "../service/serviceClients";
 import {DatePipe} from "@angular/common";
 import {NotificationsComponent} from "../notifications/notifications.component";
 import {NotificationService} from "../service/notificationService";
+import {ServiceDialog} from "../service/serviceDialog";
 
 @Component({
   selector: 'app-form-clients',
@@ -19,7 +20,7 @@ export class FormClientsComponent implements OnInit {
   titulo = 'Agregar / Editar nuevo Cliente';
 
   constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private service: DataServiceClients,
-              public dialog: MatDialog) {}
+              public dialog: MatDialog, private dialog2: ServiceDialog) {}
   ngOnInit() {
     console.log(this.data)
     this.contacto = this.formBuilder.group({

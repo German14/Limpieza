@@ -1,12 +1,12 @@
-import {Component, EventEmitter, OnInit, ViewChild, Output} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {DataService, GithubIssue} from '../service/service';
 import {AuthenticationService} from '../_service/AuthentificationService';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {FormComponent} from '../form/form.component';
-import {ReplaySubject, Subject, Observable} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
-import {TableComponent} from "../table/table.component";
+import {ServiceDialog} from '../service/serviceDialog';
+import {FormClientsComponent} from "../form-clients/form-clients.component";
+
 
 @Component({
   selector: 'buttons-navigation',
@@ -14,22 +14,24 @@ import {TableComponent} from "../table/table.component";
   styleUrls: ['./buttons-navigation.component.scss']
 })
 export class ButtonsNavigationComponent implements OnInit {
-  @Output() childMessage = new EventEmitter();
+  @Input() public input: any;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   data: MatTableDataSource<GithubIssue>;
 
-  private newCoordinateForm = new Subject<any>();
-
   constructor(private tableDataBase: DataService,
               private dialog: MatDialog,
               private authorization: AuthenticationService,
-              private router: Router
-  ) { }
+              private router: Router,
+              private dialog2: ServiceDialog,
+
+  ) {
+
+  }
 
   ngOnInit() {
- this.tableDataBase.getRepoIssues().subscribe(
+    this.tableDataBase.getRepoIssues().subscribe(
       (element) => {
         const dataSources = Array.from( {length: 1 } , () => element);
         this.data = new MatTableDataSource(dataSources[0]);
@@ -41,14 +43,17 @@ export class ButtonsNavigationComponent implements OnInit {
 
   }
 
- openForm(row) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = row;
-    dialogConfig.width = '500px';
-    const dialogRef = this.dialog.open(FormComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-      this.ngOnInit();
-    });
+  openForm(row,Form){
+
+    if(Form==='FormComponent' || this.input==='FormComponent'){
+
+      this.input= FormComponent;
+    }
+    else {
+      this.input= FormClientsComponent;
+    }
+
+    this.dialog2.open(this.input,row);
   }
   exportAsXLSX() {
     this.tableDataBase.exportAsExcelFile(this.data.data, 'Trabajadoras');
