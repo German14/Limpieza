@@ -3,9 +3,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {DataServiceClients} from "../service/serviceClients";
 import {DatePipe} from "@angular/common";
-import {NotificationsComponent} from "../notifications/notifications.component";
-import {NotificationService} from "../service/notificationService";
-import {ServiceDialog} from "../service/serviceDialog";
 
 @Component({
   selector: 'app-form-clients',
@@ -19,8 +16,9 @@ export class FormClientsComponent implements OnInit {
   submitted = false;
   titulo = 'Agregar / Editar nuevo Cliente';
 
-  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private service: DataServiceClients,
-              public dialog: MatDialog, private dialog2: ServiceDialog) {}
+  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any,
+              private service: DataServiceClients,
+              public dialog: MatDialog) {}
   ngOnInit() {
     this.contacto = this.formBuilder.group({
       id: ['', []],
@@ -32,9 +30,9 @@ export class FormClientsComponent implements OnInit {
       Observations: ['', Validators.required]
     });
     this.contacto.patchValue({id: this.data.id , Name: this.data.Name, Phone: this.data.Phone,
-      Garaje: new DatePipe('en-US').transform(this.data.Garaje),
-      Tiro: new DatePipe('en-US').transform(this.data.Tiro),
-      Portal:new DatePipe('en-US').transform(this.data.Portal),
+      Garaje: this.data.Garaje,
+      Tiro: this.data.Tiro,
+      Portal:this.data.Portal,
       Observations: this.data.Observations});
   }
 

@@ -40,7 +40,6 @@ export class DataServiceClients {
   PostRepoClients(data) {
     this.href = 'http://localhost:3000/clients';
     this.requestUrl =this.href;
-    console.log(data)
     if(data.id === undefined) {
       return this._httpClient.post (this.requestUrl, data).subscribe();
     }

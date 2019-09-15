@@ -48,7 +48,6 @@ export class ClientsComponent implements OnInit {
     });
 
     this.tableDataBaseClient.newCoordinateClientForm$.subscribe((value =>{
-      console.log(value.data)
       const dataSources = Array.from( {length: 1 } , () => value.data);
       this.data = new MatTableDataSource(dataSources[0]);
       this.data.sort = this.sort;

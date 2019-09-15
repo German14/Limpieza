@@ -41,6 +41,7 @@ import {NotifierService, NotifierModule} from "angular-notifier";
 import {NotifierQueueService} from "angular-notifier/src/services/notifier-queue.service";
 import { ButtonsNavigationComponent } from './buttons-navigation/buttons-navigation.component';
 import {ServiceDialog} from "./service/serviceDialog";
+import {MatNativeDateModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import {ServiceDialog} from "./service/serviceDialog";
     MatDialogModule,
     MatToolbarModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
