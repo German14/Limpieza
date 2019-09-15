@@ -162,14 +162,11 @@ export class DatepickerComponent implements OnInit {
       this.name= data[0].Name;
       this.Phone= data[0].Phone;
       this.observations= data[0].Observations;
-
-      this.Garaje= new DatePipe('en-US').transform(data[0].Garaje);
-      this.Portal= new DatePipe('en-US').transform(data[0].Portal);
-      this.Tiro= new DatePipe('en-US').transform(data[0].Tiro);
-
+      this.Garaje= data[0].Garaje;
+      this.Portal= data[0].Portal;
+      this.Tiro= data[0].Tiro;
       }
     );
-
   }
 
   ngOnInit() {}
@@ -180,11 +177,7 @@ export class DatepickerComponent implements OnInit {
       this.viewDate = date;
     }
   }
-  eventTimesChanged({
-                      event,
-                      newStart,
-                      newEnd
-                    }: CalendarEventTimesChangedEvent): void {
+  eventTimesChanged({event,newStart,newEnd}: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map(iEvent => {
       if (iEvent === event) {
         return {
