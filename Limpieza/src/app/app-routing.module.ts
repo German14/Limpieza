@@ -1,24 +1,42 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {TableComponent} from "./table/table.component";
-import {FormsModule} from "@angular/forms";
 import {LoginComponent} from "./login/login.component";
 import {AuthGuard} from "./_service/AuthGuard";
-import {ClientsComponent} from './clients/clients.component';
 import {DatepickerComponent} from "./datepicker/datepicker.component";
+import {SidenavComponent} from "./components/sidenav/sidenav.component";
+import {SidenavModule} from "./components/sidenav/sidenav.module";
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'login' },
+  { path: '', pathMatch: 'full', redirectTo: '/login' },
   { path: 'login', component: LoginComponent },
-  { path: 'table', component: TableComponent,  canActivate: [AuthGuard]},
-  { path: 'clients', component: ClientsComponent, canActivate: [AuthGuard] },
-  { path: 'date', component: DatepickerComponent , canActivate: [AuthGuard]}
+  {path: 'sidenav',
+    component:SidenavComponent,
+    children:[
+      {
+        path: 'table',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./table/table.module').then(
+            m=>m.TableModule
+          )
+      },
+      {
+        path: 'client',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./clients/client.module').then(
+            m=>m.ClientModule
+          )
+      },
 
+    ]
+  },
+  { path: 'date', component: DatepickerComponent , canActivate: [AuthGuard]}
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), SidenavModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

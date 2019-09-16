@@ -4,13 +4,12 @@ import {MatPaginatorModule} from "@angular/material/paginator"
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
-import {TableComponent} from './table/table.component';
 import {DataService} from "./service/service";
 import {
-  MAT_DIALOG_DATA,
   MatDatepickerModule,
   MatDialog,
   MatDialogModule,
+  MatNativeDateModule,
   MatProgressSpinnerModule,
   MatSortModule,
   MatTableModule,
@@ -37,23 +36,21 @@ import {CalendarModule, DateAdapter} from "angular-calendar";
 import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 import {NotificationsComponent} from './notifications/notifications.component';
 import {NotificationService} from "./service/notificationService";
-import {NotifierService, NotifierModule} from "angular-notifier";
-import {NotifierQueueService} from "angular-notifier/src/services/notifier-queue.service";
-import { ButtonsNavigationComponent } from './buttons-navigation/buttons-navigation.component';
+import {NotifierModule} from "angular-notifier";
+import {ButtonsNavigationComponent} from './buttons-navigation/buttons-navigation.component';
 import {ServiceDialog} from "./service/serviceDialog";
-import {MatNativeDateModule} from '@angular/material';
+import {TableModule} from "./table/table.module";
+import {ButtonNavigationModule} from './buttons-navigation/button-navigation.module';
+import {ClientModule} from "./clients/client.module";
 
 @NgModule({
   declarations: [
     AppComponent,
-    TableComponent,
     FormComponent,
     LoginComponent,
-    ClientsComponent,
     FormClientsComponent,
     DatepickerComponent,
     NotificationsComponent,
-    ButtonsNavigationComponent
 
   ],
   imports: [
@@ -80,6 +77,9 @@ import {MatNativeDateModule} from '@angular/material';
     MatDialogModule,
     MatToolbarModule,
     MatDatepickerModule,
+    TableModule,
+    ClientModule,
+    ButtonNavigationModule,
     MatNativeDateModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
@@ -93,10 +93,13 @@ import {MatNativeDateModule} from '@angular/material';
     NotificationService,
     ButtonsNavigationComponent,
     ServiceDialog,
-    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+    {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
 
   ],
   bootstrap: [AppComponent],
+  exports: [
+    ButtonsNavigationComponent
+  ],
   entryComponents: [FormComponent,
     FormClientsComponent,
     ButtonsNavigationComponent,

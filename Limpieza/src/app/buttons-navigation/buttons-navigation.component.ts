@@ -10,7 +10,7 @@ import {DataServiceClients} from "../service/serviceClients";
 
 
 @Component({
-  selector: 'buttons-navigation',
+  selector: 'buttonNavigation',
   templateUrl: './buttons-navigation.component.html',
   styleUrls: ['./buttons-navigation.component.scss']
 })

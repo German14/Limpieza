@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data =>
         {
-          this.router.navigate(['/table']);
+          this.router.navigate(['/sidenav/table']);
         },
         error => {
           this.router.navigate(['/login']);
