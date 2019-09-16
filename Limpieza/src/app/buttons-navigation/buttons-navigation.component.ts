@@ -54,7 +54,7 @@ export class ButtonsNavigationComponent implements OnInit {
   }
 
   openForm(row,Form){
-    if(Form==='FormComponent' || this.input==='FormComponent'){
+    if(Form==='FormComponent' || this.input==='FormComponent' ){
       this.input= FormComponent;
     }
     else {

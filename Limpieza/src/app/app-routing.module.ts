@@ -28,6 +28,10 @@ const routes: Routes = [
             m=>m.ClientModule
           )
       },
+      {
+        path: 'logout',
+        component: LoginComponent
+      },
 
     ]
   },
