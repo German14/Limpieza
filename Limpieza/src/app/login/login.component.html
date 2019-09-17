@@ -28,5 +28,9 @@
   <mat-card-actions>
     <button mat-raised-button (click)="onFormSubmit()" color="primary">LOGIN</button>
   </mat-card-actions>
+
 </mat-card>
+
+<div [hidden]="loading===false">{{error}}</div>
+
 

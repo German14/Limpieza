@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
+  error:string;
 
   constructor(  private formBuilder: FormBuilder,
                 private route: ActivatedRoute,
@@ -46,16 +47,18 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
     this.authenticationService.login(this.fval.username.value, this.fval.password.value)
       .subscribe(
         data =>
         {
+          this.loading = false;
           this.router.navigate(['/sidenav/table']);
+          console.log(data);
         },
         error => {
-          this.router.navigate(['/login']);
-          this.loading = false;
+          console.log(error);
+          this.loading = true;
+          this.error = error['message']
         });
   }
 }
