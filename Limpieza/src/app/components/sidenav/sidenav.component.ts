@@ -7,6 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
 
+  arrayItems=[{
+    id:'0',
+    name:'Trabajadoras',
+    url:'table',
+    enable:true
+  },
+    {
+    id:'1',
+    name:'Clientes',
+    url:'client',
+    enable:false
+  }];
   constructor() { }
 
   ngOnInit() {
