@@ -9,6 +9,7 @@ import {DataService, GithubIssue, UserData} from '../service/service';
 import {AuthenticationService} from '../_service/AuthentificationService';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
+import {Observable} from 'rxjs';
 
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -26,6 +27,7 @@ export class TableComponent implements OnInit {
   displayedColumns: string[] = ['id', 'Name', 'Phone', 'Portal', 'Dias', 'Observations', 'delete'];
   data: MatTableDataSource<GithubIssue>;
   user: any;
+
 
 
   constructor(private httpClient: HttpClient, private dialog: MatDialog,
@@ -68,7 +70,12 @@ export class TableComponent implements OnInit {
     if (this.data.paginator) {
       this.data.paginator.firstPage();
     }
+
   }
+
+
+
+
 
 
 }

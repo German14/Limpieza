@@ -1,8 +1,6 @@
 import {ApplicationModule, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {TableComponent} from "./table.component";
-import {TableRoutingModule} from "./table-routing.module";
 import {
   MatCardModule,
   MatFormFieldModule,
@@ -13,16 +11,19 @@ import {
 } from "@angular/material";
 import {ButtonNavigationModule} from "../buttons-navigation/button-navigation.module";
 import {ReactiveFormsModule} from "@angular/forms";
-import {FileUploadModule} from "../file-upload/file-upload.module";
+import {FileUploadComponent} from "./file-upload.component";
+import {FileUploadRoutingModule} from "./file-upload-routing.module";
 
 
 
 @NgModule({
-  declarations: [TableComponent],
+  declarations: [FileUploadComponent],
+  exports: [
+    FileUploadComponent
+  ],
   imports: [
     CommonModule,
-    TableRoutingModule,
-    FileUploadModule,
+    FileUploadRoutingModule,
     MatCardModule,
     MatFormFieldModule,
     MatTableModule,
@@ -35,4 +36,4 @@ import {FileUploadModule} from "../file-upload/file-upload.module";
 
   ]
 })
-export class TableModule { }
+export class FileUploadModule { }

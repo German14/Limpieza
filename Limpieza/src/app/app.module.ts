@@ -42,6 +42,8 @@ import {ServiceDialog} from "./service/serviceDialog";
 import {TableModule} from "./table/table.module";
 import {ButtonNavigationModule} from './buttons-navigation/button-navigation.module';
 import {ClientModule} from "./clients/client.module";
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import {FileUploadModule} from "./file-upload/file-upload.module";
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import {ClientModule} from "./clients/client.module";
     FormClientsComponent,
     DatepickerComponent,
     NotificationsComponent,
+
 
   ],
   imports: [
@@ -79,6 +82,7 @@ import {ClientModule} from "./clients/client.module";
     MatDatepickerModule,
     TableModule,
     ClientModule,
+    FileUploadModule,
     ButtonNavigationModule,
     MatNativeDateModule,
     CalendarModule.forRoot({

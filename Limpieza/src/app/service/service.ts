@@ -62,6 +62,34 @@ export class DataService {
     return this.httpClient.delete (this.requestUrl, data).subscribe();
   }
 
+
+
+  sendFile(file): Observable <any> {
+    return new Observable(obs => {
+      // console.log('test-file ', file);
+      const apiUrl = 'http://localhost:3000/api/upload';
+      const data = new FormData();
+      data.append('file', new Blob([file]));
+      const request = new XMLHttpRequest();
+      request.open('POST', apiUrl, true);
+      request.setRequestHeader('Access-Control-Allow-Origin', '*');
+      request.send(data);
+      request.onload = (e) => {
+        console.log(request)
+        if (request.readyState === 4) {
+          if (request.status === 200) {
+            console.log(request)
+            obs.next(request.response);
+          }
+        } else {
+          obs.next('nada');
+
+        }
+      };
+
+    });
+  }
+
 }
 
 
