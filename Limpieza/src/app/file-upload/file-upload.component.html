@@ -1,6 +1,6 @@
 <form [formGroup]="formGroup" novalidate (ngSubmit)="onSubmit($event)">
   <input type="file" name="files" (change)="onFileChange($event)" />
-  <button type="submit" [disabled]="formGroup.invalid ">Submit</button>
+  <button type="submit" [disabled]="disabled">Submit</button>
 </form>
 
 <div [ngClass]="{'loading':loading, 'do': !loading}" >{{loading}}</div>

@@ -8,16 +8,23 @@ import {isNullOrUndefined} from '@swimlane/ngx-datatable/release/utils';
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss']
 })
-export class FileUploadComponent {
+export class FileUploadComponent implements OnInit{
 
   loading=false;
   response;
+  disabled=true;
 
   formGroup = this.fb.group({
-    files: [null, '']
+    files: []
   });
 
   constructor(private fb: FormBuilder, private cd: ChangeDetectorRef, private service: DataService) {}
+
+
+  ngOnInit(): void {
+    console.log(this.formGroup.get('files'))
+
+  }
 
   onFileChange(event) {
     const reader = new FileReader();
@@ -31,14 +38,17 @@ export class FileUploadComponent {
           file: reader.result
         });
 
-        this.onSubmit(file)
+        if(file.name.split('.')[1]==='zip'){
+          this.disabled=false;
+        }
 
         // need to run CD since file load runs outside of zone
         this.cd.markForCheck();
       };
     }
-  }
+   }
   onSubmit(data){
+    this.onFileChange(data)
     this.service.sendFile(this.formGroup.get('files').value).subscribe(
       (res) => {
         if (res) {
@@ -47,7 +57,12 @@ export class FileUploadComponent {
             this.response= res;
 
           }
+        }else{
+
+          this.loading=false;
+          this.response= res;
         }
+
       },
       (err) => {
         console.log(err);

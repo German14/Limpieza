@@ -1,35 +1,37 @@
-<mat-card class="example-card">
-  <mat-card-header>
-    <mat-card-title>Login</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form class="my-form" [formGroup]="loginForm">
-      <table class="full-width" cellspacing="0">
-        <tr>
-          <td>
-            <mat-form-field class="full-width">
-              <input  matInput formControlName="username" placeholder="Email" name="email">
-            </mat-form-field>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <mat-form-field class="full-width">
-                <input  matInput  formControlName="password"
-                    placeholder="Password" name="password"
-                    (keydown)="keyDownFunction($event)"
-                    type="password">
-            </mat-form-field>
-          </td>
-        </tr>
-      </table>
-    </form>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button (click)="onFormSubmit()" color="primary">LOGIN</button>
-  </mat-card-actions>
 
-</mat-card>
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="my-form" [formGroup]="loginForm">
+        <table class="full-width" cellspacing="0">
+          <tr>
+            <td>
+              <mat-form-field class="full-width">
+                <input  matInput formControlName="username" placeholder="Email" name="email">
+              </mat-form-field>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <mat-form-field class="full-width">
+                <input  matInput  formControlName="password"
+                        placeholder="Password" name="password"
+                        (keydown)="keyDownFunction($event)"
+                        type="password">
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button (click)="onFormSubmit()" color="primary" class="mat-stroked-button">LOGIN</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
 
 <div [hidden]="loading===false">{{error}}</div>
 
