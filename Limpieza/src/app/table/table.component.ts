@@ -1,15 +1,11 @@
 import {HttpClient} from '@angular/common/http';
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {merge, of as observableOf, ReplaySubject} from 'rxjs';
-import {catchError, debounceTime, map, startWith, switchMap, take} from 'rxjs/operators';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatDialog, MatDialogConfig} from '@angular/material';
-import {FormComponent} from '../form/form.component';
-import {DataService, GithubIssue, UserData} from '../service/service';
+import {MatDialog} from '@angular/material';
+import {DataService, GithubIssue} from '../service/service';
 import {AuthenticationService} from '../_service/AuthentificationService';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
-import {Observable} from 'rxjs';
 
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -26,7 +22,6 @@ export class TableComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'Name', 'Phone', 'Portal', 'Dias', 'Observations', 'delete'];
   data: MatTableDataSource<GithubIssue>;
-  user: any;
 
 
 
@@ -36,12 +31,9 @@ export class TableComponent implements OnInit {
               private authorization: AuthenticationService,
               private tableDataBase: DataService,
               private buttonDataBase: ButtonsNavigationComponent
-) {}
+  ) {}
 
   ngOnInit() {
-    this.authorization.currentUser.subscribe((data) => {
-      this.user = jwt_decode(data).username;
-    });
 
     this.tableDataBase.newCoordinateForm$.subscribe((value =>{
       const dataSources = Array.from( {length: 1 } , () => value.data);

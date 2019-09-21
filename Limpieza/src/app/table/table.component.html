@@ -1,11 +1,5 @@
 <nav class="navbar navbar-toggleable-md navbar-inverse">
-  <div style="background: #007bff; height: auto; width: 100%;color:#ffffff">
-    <h3 style="padding: 5px">
-     <b>Bienvenido {{user}}</b>
-    </h3>
-  </div>
-
- <mat-card>
+<mat-card>
   <buttonNavigation [input]="'FormComponent'" ></buttonNavigation>
  </mat-card>
  <mat-card>
@@ -66,7 +60,7 @@
           <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Borrar </th>
             <td mat-cell *matCellDef="let row" >
-              <button type="button" class="btn btn-primary btn-lg " data-toggle="modal"  (click)="deleteRow(row)">
+              <button style="background: #3f51b5;  border:1px solid #3f51b5" type="button" class="btn btn-primary btn-lg " data-toggle="modal"  (click)="deleteRow(row)">
                 <i class="fa fa-trash"></i>
               </button>
             </td>

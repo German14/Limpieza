@@ -1,17 +1,12 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {merge, of as observableOf, ReplaySubject} from 'rxjs';
-import {catchError, debounceTime, map, startWith, switchMap} from 'rxjs/operators';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatDialog, MatDialogConfig} from "@angular/material";
+import {MatDialog} from "@angular/material";
 import {DataServiceClients, GithubIssue} from "../service/serviceClients";
 import {DataService} from "../service/service";
-import {FormClientsComponent} from "../form-clients/form-clients.component";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService} from "../_service/AuthentificationService";
-import {FormComponent} from "../form/form.component";
 
-import * as jwt_decode from 'jwt-decode';
 
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -28,7 +23,7 @@ export class ClientsComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'Name', 'Phone','Tiro','Garaje', 'Portal', 'Observations', 'Delete', 'DateRow'];
   data: MatTableDataSource<GithubIssue>;
-  user: any;
+
 
 
   constructor(private httpClient: HttpClient, private dialog: MatDialog,
@@ -38,14 +33,11 @@ export class ClientsComponent implements OnInit {
               private tableDataBase: DataService,
               private tableDataBaseClient: DataServiceClients,
               private buttonDataBase: ButtonsNavigationComponent
-              ) {
+  ) {
   }
 
 
   ngOnInit() {
-    this.authorization.currentUser.subscribe((data) => {
-      this.user = jwt_decode(data).username;
-    });
 
     this.tableDataBaseClient.newCoordinateClientForm$.subscribe((value =>{
       const dataSources = Array.from( {length: 1 } , () => value.data);
@@ -57,15 +49,15 @@ export class ClientsComponent implements OnInit {
 
   deleteRow(row) {
     this.tableDataBaseClient.DeleteRepoClients(row);
-     setTimeout( () => {
-        this.tableDataBaseClient.getRepoClients().subscribe(
-          (element) => {
-            const dataSources = Array.from( {length: 1 } , () => element);
-            this.data = new MatTableDataSource(dataSources[0]);
-            this.data.sort = this.sort;
-            this.data.paginator = this.paginator;
-          });
-      },500)
+    setTimeout( () => {
+      this.tableDataBaseClient.getRepoClients().subscribe(
+        (element) => {
+          const dataSources = Array.from( {length: 1 } , () => element);
+          this.data = new MatTableDataSource(dataSources[0]);
+          this.data.sort = this.sort;
+          this.data.paginator = this.paginator;
+        });
+    },500)
   }
 
   applyFilter(filterValue: string) {
@@ -91,7 +83,7 @@ export class ClientsComponent implements OnInit {
         MonthP: new Date(row.Portal).getMonth(),
         DayP: new Date(row.Portal).getDate()
 
-    }});
+      }});
   }
 
 }

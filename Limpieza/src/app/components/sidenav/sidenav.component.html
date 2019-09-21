@@ -1,11 +1,24 @@
-<mat-sidenav-container >
-  <mat-sidenav opened mode="side"  style="background:#007bff ">
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches" >
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon></button>
+    <div>
+      <h3 >
+        <b>Bienvenido {{user}}</b>
+      </h3>
+    </div>
+  </mat-toolbar>
+
+  <mat-sidenav-container [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+  <mat-sidenav #snav opened mode="side"  style="background:#3f51b5 "  [mode]="mobileQuery.matches ? 'over' : 'side'"
+               [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
     <mat-nav-list style="width:166px">
       <div style="padding: 5px">
-        <img src="../../../assets/Logo.png" height="150" width="150"/>
+        <img style="border-radius: 30px; border: 3px solid white;"
+             src="../../../assets/Logo.png" height="150" width="150"/>
       </div>
       <a mat-list-item *ngFor="let item of arrayItems let index = i" [routerLink]="[item.url]" >
-        <b>{{item.name}}</b>
+        <b style="color:white">{{item.name}}</b>
       </a>
     </mat-nav-list>
   </mat-sidenav>
@@ -13,3 +26,4 @@
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
+</div>
