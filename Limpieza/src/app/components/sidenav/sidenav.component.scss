@@ -14,12 +14,14 @@ mat-sidenav-content {
 .sidenav-field {
   width: 200px;
 }
-.clickEvent{
+.clickEvent {
   background-color: white;
   color:#3f51b5;
 }
 
-.clickNotEvent{
+.material-icons.white600 { color: #ffffff; padding-right: 5px}
+.material-icons.black600 { color: #ffffff; padding-right: 5px}
+.clickNotEvent  {
   background-color:#3f51b5;
   color: white;
 }
