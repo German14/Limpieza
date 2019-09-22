@@ -33,6 +33,6 @@
   </mat-card>
 </div>
 
-<div [hidden]="loading===false">{{error}}</div>
+<notifications *ngIf="loading===true"></notifications>
 
 

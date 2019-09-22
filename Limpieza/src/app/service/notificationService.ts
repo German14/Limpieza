@@ -7,7 +7,9 @@ import {NotifierService} from "angular-notifier";
   providedIn: 'root'
 })
 export class NotificationService {
-  constructor(private notifier: NotifierService) {
+  private notifier: NotifierService;
+
+  public constructor( notifier: NotifierService ) {
     this.notifier = notifier;
   }
 

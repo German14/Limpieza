@@ -53,11 +53,11 @@ export class ButtonsNavigationComponent implements OnInit {
       });
   }
 
-  openForm(row,Form){
-    if(Form==='FormComponent' || this.input==='FormComponent' ){
+  openForm(row){
+    if( this.input==='FormComponent' ){
       this.input= FormComponent;
     }
-    else {
+    else if( this.input==='FormClientsComponent' ){
       this.input= FormClientsComponent;
     }
     this.ServiceDialog.open(this.input,row);
