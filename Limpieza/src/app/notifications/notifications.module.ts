@@ -8,6 +8,7 @@ import {NotifierModule, NotifierOptions} from 'angular-notifier';
 import {FormsModule} from "@angular/forms";
 import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from '../app.component';
+import {LoginComponent} from "../login/login.component";
 
 const customNotifierOptions: NotifierOptions = {
   position: {

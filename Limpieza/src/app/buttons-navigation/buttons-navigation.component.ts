@@ -82,7 +82,7 @@ export class ButtonsNavigationComponent implements OnInit {
 
   logout() {
     this.authorization.logout();
-    this.router.navigate(['/login']);
+    this.router.navigateByUrl('/login');
   }
 
 }
