@@ -15,14 +15,14 @@ export class SidenavComponent implements OnInit,OnDestroy {
     id:'0',
     name:'Trabajadoras',
     url:'table',
-    enable:true,
+    enable:false,
     icon:'build'
   },
     {
       id:'1',
       name:'Clientes',
       url:'client',
-      enable:false,
+      enable:true,
       icon: 'assignment_ind'
     }];
   private mobileQueryListener: () => void;
