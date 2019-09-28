@@ -36,56 +36,14 @@ import {CalendarModule, DateAdapter} from "angular-calendar";
 import {adapterFactory} from "angular-calendar/date-adapters/date-fns";
 import {NotificationsComponent} from './notifications/notifications.component';
 import {NotificationService} from "./service/notificationService";
-import {NotifierModule, NotifierOptions} from "angular-notifier";
 import {ButtonsNavigationComponent} from './buttons-navigation/buttons-navigation.component';
 import {ServiceDialog} from "./service/serviceDialog";
 import {TableModule} from "./table/table.module";
 import {ButtonNavigationModule} from './buttons-navigation/button-navigation.module';
 import {ClientModule} from "./clients/client.module";
-import { FileUploadComponent } from './file-upload/file-upload.component';
 import {FileUploadModule} from "./file-upload/file-upload.module";
 import {NotificationsModule} from "./notifications/notifications.module";
 
-const customNotifierOptions: NotifierOptions = {
-  position: {
-    horizontal: {
-      position: 'left',
-      distance: 12
-    },
-    vertical: {
-      position: 'bottom',
-      distance: 12,
-      gap: 10
-    }
-  },
-  theme: 'material',
-  behaviour: {
-    autoHide: 5000,
-    onClick: 'hide',
-    onMouseover: 'pauseAutoHide',
-    showDismissButton: true,
-    stacking: 4
-  },
-  animations: {
-    enabled: true,
-    show: {
-      preset: 'slide',
-      speed: 300,
-      easing: 'ease'
-    },
-    hide: {
-      preset: 'fade',
-      speed: 300,
-      easing: 'ease',
-      offset: 50
-    },
-    shift: {
-      speed: 300,
-      easing: 'ease'
-    },
-    overlap: 150
-  }
-};
 
 @NgModule({
   declarations: [
@@ -117,7 +75,6 @@ const customNotifierOptions: NotifierOptions = {
     MatRadioModule,
     MatCardModule,
     FormsModule,
-
     MatDialogModule,
     MatToolbarModule,
     MatDatepickerModule,

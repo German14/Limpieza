@@ -1,106 +1,15 @@
-/* Structure */
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-/* Zebra striping */
-tr:nth-of-type(odd) {
-  background: #eee;
-}
-th {
-  background: #333;
-  color: white;
-  font-weight: bold;
-}
-td, th {
-  padding: 6px;
-  border: 1px solid #ccc;
-  text-align: left;
-}
-
-
-@media screen and (max-width: 767px) {
-  .table-responsive {
-    width: 100%;
-    margin-bottom: 15px;
-    overflow-y: hidden;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-    border: 1px solid #ddd;
-  }
-
-}
-@media
-only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 1024px)  {
-
-
-table{
-  width: 20%;
-  border-collapse: collapse;
-}
-  tr { border: 1px solid #ccc; }
-
-  td {
-    /* Behave  like a "row" */
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50%;
-  }
-
-  td:before {
-    /* Now like a table header */
-    /* Top/left values mimic padding */
-    top: 6px;
-    left: 6px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-  }
-
-
-}
-mat-card {
-  width: 100%;
-  padding: 10px;
-  margin: 10px;
-}
 .div-buttons-container{
   display: flex;
   padding:10px;
   width: 100%
 }
 
-.Table-loading-shade {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 56px;
-  right: 0;
-  background: rgba(0, 0, 0, 0.15);
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+::ng-deep td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
+  padding: 8px !important;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
 }
-
-.Table-rate-limit-reached {
-  color: #980000;
-  max-width: 360px;
-  text-align: center;
-}
-
-/* Column Widths */
-.mat-column-number,
-.mat-column-state {
-  max-width: 64px;
-}
-
-.mat-column-created {
-  max-width: 124px;
-}
-
 .navbar-inverse{
   background-color: transparent;
   border-color: transparent;
@@ -123,4 +32,16 @@ mat-card {
 .logout {
   width: 48%;
   margin-left: 4%;
+}
+
+
+nav{
+  line-height: 30px !important;
+}
+
+@media screen and (max-width: 450px) {
+
+nav{
+  line-height: 30px !important;
+}
 }

@@ -20,7 +20,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<any>('http://192.168.0.11/api/login', { username, password })
+    return this.http.post<any>('http://localhost:3000/api/login', { username, password })
       .pipe(map(user => {
         if (user.access_token) {
           localStorage.setItem('currentUser', JSON.stringify(user.access_token));

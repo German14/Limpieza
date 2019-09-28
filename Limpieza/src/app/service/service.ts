@@ -39,25 +39,25 @@ export class DataService {
   public data;
 
   getRepoIssues(): Observable<any> {
-    this.href = 'http://192.168.0.11/users';
+    this.href = 'http://localhost:3000/users';
     this.requestUrl = this.href;
     return this.httpClient.get (this.requestUrl);
   }
 
   PostRepoIssues(data) {
-    this.href = 'http://192.168.0.11/users';
+    this.href = 'http://localhost:3000/users';
     this.requestUrl = this.href;
     if (data.id === undefined) {
       return this.httpClient.post (this.requestUrl, data).subscribe();
     } else {
-      this.href = 'http://192.168.0.11/users/' + data.id;
+      this.href = 'http://localhost:3000/users/' + data.id;
       this.requestUrl = this.href;
       return this.httpClient.put (this.requestUrl, data).subscribe();
     }
   }
 
   DeleteRepoIssues(data) {
-    this.href = 'http://192.168.0.11/users/' + data.id ;
+    this.href = 'http://localhost:3000/users/' + data.id ;
     this.requestUrl = this.href;
     return this.httpClient.delete (this.requestUrl, data).subscribe();
   }
@@ -67,7 +67,7 @@ export class DataService {
   sendFile(file): Observable <any> {
     return new Observable(obs => {
       // console.log('test-file ', file);
-      const apiUrl = 'http://192.168.0.11/users/api/upload';
+      const apiUrl = 'http://localhost:3000/users/api/upload';
       const data = new FormData();
       data.append('file', new Blob([file]));
       const request = new XMLHttpRequest();

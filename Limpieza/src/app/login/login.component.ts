@@ -5,6 +5,7 @@ import {AuthenticationService} from "../_service/AuthentificationService";
 import {query} from "@angular/animations";
 import {ButtonsNavigationComponent} from "../buttons-navigation/buttons-navigation.component";
 import {NotificationsComponent} from "../notifications/notifications.component";
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
