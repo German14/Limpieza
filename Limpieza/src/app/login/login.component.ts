@@ -47,8 +47,10 @@ export class LoginComponent implements OnInit {
     }
   }
   onFormSubmit() {
+    console.log('holaaaa')
     this.submitted = true;
     if(this.loginForm.invalid){
+      console.log(this.fval.username.value)
       return;
     }
     this.authenticationService.login(this.fval.username.value, this.fval.password.value)

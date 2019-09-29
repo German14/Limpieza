@@ -1,4 +1,6 @@
-
+mat-table {
+  display: table;
+}
 .div-buttons-container{
   display: flex;
   padding:10px;
@@ -22,26 +24,15 @@
   white-space: nowrap;
 }
 
-.addNewElement {
-  width: 48%;
-  margin-right: 4%;
-}
-.exportNewElement {
-  width: 48%;
-}
-.logout {
-  width: 48%;
-  margin-left: 4%;
-}
 
-
-nav{
-  line-height: 30px !important;
-}
 
 @media screen and (max-width: 450px) {
 
-nav{
-  line-height: 30px !important;
+div > mat-card {
+  margin: 25px;
+  /* min-width: 607px; */
+  overflow: scroll;
+  height: 400px;
+
 }
 }

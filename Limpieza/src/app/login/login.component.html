@@ -4,19 +4,20 @@
       <mat-card-title>Login</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-
       <form [formGroup]="loginForm" class="my-form" (ngSubmit)="onFormSubmit()">
-        <mat-form-field [ngClass]="{ 'has-error': submitted && fval.username.errors }">
-          <input  matInput formControlName="username" placeholder="Email" name="username">
-        </mat-form-field>
-        <mat-form-field [ngClass]="{ 'has-error': submitted && fval.password.errors }">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">mail_outline</i>
+        <input  matInput formControlName="username" placeholder="Email" name="username">
+      </div>
+        <div class="input-field col s12" >
+          <i class="material-icons prefix">lock_outline</i>
           <input  matInput  formControlName="password"
                   placeholder="Password" name="password"
                   (keydown)="keyDownFunction($event)"
                   type="password">
-        </mat-form-field>
+        </div>
         <p>
-          <button mat-raised-button type="submit" color="primary" class="mat-stroked-button">LOGIN</button>
+          <button mat-raised-button type="submit" color="primary" class="btn waves-effect waves-light col s12">LOGIN</button>
         </p>
       </form>
       <div *ngIf="submitted && loading" class="help-block">
