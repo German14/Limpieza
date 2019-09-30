@@ -2,11 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {addDays, endOfDay, isSameDay, isSameMonth, startOfDay, subDays} from 'date-fns';
 import {Subject} from 'rxjs';
 import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView} from 'angular-calendar';
-import {MatDialog, MatDialogConfig} from "@angular/material";
-import {FormClientsComponent} from "../form-clients/form-clients.component";
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {FormClientsComponent} from '../form-clients/form-clients.component';
 import {ActivatedRoute} from '@angular/router';
 import {DataServiceClients} from '../service/serviceClients';
-import {DatePipe, formatDate, registerLocaleData} from "@angular/common";
+import {DatePipe, formatDate, registerLocaleData} from '@angular/common';
 
 import localeEsAr from '@angular/common/locales/es-AR';
 const colors: any = {

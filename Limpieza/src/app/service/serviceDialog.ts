@@ -7,10 +7,10 @@ import {
 } from '@angular/core'
 
 import {MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {DataService, GithubIssue} from "./service";
-import {FormComponent} from "../form/form.component";
-import {FormClientsComponent} from "../form-clients/form-clients.component";
-import {DataServiceClients} from "./serviceClients";
+import {DataService, GithubIssue} from './service';
+import {FormComponent} from '../form/form.component';
+import {FormClientsComponent} from '../form-clients/form-clients.component';
+import {DataServiceClients} from './serviceClients';
 
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
@@ -19,7 +19,7 @@ const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.
 const EXCEL_EXTENSION = '.xlsx';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 
 export class ServiceDialog implements OnInit{

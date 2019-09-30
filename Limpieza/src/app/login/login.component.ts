@@ -1,11 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {AuthenticationService} from "../_service/AuthentificationService";
-import {query} from "@angular/animations";
-import {ButtonsNavigationComponent} from "../buttons-navigation/buttons-navigation.component";
-import {NotificationsComponent} from "../notifications/notifications.component";
-import * as jwt_decode from 'jwt-decode';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthenticationService} from '../_service/AuthentificationService';
 
 @Component({
   selector: 'app-login',
@@ -26,15 +22,15 @@ export class LoginComponent implements OnInit {
                 private router: Router,
                 private authenticationService : AuthenticationService
 
-                ) { }
+  ) { }
 
 
-   ngOnInit() {
+  ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
-     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
   }
 
@@ -47,10 +43,8 @@ export class LoginComponent implements OnInit {
     }
   }
   onFormSubmit() {
-    console.log('holaaaa')
     this.submitted = true;
     if(this.loginForm.invalid){
-      console.log(this.fval.username.value)
       return;
     }
     this.authenticationService.login(this.fval.username.value, this.fval.password.value)
@@ -65,7 +59,7 @@ export class LoginComponent implements OnInit {
           console.log(error);
 
           this.loading = true;
-            this.message= error.statusText;
+          this.message= error.statusText;
 
           this.error = error['message']
         });

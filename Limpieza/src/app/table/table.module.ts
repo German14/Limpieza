@@ -1,8 +1,8 @@
 import {ApplicationModule, NgModule} from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import {TableComponent} from "./table.component";
-import {TableRoutingModule} from "./table-routing.module";
+import {TableComponent} from './table.component';
+import {TableRoutingModule} from './table-routing.module';
 import {
   MatCardModule,
   MatFormFieldModule,
@@ -10,10 +10,10 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatTableModule
-} from "@angular/material";
-import {ButtonNavigationModule} from "../buttons-navigation/button-navigation.module";
-import {ReactiveFormsModule} from "@angular/forms";
-import {FileUploadModule} from "../file-upload/file-upload.module";
+} from '@angular/material';
+import {ButtonNavigationModule} from '../buttons-navigation/button-navigation.module';
+import {ReactiveFormsModule} from '@angular/forms';
+import {FileUploadModule} from '../file-upload/file-upload.module';
 
 
 

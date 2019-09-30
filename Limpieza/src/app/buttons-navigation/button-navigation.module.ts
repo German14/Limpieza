@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatListModule, MatSidenavModule} from "@angular/material";
-import {RouterModule} from "@angular/router";
-import {ButtonsNavigationComponent} from "./buttons-navigation.component";
+import {MatListModule, MatSidenavModule} from '@angular/material';
+import {RouterModule} from '@angular/router';
+import {ButtonsNavigationComponent} from './buttons-navigation.component';
 
 
 

@@ -9,7 +9,7 @@ import * as jwt_decode from 'jwt-decode';
 
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {ButtonsNavigationComponent} from "../buttons-navigation/buttons-navigation.component";
+import {ButtonsNavigationComponent} from '../buttons-navigation/buttons-navigation.component';
 
 @Component({
   selector: 'app-table',

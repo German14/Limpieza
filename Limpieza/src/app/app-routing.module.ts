@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {LoginComponent} from "./login/login.component";
-import {AuthGuard} from "./_service/AuthGuard";
-import {DatepickerComponent} from "./datepicker/datepicker.component";
-import {SidenavComponent} from "./components/sidenav/sidenav.component";
-import {SidenavModule} from "./components/sidenav/sidenav.module";
+import {LoginComponent} from './login/login.component';
+import {AuthGuard} from './_service/AuthGuard';
+import {DatepickerComponent} from './datepicker/datepicker.component';
+import {SidenavComponent} from './components/sidenav/sidenav.component';
+import {SidenavModule} from './components/sidenav/sidenav.module';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },

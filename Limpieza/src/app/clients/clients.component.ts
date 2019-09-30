@@ -1,16 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatDialog} from "@angular/material";
-import {DataServiceClients, GithubIssue} from "../service/serviceClients";
-import {DataService} from "../service/service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AuthenticationService} from "../_service/AuthentificationService";
+import {MatDialog} from '@angular/material';
+import {DataServiceClients, GithubIssue} from '../service/serviceClients';
+import {DataService} from '../service/service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthenticationService} from '../_service/AuthentificationService';
 
 
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {ButtonsNavigationComponent} from "../buttons-navigation/buttons-navigation.component";
+import {ButtonsNavigationComponent} from '../buttons-navigation/buttons-navigation.component';
 
 @Component({
   selector: 'app-clients',

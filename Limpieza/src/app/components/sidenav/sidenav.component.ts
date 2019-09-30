@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
-import {AuthenticationService} from "../../_service/AuthentificationService";
+import {AuthenticationService} from '../../_service/AuthentificationService';
 import * as jwt_decode from 'jwt-decode';
 
 @Component({

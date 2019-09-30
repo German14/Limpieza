@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {AuthenticationService} from './_service/AuthentificationService';
-import {Router} from "@angular/router";
-import {User} from "./_model/userModel";
+import {Router} from '@angular/router';
+import {User} from './_model/userModel';
 import {isNullOrUndefined} from '@swimlane/ngx-datatable/release/utils/column-helper';
 
 @Component({
