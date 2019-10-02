@@ -39,37 +39,57 @@ export class DataService {
   public data;
 
   getRepoIssues(): Observable<any> {
-    this.href = 'http://47.63.85.58:8000/users';
+    this.href = 'http://localhost:3000/users';
     this.requestUrl = this.href;
     return this.httpClient.get (this.requestUrl);
   }
 
   PostRepoIssues(data) {
-    this.href = 'http://47.63.85.58:8000/users';
+    this.href = 'http://localhost:3000/users';
     this.requestUrl = this.href;
     if (data.id === undefined) {
       return this.httpClient.post (this.requestUrl, data).subscribe();
     } else {
-      this.href = 'http://47.63.85.58:8000/users/' + data.id;
+      this.href = 'http://localhost:3000/users/' + data.id;
       this.requestUrl = this.href;
       return this.httpClient.put (this.requestUrl, data).subscribe();
     }
   }
 
   DeleteRepoIssues(data) {
-    this.href = 'http://47.63.85.58:8000/users/' + data.id ;
+    this.href = 'http://localhost:3000/users/' + data.id ;
     this.requestUrl = this.href;
     return this.httpClient.delete (this.requestUrl, data).subscribe();
   }
 
 
 
+  readFile(event): Observable <any> {
+    console.log('hola', event)
+    return new Observable(obs => {
+      const reader = new FileReader();
+      if (event.target.files && event.target.files.length) {
+        const file = event.target.files[0];
+        if (!file) {
+          return;
+        }
+        reader.onload = function (e) {
+          const contents = e.target['result'];
+          obs.next(contents);
+
+        };
+        reader.readAsText(file);
+      }
+    });
+  }
+
+
   sendFile(file): Observable <any> {
     return new Observable(obs => {
       // console.log('test-file ', file);
-      const apiUrl = 'http://47.63.85.58:8000/users/api/upload';
+      const apiUrl = 'http://localhost:3000/api/upload';
       const data = new FormData();
-      data.append('file', new Blob([file]));
+      data.append('file', file);
       const request = new XMLHttpRequest();
       request.open('POST', apiUrl, true);
       request.setRequestHeader('Access-Control-Allow-Origin', '*');

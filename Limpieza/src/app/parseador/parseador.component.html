@@ -1,0 +1,9 @@
+<form [formGroup]="formGroup" novalidate >
+  <input type="file" name="files" (change)="onFileChange($event)" />
+  <button type="submit" [disabled]="formGroup.invalid ">Submit</button>
+</form>
+<div style="overflow: auto; height: 300px" >
+  <p *ngFor="let index of content">
+    {{index}}
+  </p>
+</div>

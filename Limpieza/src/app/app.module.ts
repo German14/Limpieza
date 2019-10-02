@@ -40,6 +40,7 @@ import {TableModule} from './table/table.module';
 import {ButtonNavigationModule} from './buttons-navigation/button-navigation.module';
 import {ClientModule} from './clients/client.module';
 import {FileUploadModule} from './file-upload/file-upload.module';
+import {ParseadorModule} from "./parseador/parseador.module";
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import {FileUploadModule} from './file-upload/file-upload.module';
     MatDatepickerModule,
     TableModule,
     ClientModule,
+    ParseadorModule,
     FileUploadModule,
     ButtonNavigationModule,
     MatNativeDateModule,

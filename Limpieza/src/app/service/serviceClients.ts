@@ -28,30 +28,30 @@ export class DataServiceClients {
   public requestUrl;
 
   getRepoClients(): Observable <any> {
-    this.href = 'http://47.63.85.58:8000/clients';
+    this.href = 'http://localhost:3000/clients';
     this.requestUrl = this.href;
     return this._httpClient.get (this.requestUrl);
   }
   getRepoClient(data): Observable <any> {
-    this.href = 'http://47.63.85.58:8000/clients/'+ data.id;
+    this.href = 'http://localhost:3000/clients/'+ data.id;
     this.requestUrl = this.href;
     return this._httpClient.get (this.requestUrl);
   }
   PostRepoClients(data) {
-    this.href = 'http://47.63.85.58:8000/clients';
+    this.href = 'http://localhost:3000/clients';
     this.requestUrl =this.href;
     if(data.id === undefined) {
       return this._httpClient.post (this.requestUrl, data).subscribe();
     }
     else{
-      this.href = 'http://47.63.85.58:8000/clients/'+ data.id;
+      this.href = 'http://localhost:3000/clients/'+ data.id;
       this.requestUrl =this.href;
       return this._httpClient.put (this.requestUrl, data).subscribe();
     }
   }
 
   DeleteRepoClients(data){
-    this.href = 'http://47.63.85.58:8000/clients/' + data.id ;
+    this.href = 'http://localhost:3000/clients/' + data.id ;
     this.requestUrl =this.href;
     return this._httpClient.delete (this.requestUrl, data).subscribe();
   }

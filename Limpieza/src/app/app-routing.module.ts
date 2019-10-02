@@ -29,6 +29,14 @@ const routes: Routes = [
           )
       },
       {
+        path: 'parseador',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./parseador/parseador.module').then(
+            m=>m.ParseadorModule
+          )
+      },
+      {
         path: 'logout',
         component: LoginComponent
       },

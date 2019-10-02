@@ -24,6 +24,13 @@ export class SidenavComponent implements OnInit,OnDestroy {
       url:'client',
       enable:true,
       icon: 'assignment_ind'
+    },
+    {
+      id:'2',
+      name:'Parseador',
+      url:'parseador',
+      enable:true,
+      icon: 'assignment'
     }];
   private mobileQueryListener: () => void;
 
@@ -39,6 +46,7 @@ export class SidenavComponent implements OnInit,OnDestroy {
   selected(item){
     if(this.lastItem!==item.name){
       this.arrayItems[1].enable =!this.arrayItems[1].enable;
+      this.arrayItems[2].enable =!this.arrayItems[2].enable;
       this.arrayItems[0].enable =!this.arrayItems[0].enable;
       this.lastItem=item.name;
     }
