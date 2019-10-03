@@ -1,9 +1,38 @@
+<div style="margin: 0 auto; display: table;">
 <form [formGroup]="formGroup" novalidate >
   <input type="file" name="files" (change)="onFileChange($event)" />
-  <button type="submit" [disabled]="formGroup.invalid ">Submit</button>
 </form>
-<div style="overflow: auto; height: 300px" >
-  <p *ngFor="let index of content">
-    {{index}}
-  </p>
+</div>
+<div style="overflow: auto; height: 300px; width: 100%; margin: 15px; padding:5px">
+  <b>Elipse</b>
+<!--  <p *ngFor="let index of contentEllipse let i = index" >-->
+<!--    <svg width="1000" height="1000"  >-->
+<!--      <ellipse [attr.cx]='contentEllipsex1[i]' [attr.cy]='contentEllipsey1[i]' [attr.rx]='contentEllipsex2[i]' [attr.ry]='contentEllipsey2[i]' style="fill:yellow;stroke:purple;stroke-width:2">-->
+<!--          </ellipse>-->
+<!--        </svg>-->
+<!--  </p>-->
+</div>
+
+
+<div style="overflow: auto; height: 300px; margin: 15px; padding:5px">
+  <b>Linea</b>
+<!--  <p *ngFor="let index of contentEllipse let i = index" >-->
+<!--    <svg width="1000" height="1000"  >-->
+<!--      <line [attr.x1]='contentLinex1[i]' [attr.y1]='contentLiney1[i]' [attr.x2]='contentLinex2[i]' [attr.y2]='contentLiney2[i]' style="fill:yellow;stroke:purple;stroke-width:2">-->
+<!--      </line>-->
+<!--    </svg>-->
+<!--  </p>-->
+</div>
+
+
+<div style="overflow: auto; height: 300px; margin: 15px; padding:5px">
+  <b>Polylinea</b>
+  {{polyLine}}
+  <label *ngFor="let indexI of polyLine let i = index">
+
+<!--      <svg width="1000" height="1000">-->
+<!--        <polyline points='{{polyLineX[j]}},{{polyLineY[i]}}'  style="fill:none;stroke:black;stroke-width:3"></polyline>-->
+<!--      </svg>-->
+
+  </label>
 </div>
