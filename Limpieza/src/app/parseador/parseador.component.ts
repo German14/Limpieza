@@ -28,12 +28,18 @@ export class ParseadorComponent implements OnInit {
   contentPolyLine: string[] = [];
   contentArc: string[] = [];
 
+<<<<<<< HEAD
 
    polyLineX: number[] = [];
    polyLineY: number[] = [];
   polyLine: number[] = [];
   count: number[] = [];
   element;
+=======
+  // polyLineX: number[] = [];
+  // polyLineY: number[] = [];
+  polyLine: number[] = [];
+>>>>>>> Frontend
   formGroup = this.fb.group({
     files: [null, '']
   });
@@ -72,11 +78,16 @@ export class ParseadorComponent implements OnInit {
             }
 
           }  else if (separador4.indexOf('IlvPoly') === 1) {
+<<<<<<< HEAD
             if (separador4.charAt(separador4.length - 2) === '}') {
+=======
+            if (separador4.charAt( separador4.length - 2 ) === '}') {
+>>>>>>> Frontend
               const separadorPoly = separador4.split('IlvPolyline')[1].substring(0, separador4.split('IlvPolyline')[1].length - 2);
 
               const splitString = separadorPoly.split('\\r\\n');
 
+<<<<<<< HEAD
               this.count.push(+splitString[0]);
               console.log(splitString[1])
             //   if (splitString.length > 1) {
@@ -101,6 +112,26 @@ export class ParseadorComponent implements OnInit {
             // for (let s = 0; s < this.count[0] ; s++){
             //   console.log(this.polyLine[s])
              }
+=======
+              if (splitString.length > 1) {
+                // tslint:disable-next-line:prefer-for-of
+                  for (let j = 0; j < splitString[0].length - 1; j++) {
+                    const punto = splitString[j].split(' ');
+                    for (let z = 2; z < punto.length - 1; z++) {
+                      if (+z % 2 !== 0) {
+                         this.polyLine.push( +z, +punto[z]);
+                      } else {
+                         this.polyLine.push( +z, +punto[z]);
+                      }
+                    }
+
+                  }
+              }
+
+              this.contentPolyLine.push(separadorPoly);
+
+            }
+>>>>>>> Frontend
           }
 
         } else if (!isNullOrUndefined(separador5)) {
@@ -108,10 +139,17 @@ export class ParseadorComponent implements OnInit {
             if (separador5.charAt( separador5.length - 2 ) === '}') {
               const separadorLine = separador5.split('IlvLine')[1].substring(0, separador5.split('IlvLine')[1].length - 2);
 
+<<<<<<< HEAD
               this.contentLinex1.push(Math.abs(parseInt(separadorLine.split(' ')[1], 16) / 100000));
               this.contentLiney1.push(Math.abs(parseInt (separadorLine.split(' ')[2], 16) / 100000));
               this.contentLinex2.push(Math.abs(parseInt ( separadorLine.split(' ')[3], 16) / 10000));
               this.contentLiney2.push(Math.abs(parseInt ( separadorLine.split(' ')[4], 16) / 10000 ));
+=======
+              this.contentLinex1.push(Math.abs(parseInt(separadorLine.split(' ')[1], 16) / 10000));
+              this.contentLiney1.push(Math.abs(parseInt (separadorLine.split(' ')[2], 16) / 10000));
+              this.contentLinex2.push(Math.abs(parseInt ( separadorLine.split(' ')[3], 16) / 1000));
+              this.contentLiney2.push(Math.abs(parseInt ( separadorLine.split(' ')[4], 16) / 1000 ));
+>>>>>>> Frontend
               this.contentLine.push(separadorLine);
             }
           }
