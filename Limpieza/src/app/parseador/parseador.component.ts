@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {DataService} from '../service/service';
 import {FormBuilder} from '@angular/forms';
-import {isNullOrUndefined} from "util";
+import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'app-parseador',
@@ -9,7 +9,7 @@ import {isNullOrUndefined} from "util";
   styleUrls: ['./parseador.component.scss']
 })
 export class ParseadorComponent implements OnInit {
-  loading=false;
+  loading = false;
   response;
 
   contentEllipsex1: number[] = [];
