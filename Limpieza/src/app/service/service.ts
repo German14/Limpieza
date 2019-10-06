@@ -73,10 +73,9 @@ export class DataService {
         if (!file) {
           return;
         }
-        reader.onload = function (e) {
+        reader.onloadend = function(e) {
           const contents = e.target['result'];
           obs.next(contents);
-
         };
         reader.readAsText(file);
       }

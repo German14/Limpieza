@@ -9,7 +9,7 @@ import {ParseadorComponent} from "./parseador/parseador.component";
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/login' },
-    { path: 'login', component: ParseadorComponent },
+    { path: 'login', component: LoginComponent },
   {path: 'sidenav',
     component:SidenavComponent,
     children:[

@@ -1,74 +1,23 @@
 <div style="margin: 0 auto; display: table;">
-<<<<<<< HEAD
+
   <form [formGroup]="formGroup" novalidate >
     <input type="file" name="files" (change)="onFileChange($event)" />
   </form>
 </div>
-<div style="overflow: auto; height: 300px; width: 100%; margin: 15px; padding:5px">
-  <p *ngFor="let index of contentEllipse let i = index" >
-    <svg width="1000" height="1000"  >
-      <ellipse [attr.cx]='contentEllipsex1[i]' [attr.cy]='contentEllipsey1[i]' [attr.rx]='contentEllipsex2[i]' [attr.ry]='contentEllipsey2[i]' style="fill:yellow;stroke:purple;stroke-width:2">
-      </ellipse>
-    </svg>
-  </p>
 
-=======
-<form [formGroup]="formGroup" novalidate >
-  <input type="file" name="files" (change)="onFileChange($event)" />
-</form>
->>>>>>> Frontend
-</div>
-<div style="overflow: auto; height: 300px; width: 100%; margin: 15px; padding:5px">
-  <b>Elipse</b>
-<!--  <p *ngFor="let index of contentEllipse let i = index" >-->
-<!--    <svg width="1000" height="1000"  >-->
-<!--      <ellipse [attr.cx]='contentEllipsex1[i]' [attr.cy]='contentEllipsey1[i]' [attr.rx]='contentEllipsex2[i]' [attr.ry]='contentEllipsey2[i]' style="fill:yellow;stroke:purple;stroke-width:2">-->
-<!--          </ellipse>-->
-<!--        </svg>-->
-<!--  </p>-->
-</div>
+          <svg width="100%" height="100%"  >
+            <ellipse *ngFor="let index of contentEllipse let i = index" [attr.cx]='contentEllipsex1[i]' [attr.cy]='contentEllipsey1[i]' [attr.rx]='contentEllipsex2[i]' [attr.ry]='contentEllipsey2[i]' style="fill:yellow;stroke:purple;stroke-width:2">
+                </ellipse>
+            <line  *ngFor="let index of contentLine let j = index" [attr.x1]='contentLinex1[j]' [attr.y1]='contentLiney1[j]' [attr.x2]='contentLinex2[j]' [attr.y2]='contentLiney2[j]' style="fill:yellow;stroke:purple;stroke-width:2">
+            </line>
+            <polyline  *ngFor="let index of polyLine let z = index" [attr.points]= " index " style="fill:yellow;stroke:purple;stroke-width:2">
+            </polyline>
 
 
-<div style="overflow: auto; height: 300px; margin: 15px; padding:5px">
-<<<<<<< HEAD
-  <p *ngFor="let index of contentLine let i = index" >
-    <svg width="1000" height="1000"  >
-      <line [attr.x1]='contentLinex1[i]' [attr.y1]='contentLiney1[i]' [attr.x2]='contentLinex2[i]' [attr.y2]='contentLiney2[i]' style="fill:yellow;stroke:purple;stroke-width:2">
-      </line>
-    </svg>
-  </p>
-</div>
-
-<div style="overflow: auto; height: 300px; margin: 15px; padding:5px">
-  <div >
-<!--          <svg width="1000" height="1000">-->
-<!--            <polyline [attr.points]= "element"  style="fill:none;stroke:black;stroke-width:3"></polyline>-->
-<!--          </svg>-->
-<!--  </div>-->
-<!--  <div *ngFor="let indexM of count let i = index2">-->
-<!--    {{indexM}}-->
-<!--  </div>-->
-=======
-  <b>Linea</b>
-<!--  <p *ngFor="let index of contentEllipse let i = index" >-->
-<!--    <svg width="1000" height="1000"  >-->
-<!--      <line [attr.x1]='contentLinex1[i]' [attr.y1]='contentLiney1[i]' [attr.x2]='contentLinex2[i]' [attr.y2]='contentLiney2[i]' style="fill:yellow;stroke:purple;stroke-width:2">-->
-<!--      </line>-->
-<!--    </svg>-->
-<!--  </p>-->
-</div>
+              </svg>
 
 
-<div style="overflow: auto; height: 300px; margin: 15px; padding:5px">
-  <b>Polylinea</b>
-  {{polyLine}}
-  <label *ngFor="let indexI of polyLine let i = index">
 
-<!--      <svg width="1000" height="1000">-->
-<!--        <polyline points='{{polyLineX[j]}},{{polyLineY[i]}}'  style="fill:none;stroke:black;stroke-width:3"></polyline>-->
-<!--      </svg>-->
 
-  </label>
->>>>>>> Frontend
-</div>
+
 
