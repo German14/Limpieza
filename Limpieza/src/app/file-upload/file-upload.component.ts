@@ -26,11 +26,15 @@ export class FileUploadComponent implements OnInit{
 
   }
 
+  fileData: File = null;
+
   onFileChange(event) {
     const reader = new FileReader();
 
+
     if(event.target.files && event.target.files.length) {
       const [file] = event.target.files;
+
       reader.readAsDataURL(file);
 
       reader.onload = () => {
@@ -41,24 +45,25 @@ export class FileUploadComponent implements OnInit{
         if(file.name.split('.')[1]==='zip'){
           this.disabled=false;
         }
+        this.fileData = <File>event.target.files[0];
 
+        this.onSubmit(file);
         // need to run CD since file load runs outside of zone
         this.cd.markForCheck();
       };
     }
    }
+
+
   onSubmit(data){
-    this.onFileChange(data)
-    this.service.sendFile(this.formGroup.get('files').value).subscribe(
+    this.service.sendFile(data).subscribe(
       (res) => {
         if (res) {
           if(!isNullOrUndefined(res)){
             this.loading=true;
             this.response= res;
-
           }
         }else{
-
           this.loading=false;
           this.response= res;
         }
