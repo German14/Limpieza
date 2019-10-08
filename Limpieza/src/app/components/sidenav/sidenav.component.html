@@ -17,7 +17,7 @@
           <img style="border-radius: 30px; border: 3px solid white;" alt="logo"
                src="../../../assets/Logo.png" height="150" width="150"/>
         </div>
-        <a mat-list-item *ngFor="let item of arrayItems ;let i = index" [routerLink]="[item.url]" (click)="selected(item)"
+        <a mat-list-item *ngFor="let item of serviceSidenav.arrayItems ;let i = index" [routerLink]="[item.url]" (click)="selected(item)"
            [style.background-color]="item.enable===false ? 'white' :''"
            [style.color]="item.enable===false ? 'black' :'white'">
           <i [style.color]="item.enable===false ? 'black' :''"  class="material-icons orange600">{{item.icon}}</i>

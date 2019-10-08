@@ -28,7 +28,6 @@ import {FormComponent} from './form/form.component';
 import {LoginComponent} from './login/login.component';
 import {InterceptorService} from './_service/Interceptor';
 import {AuthenticationService} from './_service/AuthentificationService';
-import {ClientsComponent} from './clients/clients.component';
 import {FormClientsComponent} from './form-clients/form-clients.component';
 import {DataServiceClients} from './service/serviceClients';
 import {DatepickerComponent} from './datepicker/datepicker.component';
@@ -41,6 +40,7 @@ import {ButtonNavigationModule} from './buttons-navigation/button-navigation.mod
 import {ClientModule} from './clients/client.module';
 import {FileUploadModule} from './file-upload/file-upload.module';
 import {ParseadorModule} from "./parseador/parseador.module";
+import {ServiceSidenav} from "./service/serviceSidenav";
 
 
 @NgModule({
@@ -93,6 +93,7 @@ import {ParseadorModule} from "./parseador/parseador.module";
     AuthenticationService,
     ButtonsNavigationComponent,
     ServiceDialog,
+    ServiceSidenav,
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
 
   ],

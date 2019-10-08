@@ -38,6 +38,14 @@ const routes: Routes = [
           )
       },
       {
+        path: 'fileUpload',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./file-upload/file-upload.module').then(
+            m=>m.FileUploadModule
+          )
+      },
+      {
         path: 'logout',
         component: LoginComponent
       },

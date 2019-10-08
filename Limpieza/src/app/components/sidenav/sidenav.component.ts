@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import {AuthenticationService} from '../../_service/AuthentificationService';
 import * as jwt_decode from 'jwt-decode';
+import {ServiceSidenav} from "../../service/serviceSidenav";
 
 @Component({
   selector: 'app-sidenav',
@@ -11,30 +12,11 @@ import * as jwt_decode from 'jwt-decode';
 export class SidenavComponent implements OnInit,OnDestroy {
   mobileQuery: MediaQueryList;
   user: any;
-  arrayItems=[{
-    id:'0',
-    name:'Trabajadoras',
-    url:'table',
-    enable:false,
-    icon:'build'
-  },
-    {
-      id:'1',
-      name:'Clientes',
-      url:'client',
-      enable:true,
-      icon: 'assignment_ind'
-    },
-    {
-      id:'2',
-      name:'Parseador',
-      url:'parseador',
-      enable:true,
-      icon: 'assignment'
-    }];
+
+
   private mobileQueryListener: () => void;
 
-  constructor(media: MediaMatcher, changeDetectorRef: ChangeDetectorRef, private authorization: AuthenticationService,) {
+  constructor(media: MediaMatcher, changeDetectorRef: ChangeDetectorRef, private authorization: AuthenticationService,private serviceSidenav: ServiceSidenav) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this.mobileQueryListener);
@@ -45,9 +27,10 @@ export class SidenavComponent implements OnInit,OnDestroy {
   lastItem;
   selected(item){
     if(this.lastItem!==item.name){
-      this.arrayItems[1].enable =!this.arrayItems[1].enable;
-      this.arrayItems[2].enable =!this.arrayItems[2].enable;
-      this.arrayItems[0].enable =!this.arrayItems[0].enable;
+      console.log(item)
+      this.serviceSidenav.arrayItems[0].enable =!this.serviceSidenav.arrayItems[0].enable;
+      this.serviceSidenav.arrayItems[1].enable =!this.serviceSidenav.arrayItems[1].enable;
+      this.serviceSidenav.arrayItems[2].enable =!this.serviceSidenav.arrayItems[2].enable;
       this.lastItem=item.name;
     }
 
