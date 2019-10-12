@@ -17,10 +17,12 @@ import {isNullOrUndefined} from 'util';
 })
 export class ButtonsNavigationComponent implements OnInit {
   @Input() public input: any;
+  @Input() public export: any;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   data: MatTableDataSource<GithubIssue>;
+  dataClient: MatTableDataSource<GithubIssue>;
 
   constructor(
               private tableDataBase: DataService,
@@ -46,11 +48,11 @@ export class ButtonsNavigationComponent implements OnInit {
     this.tableClientDataBase.getRepoClients().subscribe(
       (element) => {
         const dataSources = Array.from( {length: 1 } , () => element);
-        this.data = new MatTableDataSource(dataSources[0]);
-        this.data.sort = this.sort;
-        this.data.paginator = this.paginator;
+        this.dataClient = new MatTableDataSource(dataSources[0]);
+        this.dataClient.sort = this.sort;
+        this.dataClient.paginator = this.paginator;
 
-        this.tableClientDataBase.newCoordinateClientForm.next(this.data);
+        this.tableClientDataBase.newCoordinateClientForm.next(this.dataClient);
       });
   }
 
@@ -77,7 +79,13 @@ export class ButtonsNavigationComponent implements OnInit {
   }
 
   exportAsXLSX() {
-    this.ServiceDialog.exportAsExcelFile(this.data.data, 'Trabajadoras');
+    if(this.export === 'tableComponent'){
+
+      this.ServiceDialog.exportAsExcelFile(this.data.data, 'Trabajadores');
+    }
+    else {
+      this.ServiceDialog.exportAsExcelFile(this.dataClient.data, 'Clientes');
+    }
   }
 
   logout() {

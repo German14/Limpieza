@@ -47,7 +47,7 @@ export class FileUploadComponent implements OnInit{
         }
         this.fileData = <File>event.target.files[0];
 
-        this.onSubmit(file);
+
         // need to run CD since file load runs outside of zone
         this.cd.markForCheck();
       };
@@ -55,24 +55,24 @@ export class FileUploadComponent implements OnInit{
    }
 
 
-  onSubmit(data){
-    this.service.sendFile(data).subscribe(
-      (res) => {
-        if (res) {
-          if(!isNullOrUndefined(res)){
-            this.loading=true;
-            this.response= res;
-          }
-        }else{
-          this.loading=false;
-          this.response= res;
-        }
-
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-    console.log(data)
-  }
+  // onSubmit(data){
+  //   this.service.sendFile(data).subscribe(
+  //     (res) => {
+  //       if (res) {
+  //         if(!isNullOrUndefined(res)){
+  //           this.loading=true;
+  //           this.response= res;
+  //         }
+  //       }else{
+  //         this.loading=false;
+  //         this.response= res;
+  //       }
+  //
+  //     },
+  //     (err) => {
+  //       console.log(err);
+  //     }
+  //   );
+  //   console.log(data)
+  // }
 }

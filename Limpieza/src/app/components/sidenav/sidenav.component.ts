@@ -24,17 +24,7 @@ export class SidenavComponent implements OnInit,OnDestroy {
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this.mobileQueryListener);
   }
-  lastItem;
-  selected(item){
-    if(this.lastItem!==item.name){
-      console.log(item)
-      this.serviceSidenav.arrayItems[0].enable =!this.serviceSidenav.arrayItems[0].enable;
-      this.serviceSidenav.arrayItems[1].enable =!this.serviceSidenav.arrayItems[1].enable;
-      this.serviceSidenav.arrayItems[2].enable =!this.serviceSidenav.arrayItems[2].enable;
-      this.lastItem=item.name;
-    }
 
-  }
 
   ngOnInit() {
     this.authorization.currentUser.subscribe((data) => {

@@ -22,7 +22,7 @@ export class ClientsComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns: string[] = ['id', 'Name', 'Phone','Tiro','Garaje', 'Portal', 'Observations', 'Delete', 'DateRow'];
-  data: MatTableDataSource<GithubIssue>;
+  dataClient: MatTableDataSource<GithubIssue>;
 
 
 
@@ -41,9 +41,9 @@ export class ClientsComponent implements OnInit {
 
     this.tableDataBaseClient.newCoordinateClientForm$.subscribe((value =>{
       const dataSources = Array.from( {length: 1 } , () => value.data);
-      this.data = new MatTableDataSource(dataSources[0]);
-      this.data.sort = this.sort;
-      this.data.paginator = this.paginator;
+      this.dataClient = new MatTableDataSource(dataSources[0]);
+      this.dataClient.sort = this.sort;
+      this.dataClient.paginator = this.paginator;
     }))
   }
 
@@ -53,18 +53,18 @@ export class ClientsComponent implements OnInit {
       this.tableDataBaseClient.getRepoClients().subscribe(
         (element) => {
           const dataSources = Array.from( {length: 1 } , () => element);
-          this.data = new MatTableDataSource(dataSources[0]);
-          this.data.sort = this.sort;
-          this.data.paginator = this.paginator;
+          this.dataClient = new MatTableDataSource(dataSources[0]);
+          this.dataClient.sort = this.sort;
+          this.dataClient.paginator = this.paginator;
         });
     },500)
   }
 
   applyFilter(filterValue: string) {
-    this.data.filter = filterValue.trim().toLowerCase();
+    this.dataClient.filter = filterValue.trim().toLowerCase();
 
-    if (this.data.paginator) {
-      this.data.paginator.firstPage();
+    if (this.dataClient.paginator) {
+      this.dataClient.paginator.firstPage();
     }
   }
 

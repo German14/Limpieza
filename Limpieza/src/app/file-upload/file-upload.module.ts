@@ -11,7 +11,7 @@ import {
 } from "@angular/material";
 import {ButtonNavigationModule} from "../buttons-navigation/button-navigation.module";
 import {ReactiveFormsModule} from "@angular/forms";
-import {FileUploadComponent} from "./file-upload.component";
+import {FileUploadComponent} from './file-upload.component';
 import {FileUploadRoutingModule} from "./file-upload-routing.module";
 
 

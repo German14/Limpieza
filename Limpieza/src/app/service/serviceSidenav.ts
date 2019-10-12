@@ -25,13 +25,13 @@ export class ServiceSidenav {
       enable:true,
       icon: 'assignment'
     },
-    {
-      id:'3',
-      name:'Importador',
-      url:'fileUpload',
-      enable:true,
-      icon: 'import'
-    }
+    // {
+    //   id:'3',
+    //   name:'Importador',
+    //   url:'fileUpload',
+    //   enable:true,
+    //   icon: 'import'
+    // }
     ];
 
 

@@ -82,31 +82,31 @@ export class DataService {
     });
   }
 
-
-  sendFile(file): Observable <any> {
-    return new Observable(obs => {
-      // console.log('test-file ', file);
-      const apiUrl = 'http://localhost:3000/api/upload';
-      const data = new FormData();
-      console.log(file);
-      data.append('file', file);
-      const request = new XMLHttpRequest();
-      request.open('POST', apiUrl, true);
-      request.setRequestHeader('Access-Control-Allow-Origin', '*');
-      request.send(data);
-      request.onload = (e) => {
-        if (request.readyState === 4) {
-          if (request.status === 200) {
-            obs.next(request.response);
-          }
-        } else {
-          obs.next('nada');
-
-        }
-      };
-
-    });
-  }
+  //
+  // sendFile(file): Observable <any> {
+  //   return new Observable(obs => {
+  //     // console.log('test-file ', file);
+  //     const apiUrl = 'http://localhost:3000/api/upload';
+  //     const data = new FormData();
+  //     console.log(file);
+  //     data.append('file', file);
+  //     const request = new XMLHttpRequest();
+  //     request.open('POST', apiUrl, true);
+  //     request.setRequestHeader('Access-Control-Allow-Origin', '*');
+  //     request.send(data);
+  //     request.onload = (e) => {
+  //       if (request.readyState === 4) {
+  //         if (request.status === 200) {
+  //           obs.next(request.response);
+  //         }
+  //       } else {
+  //         obs.next('nada');
+  //
+  //       }
+  //     };
+  //
+  //   });
+  // }
 
 }
 

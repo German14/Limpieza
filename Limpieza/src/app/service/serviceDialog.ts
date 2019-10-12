@@ -26,6 +26,7 @@ export class ServiceDialog implements OnInit{
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   data: MatTableDataSource<GithubIssue>;
+  dataClient: MatTableDataSource<GithubIssue>;
   constructor( private componentFactoryResolver: ComponentFactoryResolver,
                private appRef: ApplicationRef,
                private injector: Injector,
@@ -53,11 +54,11 @@ serviceClientUpdate(){
   this.tableDataBaseClient.getRepoClients().subscribe(
     (element) => {
       const dataSources = Array.from( {length: 1 } , () => element);
-      this.data = new MatTableDataSource(dataSources[0]);
-      this.data.sort = this.sort;
-      this.data.paginator = this.paginator;
+      this.dataClient = new MatTableDataSource(dataSources[0]);
+      this.dataClient.sort = this.sort;
+      this.dataClient.paginator = this.paginator;
 
-      this.tableDataBaseClient.newCoordinateClientForm.next(this.data);
+      this.tableDataBaseClient.newCoordinateClientForm.next(this.dataClient);
     });
 
 }

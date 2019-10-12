@@ -36,3 +36,13 @@ mat-table {
 
   }
 }
+@media screen and (min-width: 250px) {
+
+  div > mat-card {
+    margin: 25px;
+    /* min-width: 607px; */
+    overflow: scroll;
+    width: 400px;
+
+  }
+}
