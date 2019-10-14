@@ -27,12 +27,18 @@ mat-table {
 
 
 @media screen and (max-width: 450px) {
-
-div > mat-card {
-  margin: 25px;
-  /* min-width: 607px; */
-  overflow: scroll;
-  height: 400px;
-
+  div > mat-card {
+    margin: 25px;
+    /* min-width: 607px; */
+    overflow: scroll;
+    height: 400px;
+  }
 }
+@media screen and (max-height: 375px) {
+  div > mat-card {
+    /* margin: 25px; */
+    min-width: 577px;
+    overflow: scroll;
+    height: 220px;
+  }
 }
