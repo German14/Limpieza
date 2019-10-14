@@ -1,11 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
-import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
+import * as M from 'materialize-css'
 
-const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-const EXCEL_EXTENSION = '.xlsx';
 
 
 export interface GithubIssue {
@@ -44,28 +41,41 @@ export class DataService {
     return this.httpClient.get (this.requestUrl);
   }
 
-  PostRepoIssues(data) {
+  PostRepoIssues(data){
     this.href = 'http://localhost:3000/users';
     this.requestUrl = this.href;
     if (data.id === undefined) {
-      return this.httpClient.post (this.requestUrl, data).subscribe();
+      return this.httpClient.post (this.requestUrl, data).subscribe((value)=>{
+
+        M.toast({html: value['result']}, 3000);
+      }, error =>{
+        M.toast({html: error.error.message}, 3000);
+      });
     } else {
       this.href = 'http://localhost:3000/users/' + data.id;
       this.requestUrl = this.href;
-      return this.httpClient.put (this.requestUrl, data).subscribe();
+      this.httpClient.put (this.requestUrl, data).subscribe((value)=>{
+
+        M.toast({html: value['result']}, 3000);
+      }, error =>{
+        M.toast({html: error.error.message}, 3000);
+      });
     }
   }
 
   DeleteRepoIssues(data) {
     this.href = 'http://localhost:3000/users/' + data.id ;
     this.requestUrl = this.href;
-    return this.httpClient.delete (this.requestUrl, data).subscribe();
+    return this.httpClient.delete (this.requestUrl, data).subscribe((value)=>{
+      M.toast({html: value['result']}, 3000);
+    }, error =>{
+      M.toast({html: error.error.message}, 3000);
+    });
   }
 
 
 
   readFile(event): Observable <any> {
-    console.log('hola', event)
     return new Observable(obs => {
       const reader = new FileReader();
       if (event.target.files && event.target.files.length) {

@@ -4,6 +4,7 @@
 </h5>
 
 <form [formGroup]="contacto" (ngSubmit)="onSubmit()">
+
   <div class="form-group" style="display: none">
     <label>Id</label>
     <input type="text" formControlName="id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.id.errors }" />
@@ -45,7 +46,7 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="Observations">Observaciones</label>
+    <label >Observaciones</label>
     <textarea class="form-control" formControlName="Observations" rows="3" [ngClass]="{ 'is-invalid': submitted && f.Observations.errors }"></textarea>
     <div *ngIf="submitted && f.Observations.errors" class="invalid-feedback">
       <div *ngIf="f.Observations.errors.required">Por favor, ingresa las observaciones</div>

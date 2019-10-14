@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
-
-const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-const EXCEL_EXTENSION = '.xlsx';
+import * as M from 'materialize-css'
 
 
 export interface GithubIssue {
@@ -41,19 +39,31 @@ export class DataServiceClients {
     this.href = 'http://localhost:3000/clients';
     this.requestUrl =this.href;
     if(data.id === undefined) {
-      return this._httpClient.post (this.requestUrl, data).subscribe();
+      return this._httpClient.post (this.requestUrl, data).subscribe((value)=>{
+        M.toast({html: value['result']}, 3000);
+      }, error =>{
+        M.toast({html: error.error.message}, 3000);
+      });
     }
     else{
       this.href = 'http://localhost:3000/clients/'+ data.id;
       this.requestUrl =this.href;
-      return this._httpClient.put (this.requestUrl, data).subscribe();
+      return this._httpClient.put (this.requestUrl, data).subscribe((value)=>{
+        M.toast({html: value['result']}, 3000);
+      }, error =>{
+        M.toast({html: error.error.message}, 3000);
+      });
     }
   }
 
   DeleteRepoClients(data){
     this.href = 'http://localhost:3000/clients/' + data.id ;
     this.requestUrl =this.href;
-    return this._httpClient.delete (this.requestUrl, data).subscribe();
+    return this._httpClient.delete (this.requestUrl, data).subscribe((value)=>{
+      M.toast({html: value['result']}, 3000);
+    }, error =>{
+      M.toast({html: error.error.message}, 3000);
+    });
   }
 
 
