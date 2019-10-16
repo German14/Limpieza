@@ -5,13 +5,13 @@
 </div>
 <div style="overflow: auto; height: 12500px; width: 12500px;background: cornsilk">
   <svg    viewBox="181407.1 -366143.4 215100 226100" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-    <ellipse *ngFor="let index of contentEllipse let i = index" [attr.cx]="contentEllipsex1[i]" [attr.cy]="contentEllipsey1[i]" [attr.rx]="contentEllipsex2[i]" [attr.ry]="contentEllipsey2[i]" style="fill:yellow;stroke:purple;stroke-width:2;">
+    <ellipse *ngFor="let index of contentEllipse let i = index" [attr.cx]="contentEllipsex1[i]" [attr.cy]="contentEllipsey1[i]" [attr.rx]="contentEllipsex2[i]" [attr.ry]="contentEllipsey2[i]" style="fill:red;stroke:black;stroke-width:8;">
     </ellipse>
-    <line  *ngFor="let index of contentLine let j = index" [attr.x1]="contentLinex1[j]" [attr.y1]="contentLiney1[j]" [attr.x2]="contentLinex2[j]" [attr.y2]="contentLiney2[j]" style="fill:yellow;stroke:purple;stroke-width:2;">
+    <line  *ngFor="let index of contentLine let j = index" [attr.x1]="contentLinex1[j]" [attr.y1]="contentLiney1[j]" [attr.x2]="contentLinex2[j]" [attr.y2]="contentLiney2[j]" style="fill:red;stroke:black;stroke-width:8;">
     </line>
-    <polyline  *ngFor="let index of polyLine let z = index" [attr.points]= "index" style="fill:yellow;stroke:purple;stroke-width:2;">
+    <polyline  *ngFor="let index of polyLine let z = index" [attr.points]= "index" style="fill:red;stroke:black;stroke-width:8;">
     </polyline>
-    <path *ngFor="let index of contentArc let z = index" [attr.d]="'M '+contentArcx1[z]+' '+ contentArcy1[z]+ ' q '+ contentArcd2[z]+' '+contentArcx2[z]+' '+contentArcy2[z]+' '+ contentArcr2[z]" style="fill:yellow;stroke:purple;stroke-width:1;" >
+    <path *ngFor="let index of contentArc let z = index" [attr.d]="'M '+contentArcx1[z]+' '+ contentArcy1[z]+ ' q '+ contentArcd2[z]+' '+contentArcx2[z]+' '+contentArcy2[z]+' '+ contentArcr2[z]" style="fill:red;stroke:black;stroke-width:8;" >
     </path>
   </svg>
 </div>
