@@ -1,10 +1,18 @@
 <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
   <mat-card class="box">
     <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
+      <mat-card-title>Register</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="loginForm" class="my-form" (ngSubmit)="onFormSubmit()">
+      <form [formGroup]="registerForm" class="my-form" (ngSubmit)="onSubmit()">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">verified_user</i>
+          <input  matInput formControlName="name" placeholder="Nombre" name="name">
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">portrait</i>
+          <input  matInput formControlName="lastname" placeholder="Apellido" name="apellido">
+        </div>
         <div class="input-field col s12">
           <i class="material-icons prefix">mail_outline</i>
           <input  matInput formControlName="username" placeholder="Email" name="username">
@@ -17,12 +25,11 @@
                   type="password">
         </div>
         <p>
-          <button mat-raised-button type="submit" color="primary" class="btn waves-effect waves-light col s12">LOGIN</button>
+          <button mat-raised-button type="submit" color="primary" class="btn waves-effect waves-light col s12">Register</button>
         </p>
       </form>
-      <a routerLink="/register" routerLinkActive="router-link-active" >Register</a>
+      <a routerLink="/login" routerLinkActive="router-link-active" >Login</a>
     </mat-card-content>
   </mat-card>
 </div>
-
 

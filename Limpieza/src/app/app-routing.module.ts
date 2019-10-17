@@ -5,11 +5,11 @@ import {AuthGuard} from './_service/AuthGuard';
 import {DatepickerComponent} from './datepicker/datepicker.component';
 import {SidenavComponent} from './components/sidenav/sidenav.component';
 import {SidenavModule} from './components/sidenav/sidenav.module';
-import {ParseadorComponent} from "./parseador/parseador.component";
+import {RegisterComponent} from "./register/register.component";
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/login' },
     { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
   {path: 'sidenav',
     component:SidenavComponent,
     children:[

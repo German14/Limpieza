@@ -30,6 +30,13 @@ export class AuthenticationService {
       }));
   }
 
+  register (data: string[]) {
+    return this.http.post<any>('http://localhost:3000/api/register', { data: data })
+      .pipe(map(user => {
+      console.log( 'register');
+        return user;
+      }));
+  }
 
   logout() {
 // remove user data from local storage for log out
