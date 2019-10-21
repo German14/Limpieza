@@ -65,7 +65,8 @@
         <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Borrar </th>
           <td mat-cell *matCellDef="let row" >
-            <button style="background: #3f51b5;  border:1px solid #3f51b5" type="button" class="btn btn-primary btn-lg " data-toggle="modal"  (click)="deleteRow(row)">
+            <button style="background: #3f51b5;  border:1px solid #3f51b5" type="button" class="btn btn-primary btn-lg " data-toggle="modal"
+                    (click)="deleteRow(row,'TableComponents')">
               <i class="fa fa-trash"></i>
             </button>
           </td>

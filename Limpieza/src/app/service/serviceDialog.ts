@@ -57,7 +57,6 @@ serviceClientUpdate(){
       this.dataClient = new MatTableDataSource(dataSources[0]);
       this.dataClient.sort = this.sort;
       this.dataClient.paginator = this.paginator;
-
       this.tableDataBaseClient.newCoordinateClientForm.next(this.dataClient);
     });
 
@@ -66,16 +65,21 @@ serviceClientUpdate(){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = row;
     dialogConfig.width = '500px';
+    dialogConfig.disableClose = true;
     if (componentType === FormComponent) {
       const dialogRef = this.dialog.open(componentType, dialogConfig);
       dialogRef.afterClosed().subscribe(() => {
-        this.ngOnInit();
+        if (dialogRef['_result'] === undefined) {
+          this.ngOnInit();
+        }
       })
     }
     else if (componentType === FormClientsComponent) {
       const dialogRef = this.dialog.open(componentType, dialogConfig);
       dialogRef.afterClosed().subscribe(() => {
-       this.serviceClientUpdate();
+        if (dialogRef['_result'] === undefined) {
+          this.serviceClientUpdate();
+        }
       })
     }
   }

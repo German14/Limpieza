@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {MatPaginator} from '@angular/material/paginator';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatDialogConfig} from '@angular/material';
 import {DataServiceClients, GithubIssue} from '../service/serviceClients';
 import {DataService} from '../service/service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -11,6 +11,8 @@ import {AuthenticationService} from '../_service/AuthentificationService';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {ButtonsNavigationComponent} from '../buttons-navigation/buttons-navigation.component';
+import {DeleteComponent} from "../delete/delete.component";
+import {ServiceDialog} from "../service/serviceDialog";
 
 @Component({
   selector: 'app-clients',
@@ -32,7 +34,8 @@ export class ClientsComponent implements OnInit {
               private authorization: AuthenticationService,
               private tableDataBase: DataService,
               private tableDataBaseClient: DataServiceClients,
-              private buttonDataBase: ButtonsNavigationComponent
+              private buttonDataBase: ButtonsNavigationComponent,
+              private ServiceDialog: ServiceDialog
   ) {
   }
 
@@ -47,17 +50,23 @@ export class ClientsComponent implements OnInit {
     }))
   }
 
-  deleteRow(row) {
-    this.tableDataBaseClient.DeleteRepoClients(row);
-    setTimeout( () => {
-      this.tableDataBaseClient.getRepoClients().subscribe(
-        (element) => {
-          const dataSources = Array.from( {length: 1 } , () => element);
-          this.dataClient = new MatTableDataSource(dataSources[0]);
-          this.dataClient.sort = this.sort;
-          this.dataClient.paginator = this.paginator;
-        });
-    },500)
+  deleteRow(row, table) {
+    this.ServiceDialog.open(DeleteComponent, row);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {row:row, table:table};
+    dialogConfig.disableClose = true;
+    const dialogRef = this.dialog.open(DeleteComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe((value) => {
+      if (dialogRef['_result'] === undefined) {
+        this.tableDataBaseClient.getRepoClients().subscribe(
+          (element) => {
+            const dataSources = Array.from( {length: 1 } , () => element);
+            this.dataClient = new MatTableDataSource(dataSources[0]);
+            this.dataClient.sort = this.sort;
+            this.dataClient.paginator = this.paginator;
+          });
+      }
+    })
   }
 
   applyFilter(filterValue: string) {

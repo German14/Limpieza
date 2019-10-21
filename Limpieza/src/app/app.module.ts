@@ -41,8 +41,8 @@ import {ClientModule} from './clients/client.module';
 import {FileUploadModule} from './file-upload/file-upload.module';
 import {ParseadorModule} from "./parseador/parseador.module";
 import {ServiceSidenav} from "./service/serviceSidenav";
-import { RegisterComponent } from './register/register.component';
 import {RegisterModule} from "./register/register.module";
+import {DeleteModule} from "./delete/Delete.module";
 
 
 @NgModule({
@@ -51,7 +51,7 @@ import {RegisterModule} from "./register/register.module";
     FormComponent,
     LoginComponent,
     FormClientsComponent,
-    DatepickerComponent,
+    DatepickerComponent
   ],
   imports: [
     MatCardModule,
@@ -83,6 +83,7 @@ import {RegisterModule} from "./register/register.module";
     ButtonNavigationModule,
     MatNativeDateModule,
     RegisterModule,
+    DeleteModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
