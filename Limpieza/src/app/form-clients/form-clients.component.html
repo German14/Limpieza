@@ -27,45 +27,55 @@
           <div *ngIf="f.Phone.errors.required">Por favor, ingresa el número de teléfono</div>
         </div>
       </div>
-      <div class="col-6" style="display: flex; margin-top: 26px;">
-          <input  class="form-control " formControlName="Tiro" [ngClass]="{ 'is-invalid': submitted && f.Tiro.errors }"
-                  matInput [matDatepicker]="picker1" placeholder="Fecha Tiro">
-          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <div class="col-6" >
+        <label>Fecha Tiro</label>
+        <div style="display: flex;">
+          <input class="form-control " formControlName="Tiro" [ngClass]="{ 'is-invalid': submitted && f.Tiro.errors }"
+                 matInput [matDatepicker]="picker1" placeholder="Fecha Tiro">
+          <mat-datepicker-toggle matSuffix [for]="picker1">Fecha Tiro</mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
-        <div *ngIf="submitted && f.Tiro.errors" class="invalid-feedback">
-          <div *ngIf="f.Tiro.errors.required">Por favor, ingresa una fecha</div>
+          <div *ngIf="submitted && f.Tiro.errors" class="invalid-feedback">
+            <div *ngIf="f.Tiro.errors.required">Por favor, ingresa una fecha</div>
+          </div>
         </div>
       </div>
 
-      <div class="col-6" style="display: flex; margin-top: 26px;">
-       <input  class="form-control " formControlName="Garaje" [ngClass]="{ 'is-invalid': submitted && f.Garaje.errors }"
-                matInput [matDatepicker]="picker2" placeholder="Fecha Garaje">
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-        <div *ngIf="submitted && f.Garaje.errors" class="invalid-feedback">
-          <div *ngIf="f.Garaje.errors.required">Por favor, ingresa una fecha</div>
+      <div class="col-6" >
+        <label>Fecha Garaje</label>
+        <div style="display: flex; ">
+          <input  class="form-control " formControlName="Garaje" [ngClass]="{ 'is-invalid': submitted && f.Garaje.errors }"
+                  matInput [matDatepicker]="picker2" placeholder="Fecha Garaje">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          <div *ngIf="submitted && f.Garaje.errors" class="invalid-feedback">
+            <div *ngIf="f.Garaje.errors.required">Por favor, ingresa una fecha</div>
+          </div>
         </div>
       </div>
 
-      <div class="col-6" style="display: flex; margin-top: 26px;">
-        <input  class="form-control " formControlName="Portal"  [ngClass]="{ 'is-invalid': submitted && f.Portal.errors }"
-                matInput [matDatepicker]="picker3" placeholder="Fecha Abrillantado">
-        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-        <mat-datepicker #picker3></mat-datepicker>
-        <div *ngIf="submitted && f.Portal.errors" class="invalid-feedback">
-          <div *ngIf="f.Portal.errors.required">Por favor, ingresa una fecha</div>
+      <div class="col-6" >
+        <label>Fecha Portal</label>
+        <div style="display: flex">
+          <input  class="form-control " formControlName="Portal"  [ngClass]="{ 'is-invalid': submitted && f.Portal.errors }"
+                  matInput [matDatepicker]="picker3" placeholder="Fecha Abrillantado">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+          <div *ngIf="submitted && f.Portal.errors" class="invalid-feedback">
+            <div *ngIf="f.Portal.errors.required">Por favor, ingresa una fecha</div>
+          </div>
         </div>
+
       </div>
     </div>
     <div class="form-group">
-      <label for="Observations">Observaciones</label>
+      <label >Observaciones</label>
       <textarea class="form-control" formControlName="Observations" rows="3" [ngClass]="{ 'is-invalid': submitted && f.Observations.errors }"></textarea>
       <div *ngIf="submitted && f.Observations.errors" class="invalid-feedback">
         <div *ngIf="f.Observations.errors.required">Por favor, ingresa las observaciones</div>
       </div>
     </div>
     <div class="form-group">
-      <button type="submit" style="margin-right: 4%;" [disabled]="loading" class="btn btn-primary">Agregar</button>
+      <button type="submit" style="margin-right: 4%;"  class="btn btn-primary">Agregar</button>
       <button  class="btn btn-primary" mat-dialog-close>Close</button>
     </div>
   </form>
