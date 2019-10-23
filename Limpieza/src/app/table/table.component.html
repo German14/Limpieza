@@ -7,9 +7,7 @@
       <input class="input-field col s12" matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </div>
     <div class="responsive-table centered responsive" style="width: 100%;">
-
       <mat-table  [dataSource]="data" matSort style="width: 100%">
-
         <!-- Number Column -->
         <ng-container matColumnDef="id" style="display: none">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>

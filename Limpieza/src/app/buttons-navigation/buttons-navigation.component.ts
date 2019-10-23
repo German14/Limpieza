@@ -1,8 +1,8 @@
-import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {DataService, GithubIssue} from '../service/service';
 import {AuthenticationService} from '../_service/AuthentificationService';
 import {Router} from '@angular/router';
-import {MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {FormComponent} from '../form/form.component';
 import {ServiceDialog} from '../service/serviceDialog';
 import {FormClientsComponent} from '../form-clients/form-clients.component';
@@ -25,35 +25,40 @@ export class ButtonsNavigationComponent implements OnInit {
   dataClient: MatTableDataSource<GithubIssue>;
 
   constructor(
-              private tableDataBase: DataService,
-              private tableClientDataBase: DataServiceClients,
-              private dialog: MatDialog,
-              private authorization: AuthenticationService,
-              private router: Router,
-              private ServiceDialog: ServiceDialog,
+    private tableDataBase: DataService,
+    private tableClientDataBase: DataServiceClients,
+    private dialog: MatDialog,
+    private authorization: AuthenticationService,
+    private router: Router,
+    private ServiceDialog: ServiceDialog,
 
   ) { }
 
   ngOnInit() {
-    this.tableDataBase.getRepoIssues().subscribe(
-      (element) => {
-        const dataSources = Array.from( {length: 1 } , () => element);
-        this.data = new MatTableDataSource(dataSources[0]);
-        this.data.sort = this.sort;
-        this.data.paginator = this.paginator;
+    if (this.input === 'FormComponent') {
+      this.tableDataBase.getRepoIssues().subscribe(
+        (element) => {
+          const dataSources = Array.from( {length: 1 } , () => element);
+          this.data = new MatTableDataSource(dataSources[0]);
+          this.data.sort = this.sort;
+          this.data.paginator = this.paginator;
 
-        this.tableDataBase.newCoordinateForm.next(this.data);
-      });
+          this.tableDataBase.newCoordinateForm.next(this.data);
+        });
 
-    this.tableClientDataBase.getRepoClients().subscribe(
-      (element) => {
-        const dataSources = Array.from( {length: 1 } , () => element);
-        this.dataClient = new MatTableDataSource(dataSources[0]);
-        this.dataClient.sort = this.sort;
-        this.dataClient.paginator = this.paginator;
+    } else if (this.input === 'FormClientsComponent') {
+      this.tableClientDataBase.getRepoClients().subscribe(
+        (element) => {
+          const dataSources = Array.from( {length: 1 } , () => element);
+          this.dataClient = new MatTableDataSource(dataSources[0]);
+          this.dataClient.sort = this.sort;
+          this.dataClient.paginator = this.paginator;
 
-        this.tableClientDataBase.newCoordinateClientForm.next(this.dataClient);
-      });
+          this.tableClientDataBase.newCoordinateClientForm.next(this.dataClient);
+        });
+    }
+
+
   }
 
   openForm(row, extra){
