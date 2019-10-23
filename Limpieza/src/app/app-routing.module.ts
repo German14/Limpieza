@@ -39,6 +39,14 @@ const routes: Routes = [
           )
       },
       {
+        path: 'date',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./datepicker/datepicker.module').then(
+            m=>m.DatepickerModule
+          )
+      },
+      {
         path: 'fileUpload',
         canActivate: [AuthGuard],
         loadChildren: () =>
@@ -53,7 +61,6 @@ const routes: Routes = [
 
     ]
   },
-  { path: 'date', component: DatepickerComponent , canActivate: [AuthGuard]}
 ];
 
 

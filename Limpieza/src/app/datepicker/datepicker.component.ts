@@ -6,9 +6,6 @@ import {MatDialog, MatDialogConfig} from '@angular/material';
 import {FormClientsComponent} from '../form-clients/form-clients.component';
 import {ActivatedRoute} from '@angular/router';
 import {DataServiceClients} from '../service/serviceClients';
-import {DatePipe, formatDate, registerLocaleData} from '@angular/common';
-
-import localeEsAr from '@angular/common/locales/es-AR';
 const colors: any = {
   red: {
     primary: '#ad2121',
@@ -32,15 +29,29 @@ const colors: any = {
   styleUrls: ['./datepicker.component.scss']
 })
 export class DatepickerComponent implements OnInit {
-  [x: string]: any;
-
-
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
 
+  yearT='';
+  MonthT= '';
+  dayT='';
+  yearG = '';
+  MonthG = '';
+  dayG = '' ;
+  yearP = '';
+  MonthP ='';
+  dayP = '';
+  id = '';
+  name:any ;
+  Phone = '';
+  observations = '';
+  Garaje = '';
+  Portal = '';
+  Tiro = '';
+  
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -158,7 +169,6 @@ export class DatepickerComponent implements OnInit {
     this.id = this.route.snapshot.queryParamMap.get("id");
 
     this.service.getRepoClient({id:this.id}).subscribe((data) =>{
-
       this.name= data[0].Name;
       this.Phone= data[0].Phone;
       this.observations= data[0].Observations;

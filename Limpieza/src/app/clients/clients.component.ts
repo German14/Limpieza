@@ -78,7 +78,7 @@ export class ClientsComponent implements OnInit {
   }
 
   dateRow(row){
-    this.router.navigate(['/date'], { queryParams: {
+    this.router.navigate(['sidenav/date'], { queryParams: {
         id: row.id,
         YearT: new Date(row.Tiro).getFullYear(),
         MonthT: new Date(row.Tiro).getMonth(),

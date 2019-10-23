@@ -30,7 +30,6 @@ import {InterceptorService} from './_service/Interceptor';
 import {AuthenticationService} from './_service/AuthentificationService';
 import {FormClientsComponent} from './form-clients/form-clients.component';
 import {DataServiceClients} from './service/serviceClients';
-import {DatepickerComponent} from './datepicker/datepicker.component';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {ButtonsNavigationComponent} from './buttons-navigation/buttons-navigation.component';
@@ -43,6 +42,7 @@ import {ParseadorModule} from "./parseador/parseador.module";
 import {ServiceSidenav} from "./service/serviceSidenav";
 import {RegisterModule} from "./register/register.module";
 import {DeleteModule} from "./delete/Delete.module";
+import {DatepickerModule} from './datepicker/datepicker.module';
 
 
 @NgModule({
@@ -50,8 +50,7 @@ import {DeleteModule} from "./delete/Delete.module";
     AppComponent,
     FormComponent,
     LoginComponent,
-    FormClientsComponent,
-    DatepickerComponent
+    FormClientsComponent
   ],
   imports: [
     MatCardModule,
@@ -84,6 +83,7 @@ import {DeleteModule} from "./delete/Delete.module";
     MatNativeDateModule,
     RegisterModule,
     DeleteModule,
+    DatepickerModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
