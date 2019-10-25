@@ -6,6 +6,7 @@ import {MatDialog, MatDialogConfig} from '@angular/material';
 import {FormClientsComponent} from '../form-clients/form-clients.component';
 import {ActivatedRoute} from '@angular/router';
 import {DataServiceClients} from '../service/serviceClients';
+import {take} from "rxjs/operators";
 const colors: any = {
   red: {
     primary: '#ad2121',
@@ -103,16 +104,16 @@ export class DatepickerComponent implements OnInit {
       start: subDays(
         startOfDay(
           new Date(
-            parseInt(this.route.snapshot.queryParamMap.get("YearP")),
-            parseInt(this.route.snapshot.queryParamMap.get("MonthP")),
-            parseInt(this.route.snapshot.queryParamMap.get("DayP")))),
+            parseInt(this.yearP),
+            parseInt(this.MonthP),
+            parseInt(this.dayP))),
         0),
       end: addDays(
         endOfDay(
           new Date(
-            parseInt(this.route.snapshot.queryParamMap.get("YearP")),
-            parseInt(this.route.snapshot.queryParamMap.get("MonthP")),
-            parseInt(this.route.snapshot.queryParamMap.get("DayP")))),
+            parseInt(this.yearP),
+            parseInt(this.MonthP),
+            parseInt(this.dayP))),
         0),
       title: 'Portal',
       color: colors.red,
@@ -154,32 +155,14 @@ export class DatepickerComponent implements OnInit {
   activeDayIsOpen: boolean = true;
 
   constructor(private dialog: MatDialog, private route: ActivatedRoute, private service: DataServiceClients) {
-    this.yearT = this.route.snapshot.queryParamMap.get("YearT");
-    this.MonthT = this.route.snapshot.queryParamMap.get("MonthT");
-    this.dayT =this.route.snapshot.queryParamMap.get("DayT");
-
-    this.yearG = this.route.snapshot.queryParamMap.get("YearG");
-    this.MonthG = this.route.snapshot.queryParamMap.get("MonthG");
-    this.dayG =this.route.snapshot.queryParamMap.get("DayG");
-
-    this.yearP = this.route.snapshot.queryParamMap.get("YearP");
-    this.MonthP = this.route.snapshot.queryParamMap.get("MonthP");
-    this.dayP =this.route.snapshot.queryParamMap.get("DayP");
-
-    this.id = this.route.snapshot.queryParamMap.get("id");
-
-    this.service.getRepoClient({id:this.id}).subscribe((data) =>{
-      this.name= data[0].Name;
-      this.Phone= data[0].Phone;
-      this.observations= data[0].Observations;
-      this.Garaje= data[0].Garaje;
-      this.Portal= data[0].Portal;
-      this.Tiro= data[0].Tiro;
-      }
-    );
+   this.id = this.route.snapshot.queryParamMap.get("id");
+    this.service.newCoordinateClientForm$.pipe(take(1)).subscribe((value) => {
+      this.yearP = value[0][0].Portal.split('-')[0];
+      this.MonthP = value[0][0].Portal.split('-')[1];
+      this.dayP = value[0][0].Portal.split('-')[2].split('T')[0];
+    });
   }
 
-  ngOnInit() {}
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       this.activeDayIsOpen = !((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
