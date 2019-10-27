@@ -162,6 +162,8 @@ export class DatepickerComponent implements OnInit {
       this.dayP = value[0][0].Portal.split('-')[2].split('T')[0];
     });
   }
+  ngOnInit(): void {
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {

@@ -1,9 +1,10 @@
 <div class="mat-dialog-container-clients" >
-  <h5 class="card-header info-color white-text text-center py-4" style="background-color: #4ECDC4; color: #333333">
+  <h5 class="card-header info-color white-text text-center py-4" style="background-color: #4ECDC4; color: #333333; margin-top: 0px; margin-bottom: 5px;">
     <strong>{{titulo}}</strong>
   </h5>
 
-  <form [formGroup]="contacto" (ngSubmit)="onSubmit()" >
+  <form [formGroup]="contacto" (ngSubmit)="onSubmit()" style="padding: 15px;
+    border: 2px solid #4ecdc4;">
     <div class="form-group" style="display: none">
       <label>Id</label>
       <input type="text" formControlName="id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.id.errors }" />
@@ -12,54 +13,54 @@
       </div>
     </div>
     <div class="form-group row">
-      <div class=" col-6">
+      <div class=" col-lg-5">
         <label>Nombre</label>
-        <input type="text" formControlName="Name" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" />
+        <input type="text" formControlName="Name"  style="font-size: 13px;" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" />
         <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
           <div *ngIf="f.Name.errors.required">El nombre es obligatorio</div>
           <div *ngIf="f.Name.errors.Name">Por favor, ingresa tu Nombre</div>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-lg-5">
         <label>Teléfono</label>
-        <input type="text" formControlName="Phone" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.Phone.errors }" />
+        <input type="text" formControlName="Phone" style="font-size: 13px;" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.Phone.errors }" />
         <div *ngIf="submitted && f.Phone.errors" class="invalid-feedback">
           <div *ngIf="f.Phone.errors.required">Por favor, ingresa el número de teléfono</div>
         </div>
       </div>
-      <div class="col-6" >
+      <div class="col-lg-4" >
         <label>Fecha Tiro</label>
         <div style="display: flex;">
-          <input class="form-control " formControlName="Tiro" [ngClass]="{ 'is-invalid': submitted && f.Tiro.errors }"
+          <input class="form-control " style="font-size: 13px;" formControlName="Tiro" [ngClass]="{ 'is-invalid': submitted && f.Tiro.errors }"
                  matInput [matDatepicker]="picker1" placeholder="Fecha Tiro">
           <mat-datepicker-toggle matSuffix [for]="picker1">Fecha Tiro</mat-datepicker-toggle>
-          <mat-datepicker #picker1></mat-datepicker>
+          <mat-datepicker #picker1 style="font-size: 13px;"></mat-datepicker>
           <div *ngIf="submitted && f.Tiro.errors" class="invalid-feedback">
             <div *ngIf="f.Tiro.errors.required">Por favor, ingresa una fecha</div>
           </div>
         </div>
       </div>
 
-      <div class="col-6" >
+      <div class="col-lg-4" >
         <label>Fecha Garaje</label>
         <div style="display: flex; ">
-          <input  class="form-control " formControlName="Garaje" [ngClass]="{ 'is-invalid': submitted && f.Garaje.errors }"
+          <input  class="form-control " style="font-size: 13px;"formControlName="Garaje" [ngClass]="{ 'is-invalid': submitted && f.Garaje.errors }"
                   matInput [matDatepicker]="picker2" placeholder="Fecha Garaje">
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
+          <mat-datepicker #picker2 style="font-size: 13px;"></mat-datepicker>
           <div *ngIf="submitted && f.Garaje.errors" class="invalid-feedback">
             <div *ngIf="f.Garaje.errors.required">Por favor, ingresa una fecha</div>
           </div>
         </div>
       </div>
 
-      <div class="col-6" >
+      <div class="col-lg-4" >
         <label>Fecha Portal</label>
         <div style="display: flex">
-          <input  class="form-control " formControlName="Portal"  [ngClass]="{ 'is-invalid': submitted && f.Portal.errors }"
+          <input  class="form-control " style="font-size: 13px;" formControlName="Portal"  [ngClass]="{ 'is-invalid': submitted && f.Portal.errors }"
                   matInput [matDatepicker]="picker3" placeholder="Fecha Abrillantado">
           <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-          <mat-datepicker #picker3></mat-datepicker>
+          <mat-datepicker #picker3 ></mat-datepicker>
           <div *ngIf="submitted && f.Portal.errors" class="invalid-feedback">
             <div *ngIf="f.Portal.errors.required">Por favor, ingresa una fecha</div>
           </div>
@@ -76,7 +77,7 @@
     </div>
     <div class="form-group">
       <button type="submit" style="margin-right: 4%;"  class="btn btn-primary">Agregar</button>
-      <button  class="btn btn-primary" mat-dialog-close>Close</button>
+      <button  class="btn btn-primary" mat-dialog-close>Cerrar</button>
     </div>
   </form>
 </div>
