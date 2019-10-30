@@ -77,24 +77,33 @@ export class ClientsComponent implements OnInit {
     }
   }
 
-  dateRow(row){
-    this.router.navigate(['sidenav/date'], { queryParams: {
-        id: row.id    }});
-    this.tableDataBaseClient.getRepoClients().subscribe(
-      (element) => {
-        const dataSources = Array.from( {length: 1 } , () => element);
-        this.dataClient = new MatTableDataSource(dataSources[0]);
-        this.dataClient.sort = this.sort;
-        this.dataClient.paginator = this.paginator;
+  id: any = [];
+  Tiro: any = [];
+  Portal: any = [];
+  Garaje: any = [];
 
-        this.tableDataBaseClient.newCoordinateClientForm.next(dataSources);
-      });
+
+  dateRow(row){
+    console.log(row.Tiro)
+    this.router.navigate(['sidenav/date'], { queryParams: {
+
+        id: row.id,
+        YearT: new Date(row.Tiro).getFullYear(),
+        MonthT: new Date(row.Tiro).getMonth(),
+        DayT: new Date(row.Tiro).getDate(),
+
+        YearG: new Date(row.Garaje).getFullYear(),
+        MonthG: new Date(row.Garaje).getMonth(),
+        DayG: new Date(row.Garaje).getDate(),
+
+        YearP: new Date(row.Portal).getFullYear(),
+        MonthP: new Date(row.Portal).getMonth(),
+        DayP: new Date(row.Portal).getDate()
+
+      }});
   }
 
-
-
 }
-
 
 
 

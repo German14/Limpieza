@@ -9,6 +9,8 @@ export interface GithubIssue {
   Name: string;
   Phone: string;
   Portal: string;
+  Garaje: string;
+  Tiro: string;
   Dias: string;
   Observations: string;
 }

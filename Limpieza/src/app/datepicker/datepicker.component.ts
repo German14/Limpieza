@@ -2,11 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {addDays, endOfDay, isSameDay, isSameMonth, startOfDay, subDays} from 'date-fns';
 import {Subject} from 'rxjs';
 import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView} from 'angular-calendar';
-import {MatDialog, MatDialogConfig} from '@angular/material';
-import {FormClientsComponent} from '../form-clients/form-clients.component';
+import {MatDialog, MatDialogConfig} from "@angular/material";
+import {FormClientsComponent} from "../form-clients/form-clients.component";
 import {ActivatedRoute} from '@angular/router';
 import {DataServiceClients} from '../service/serviceClients';
-import {take} from "rxjs/operators";
+import {DatePipe} from "@angular/common";
+import {isNullOrUndefined} from "util";
+
 const colors: any = {
   red: {
     primary: '#ad2121',
@@ -30,29 +32,15 @@ const colors: any = {
   styleUrls: ['./datepicker.component.scss']
 })
 export class DatepickerComponent implements OnInit {
+  [x: string]: any;
+
+
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
 
-  yearT='';
-  MonthT= '';
-  dayT='';
-  yearG = '';
-  MonthG = '';
-  dayG = '' ;
-  yearP = '';
-  MonthP ='';
-  dayP = '';
-  id = '';
-  name:any ;
-  Phone = '';
-  observations = '';
-  Garaje = '';
-  Portal = '';
-  Tiro = '';
-  
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -104,16 +92,16 @@ export class DatepickerComponent implements OnInit {
       start: subDays(
         startOfDay(
           new Date(
-            parseInt(this.yearP),
-            parseInt(this.MonthP),
-            parseInt(this.dayP))),
+            parseInt(this.route.snapshot.queryParamMap.get("YearP")),
+            parseInt(this.route.snapshot.queryParamMap.get("MonthP")),
+            parseInt(this.route.snapshot.queryParamMap.get("DayP")))),
         0),
       end: addDays(
         endOfDay(
           new Date(
-            parseInt(this.yearP),
-            parseInt(this.MonthP),
-            parseInt(this.dayP))),
+            parseInt(this.route.snapshot.queryParamMap.get("YearP")),
+            parseInt(this.route.snapshot.queryParamMap.get("MonthP")),
+            parseInt(this.route.snapshot.queryParamMap.get("DayP")))),
         0),
       title: 'Portal',
       color: colors.red,
@@ -155,16 +143,33 @@ export class DatepickerComponent implements OnInit {
   activeDayIsOpen: boolean = true;
 
   constructor(private dialog: MatDialog, private route: ActivatedRoute, private service: DataServiceClients) {
-   this.id = this.route.snapshot.queryParamMap.get("id");
-    this.service.newCoordinateClientForm$.pipe(take(1)).subscribe((value) => {
-      this.yearP = value[0][0].Portal.split('-')[0];
-      this.MonthP = value[0][0].Portal.split('-')[1];
-      this.dayP = value[0][0].Portal.split('-')[2].split('T')[0];
-    });
-  }
-  ngOnInit(): void {
+    if(isNullOrUndefined(this.route.snapshot.queryParamMap.get("id"))) {
+      this.service.getRepoClients().subscribe((data) => {
+        console.log(data[0].Tiro.split('-')[2].split('T')[0])
+      });
+    } else {
+
+      this.id = this.route.snapshot.queryParamMap.get("id");
+      this.service.getRepoClient({id:this.id}).subscribe((data) =>{
+
+          this.name= data[0].Name;
+          this.Phone= data[0].Phone;
+          this.observations= data[0].Observations;
+
+
+          this.Garaje= new DatePipe('en-US').transform(data[0].Garaje);
+          this.Portal= new DatePipe('en-US').transform(data[0].Portal);
+          this.Tiro= new DatePipe('en-US').transform(data[0].Tiro);
+
+        }
+      );
+    }
+
   }
 
+  ngOnInit() {
+
+  }
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       this.activeDayIsOpen = !((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
@@ -172,7 +177,11 @@ export class DatepickerComponent implements OnInit {
       this.viewDate = date;
     }
   }
-  eventTimesChanged({event,newStart,newEnd}: CalendarEventTimesChangedEvent): void {
+  eventTimesChanged({
+                      event,
+                      newStart,
+                      newEnd
+                    }: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map(iEvent => {
       if (iEvent === event) {
         return {
