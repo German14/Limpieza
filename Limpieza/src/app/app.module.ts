@@ -43,7 +43,6 @@ import {ServiceSidenav} from "./service/serviceSidenav";
 import {RegisterModule} from "./register/register.module";
 import {DeleteModule} from "./delete/Delete.module";
 import {DatepickerModule} from './datepicker/datepicker.module';
-import {DatepickerService} from "./datepicker/service/datepickerService";
 
 
 @NgModule({
@@ -97,7 +96,6 @@ import {DatepickerService} from "./datepicker/service/datepickerService";
     ButtonsNavigationComponent,
     ServiceDialog,
     ServiceSidenav,
-    DatepickerService,
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
 
   ],
@@ -108,7 +106,7 @@ import {DatepickerService} from "./datepicker/service/datepickerService";
   entryComponents: [FormComponent,
     FormClientsComponent,
     ButtonsNavigationComponent
-    ]
+  ]
 })
 export class AppModule { }
 

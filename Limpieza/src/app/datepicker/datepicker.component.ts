@@ -1,237 +1,60 @@
 import {Component, OnInit} from '@angular/core';
-import {addDays, endOfDay, isSameDay, isSameMonth, startOfDay, subDays} from 'date-fns';
-import {Subject} from 'rxjs';
-import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView} from 'angular-calendar';
-import {MatDialog, MatDialogConfig} from "@angular/material";
-import {FormClientsComponent} from "../form-clients/form-clients.component";
-import {ActivatedRoute} from '@angular/router';
-import {DataServiceClients} from '../service/serviceClients';
-import {DatePipe} from "@angular/common";
-import {isNullOrUndefined} from "util";
+import {Calendar} from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
 
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3'
-  },
-  blue: {
-    primary: '#09ad18',
-    secondary: '#FAE3E3'
-  },
-  yellow: {
-    primary: '#ada70b',
-    secondary: '#FAE3E3'
-  },
-
-
-};
+import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 
 @Component({
   selector: 'app-datepicker',
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss']
 })
+
 export class DatepickerComponent implements OnInit {
-  [x: string]: any;
 
+  events : any[] = [ {id: '1', resourceId: 'a', start: '2019-02-07T02:00:00', end: '2019-02-07T07:00:00', title: 'event 1'},
+    {id: '2', resourceId: 'b', start: '2019-02-07T05:00:00', end: '2019-02-07T22:00:00', title: 'event 2'},
+    {id: '2', resourceId: 'c', start: '2019-02-07T05:00:00', end: '2019-02-07T22:00:00', title: 'event 3'},
+    {id: '3', resourceId: 'c', start: '2019-02-06', end: '2019-02-08', title: 'event 8'},
+    {id: '4', resourceId: 'b', start: '2019-02-07T03:00:00', end: '2019-02-07T08:00:00', title: 'event 4'},
+    {id: '5', resourceId: 'a', start: '2019-02-07T00:30:00', end: '2019-02-07T02:30:00', title: 'event 5'}];
+  ngOnInit(): void {
 
-  view: CalendarView = CalendarView.Month;
-
-  CalendarView = CalendarView;
-
-  viewDate: Date = new Date();
-
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fa fa-fw fa-pencil"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      }
-    },
-    {
-      label: '<i class="fa fa-fw fa-times"></i>',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter(iEvent => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      }
-    }
-  ];
-  refresh: Subject<any> = new Subject();
-
-  events: CalendarEvent[] = [
-    {
-      start: subDays(
-        startOfDay(
-          new Date(
-            parseInt(this.route.snapshot.queryParamMap.get("YearT")),
-            parseInt(this.route.snapshot.queryParamMap.get("MonthT")),
-            parseInt(this.route.snapshot.queryParamMap.get("DayT")))),
-        0),
-      end: addDays(
-        endOfDay(
-          new Date(
-            parseInt(this.route.snapshot.queryParamMap.get("YearT")),
-            parseInt(this.route.snapshot.queryParamMap.get("MonthT")),
-            parseInt(this.route.snapshot.queryParamMap.get("DayT")))),
-        0),
-      title: 'Tiro',
-      color: colors.blue,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: false,
-        afterEnd: false
+    let calendar: Calendar;
+    let calendarEl = document.getElementById('calendar');
+    calendar = new Calendar(calendarEl, {
+      plugins: [dayGridPlugin, listPlugin, timeGridPlugin, resourceTimelinePlugin],
+      now: new Date(),
+      editable: true, // enable draggable events
+      aspectRatio: 1.8,
+      scrollTime: '00:00', // undo default 6am scrollTime
+      header: {
+        left: 'today prev,next',
+        center: 'title',
+        right: 'resourceTimelineThreeDays,timeGridWeek,dayGridMonth,listWeek'
       },
-      draggable: true
-    },
-    {
-      start: subDays(
-        startOfDay(
-          new Date(
-            parseInt(this.route.snapshot.queryParamMap.get("YearP")),
-            parseInt(this.route.snapshot.queryParamMap.get("MonthP")),
-            parseInt(this.route.snapshot.queryParamMap.get("DayP")))),
-        0),
-      end: addDays(
-        endOfDay(
-          new Date(
-            parseInt(this.route.snapshot.queryParamMap.get("YearP")),
-            parseInt(this.route.snapshot.queryParamMap.get("MonthP")),
-            parseInt(this.route.snapshot.queryParamMap.get("DayP")))),
-        0),
-      title: 'Portal',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: false,
-        afterEnd: false
-      },
-      draggable: true
-    },
-    {
-      start: subDays(
-        startOfDay(
-          new Date(
-            parseInt(this.route.snapshot.queryParamMap.get("YearG")),
-            parseInt(this.route.snapshot.queryParamMap.get("MonthG")),
-            parseInt(this.route.snapshot.queryParamMap.get("DayG")))),
-        0),
-      end: addDays(
-        endOfDay(
-          new Date(
-            parseInt(this.route.snapshot.queryParamMap.get("YearG")),
-            parseInt(this.route.snapshot.queryParamMap.get("MonthG")),
-            parseInt(this.route.snapshot.queryParamMap.get("DayG")))),
-        1),
-      title: 'Garaje',
-      color: colors.yellow,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: false,
-        afterEnd: false
-      },
-      draggable: true
-    }
-  ];
-
-  activeDayIsOpen: boolean = true;
-
-  constructor(private dialog: MatDialog, private route: ActivatedRoute, private service: DataServiceClients) {
-    if(isNullOrUndefined(this.route.snapshot.queryParamMap.get("id"))) {
-      this.service.getRepoClients().subscribe((data) => {
-        console.log(data[0].Tiro.split('-')[2].split('T')[0])
-      });
-    } else {
-
-      this.id = this.route.snapshot.queryParamMap.get("id");
-      this.service.getRepoClient({id:this.id}).subscribe((data) =>{
-
-          this.name= data[0].Name;
-          this.Phone= data[0].Phone;
-          this.observations= data[0].Observations;
-
-
-          this.Garaje= new DatePipe('en-US').transform(data[0].Garaje);
-          this.Portal= new DatePipe('en-US').transform(data[0].Portal);
-          this.Tiro= new DatePipe('en-US').transform(data[0].Tiro);
-
+      defaultView: '',
+      views: {
+        resourceTimelineThreeDays: {
+          type: 'resourceTimeline',
+          duration: {days: 3},
+          buttonText: '3 day'
         }
-      );
-    }
+      },
+      resourceLabelText: 'Rooms',
+      resources: [
+        {id: 'a', title: 'Tiro', eventColor: 'red'},
+        {id: 'b', title: 'Portal', eventColor: 'green'},
+        {id: 'c', title: 'Garaje', eventColor: 'yellow'},
 
-  }
-
-  ngOnInit() {
-
-  }
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      this.activeDayIsOpen = !((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0);
-      this.viewDate = date;
-    }
-  }
-  eventTimesChanged({
-                      event,
-                      newStart,
-                      newEnd
-                    }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map(iEvent => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd
-        };
-      }
-      return iEvent;
+      ],
+      events: this.events
     });
-    this.handleEvent('Dropped or resized', event);
+
+    calendar.render();
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {id:this.route.snapshot.queryParamMap.get("id"),Name:this.name,Phone:this.Phone,
-      Observations: this.observations ,Tiro: this.Tiro, Portal:this.Portal, Garaje: this.Garaje};
-    this.dialog.open(FormClientsComponent, dialogConfig);
-
-  }
-
-
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date(this.name, 9,8)),
-        end: endOfDay(new Date(2019,9,18)),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true
-        }
-      }
-    ];
-  }
-
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter(event => event !== eventToDelete);
-  }
-
-  setView(view: CalendarView) {
-    this.view = view;
-  }
-
-  closeOpenMonthViewDay() {
-    this.activeDayIsOpen = false;
-  }
 
 }
