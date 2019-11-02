@@ -5,6 +5,9 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
+import {DataServiceClients} from "../service/serviceClients";
+import {ActivatedRoute} from '@angular/router';
+import {isNullOrUndefined} from "util";
 
 @Component({
   selector: 'app-datepicker',
@@ -14,17 +17,17 @@ import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 
 export class DatepickerComponent implements OnInit {
 
-  events : any[] = [ {id: '1', resourceId: 'a', start: '2019-02-07T02:00:00', end: '2019-02-07T07:00:00', title: 'event 1'},
-    {id: '2', resourceId: 'b', start: '2019-02-07T05:00:00', end: '2019-02-07T22:00:00', title: 'event 2'},
-    {id: '2', resourceId: 'c', start: '2019-02-07T05:00:00', end: '2019-02-07T22:00:00', title: 'event 3'},
-    {id: '3', resourceId: 'c', start: '2019-02-06', end: '2019-02-08', title: 'event 8'},
-    {id: '4', resourceId: 'b', start: '2019-02-07T03:00:00', end: '2019-02-07T08:00:00', title: 'event 4'},
-    {id: '5', resourceId: 'a', start: '2019-02-07T00:30:00', end: '2019-02-07T02:30:00', title: 'event 5'}];
-  ngOnInit(): void {
+  events : any[] = [];
+  private  firstParam: string;
+  constructor(private service: DataServiceClients , private route: ActivatedRoute) {
+    this.firstParam = this.route.snapshot.queryParamMap.get('id');
 
-    let calendar: Calendar;
-    let calendarEl = document.getElementById('calendar');
+  }
+
+  inicialize(calendar , calendarEl: any) {
+
     calendar = new Calendar(calendarEl, {
+      schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
       plugins: [dayGridPlugin, listPlugin, timeGridPlugin, resourceTimelinePlugin],
       now: new Date(),
       editable: true, // enable draggable events
@@ -45,15 +48,82 @@ export class DatepickerComponent implements OnInit {
       },
       resourceLabelText: 'Rooms',
       resources: [
-        {id: 'a', title: 'Tiro', eventColor: 'red'},
-        {id: 'b', title: 'Portal', eventColor: 'green'},
-        {id: 'c', title: 'Garaje', eventColor: 'yellow'},
+        {id: 'tiro', title: 'Tiro', eventColor: 'red'},
+        {id: 'portal', title: 'Portal', eventColor: 'green'},
+        {id: 'garaje', title: 'Garaje', eventColor: 'yellow'},
 
       ],
       events: this.events
     });
 
     calendar.render();
+  }
+  ngOnInit(): void {
+    let calendar: Calendar;
+    let calendarEl = document.getElementById('calendar');
+
+    if (!isNullOrUndefined(this.firstParam)) {
+      this.service.getRepoClient({ id: this.firstParam}).subscribe((value ) =>{
+        value.map(data =>{
+          this.events.push({
+            id: data.id,
+            resourceId: 'portal',
+            start: data.Portal,
+            end: data.Portal,
+            title: data.Name
+          });
+          this.events.push({
+            id: data.id,
+            resourceId: 'tiro',
+            start: data.Tiro,
+            end: data.Tiro,
+            title: data.Name
+          });
+          this.events.push({
+            id: data.id,
+            resourceId: 'garaje',
+            start: data.Garaje,
+            end: data.Garaje,
+            title: data.Name
+          });
+        });
+        this.inicialize(calendar, calendarEl)
+
+      })
+
+    } else {
+      this.service.getRepoClients().subscribe((value ) =>{
+
+        value.map(data =>{
+          this.events.push({
+            id: data.id,
+            resourceId: 'portal',
+            start: data.Portal,
+            end: data.Portal,
+            title: data.Name
+          });
+          this.events.push({
+            id: data.id,
+            resourceId: 'tiro',
+            start: data.Tiro,
+            end: data.Tiro,
+            title: data.Name
+          });
+          this.events.push({
+            id: data.id,
+            resourceId: 'garaje',
+            start: data.Garaje,
+            end: data.Garaje,
+            title: data.Name
+          });
+        });
+        this.inicialize(calendar, calendarEl)
+
+
+      });
+    }
+
+
   }
 
 
