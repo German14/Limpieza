@@ -5,6 +5,7 @@ import {ButtonNavigationModule} from '../buttons-navigation/button-navigation.mo
 import {DatepickerComponent} from "./datepicker.component";
 import {DatepickerRoutingModule} from "./datepicker-routing.module";
 import {CalendarModule} from "angular-calendar";
+import {DatePickerService} from "./service/datePicker.service";
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {CalendarModule} from "angular-calendar";
     MatSortModule,
     MatPaginatorModule,
     CalendarModule
-  ]
+  ],
+  providers: [DatePickerService]
 })
 export class DatepickerModule { }
