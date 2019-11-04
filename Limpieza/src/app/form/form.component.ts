@@ -16,7 +16,10 @@ export class FormComponent implements OnInit {
   submitted = false;
   titulo = 'Agregar / Editar nuevo Usuario';
 
-  constructor(private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private service: DataService, public dialog: MatDialog) { }
+  constructor(private formBuilder: FormBuilder,
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private service: DataService,
+              public dialog: MatDialog) { }
 
 
   ngOnInit() {

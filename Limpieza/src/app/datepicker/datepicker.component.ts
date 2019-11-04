@@ -4,6 +4,9 @@ import {DataServiceClients} from "../service/serviceClients";
 import {ActivatedRoute} from '@angular/router';
 import {isNullOrUndefined} from "util";
 import {DatePickerService} from "./service/datePicker.service";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import {Button} from "selenium-webdriver";
+import {ButtonsNavigationComponent} from "../buttons-navigation/buttons-navigation.component";
 
 @Component({
   selector: 'app-datepicker',
@@ -16,7 +19,7 @@ export class DatepickerComponent implements OnInit {
   events : any[] = [];
   private  firstParam: string;
   constructor(private service: DataServiceClients , private route: ActivatedRoute,
-              private DatePickerService: DatePickerService) {
+              private DatePickerService: DatePickerService, private ButtonsNavigationComponent:ButtonsNavigationComponent) {
     this.firstParam = this.route.snapshot.queryParamMap.get('id');
   }
 
@@ -28,24 +31,31 @@ export class DatepickerComponent implements OnInit {
           resourceId: 'portal',
           start: data.Portal,
           end: data.Portal,
-          title: data.Name
+          title: data.Name,
+          phone: data.Phone,
+          observacion: data.Observations
+
         });
         this.events.push({
           id: data.id,
           resourceId: 'tiro',
           start: data.Tiro,
           end: data.Tiro,
-          title: data.Name
+          title: data.Name,
+          phone: data.Phone,
+          observacion: data.Observations
         });
         this.events.push({
           id: data.id,
           resourceId: 'garaje',
           start: data.Garaje,
           end: data.Garaje,
-          title: data.Name
+          title: data.Name,
+          phone: data.Phone,
+          observacion: data.Observations
         });
       });
-      this.DatePickerService.inicialize(calendar, calendarEl, this.events);
+      this.DatePickerService.inicialize(calendar, calendarEl, this.events, this.ButtonsNavigationComponent);
     })
   }
 
@@ -57,36 +67,44 @@ export class DatepickerComponent implements OnInit {
           resourceId: 'portal',
           start: data.Portal,
           end: data.Portal,
-          title: data.Name
+          title: data.Name,
+          phone: data.Phone,
+          observacion: data.Observations
         });
         this.events.push({
           id: data.id,
           resourceId: 'tiro',
           start: data.Tiro,
           end: data.Tiro,
-          title: data.Name
+          title: data.Name,
+          phone: data.Phone,
+          observacion: data.Observations
         });
         this.events.push({
           id: data.id,
           resourceId: 'garaje',
           start: data.Garaje,
           end: data.Garaje,
-          title: data.Name
+          title: data.Name,
+          phone: data.Phone,
+          observacion: data.Observations
         });
       });
-      this.DatePickerService.inicialize(calendar, calendarEl, this.events);
+      this.DatePickerService.inicialize(calendar, calendarEl, this.events, this.ButtonsNavigationComponent);
     });
   }
-
   ngOnInit(): void {
     let calendar: Calendar;
+
     let calendarEl = document.getElementById('calendar');
+
+
     if (!isNullOrUndefined(this.firstParam)) {
       this.callServiceIndividual(calendar, calendarEl);
-    } else {
+
+       } else {
       this.callServiceGeneric(calendar,calendarEl);
     }
-
 
   }
 

@@ -62,6 +62,7 @@ export class ButtonsNavigationComponent implements OnInit {
   }
 
   openForm(row, extra){
+    console.log(row)
     if(isNullOrUndefined(extra)){
       if( this.input==='FormComponent' ){
         this.input= FormComponent;
