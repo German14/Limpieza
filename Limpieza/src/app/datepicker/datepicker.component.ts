@@ -19,7 +19,8 @@ export class DatepickerComponent implements OnInit {
   events : any[] = [];
   private  firstParam: string;
   constructor(private service: DataServiceClients , private route: ActivatedRoute,
-              private DatePickerService: DatePickerService, private ButtonsNavigationComponent:ButtonsNavigationComponent) {
+              private DatePickerService: DatePickerService,
+              private ButtonsNavigationComponent:ButtonsNavigationComponent) {
     this.firstParam = this.route.snapshot.queryParamMap.get('id');
   }
 
@@ -27,7 +28,7 @@ export class DatepickerComponent implements OnInit {
     this.service.getRepoClient({ id: this.firstParam}).subscribe((value ) =>{
       value.map(data =>{
         this.events.push({
-          id: data.id,
+          id: this.firstParam,
           resourceId: 'portal',
           start: data.Portal,
           end: data.Portal,
@@ -37,7 +38,7 @@ export class DatepickerComponent implements OnInit {
 
         });
         this.events.push({
-          id: data.id,
+          id: this.firstParam,
           resourceId: 'tiro',
           start: data.Tiro,
           end: data.Tiro,
@@ -46,7 +47,7 @@ export class DatepickerComponent implements OnInit {
           observacion: data.Observations
         });
         this.events.push({
-          id: data.id,
+          id: this.firstParam,
           resourceId: 'garaje',
           start: data.Garaje,
           end: data.Garaje,

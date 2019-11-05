@@ -21,17 +21,22 @@ export class DatePickerService {
   public inicialize(calendar , calendarEl: any , events:any, buttonDataBase: ButtonsNavigationComponent) {
     let draggableEl = document.getElementById('mydraggable');
     calendar = new Calendar(calendarEl, {
-      schedulerLicenseKey: 'Datepicker Germán',
+      schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
       plugins: [dayGridPlugin, listPlugin, timeGridPlugin, resourceTimelinePlugin, resourceDayGridPlugin, interactionPlugin, dayGrid],
       eventClick: function(info) {
-        console.log(info.event)
         const row= {
-          Garaje: info.event.start,
+          Garaje: events.filter((data) =>{
+            return data.id === +info.event.id && data.resourceId === 'garaje'
+          })[0].start,
           Name: info.event._def.title,
           Observations: info.event.extendedProps.observacion,
           Phone: info.event.extendedProps.phone,
-          Portal: info.event.start,
-          Tiro: info.event.start,
+          Portal: events.filter((data) =>{
+            return data.id === +info.event.id && data.resourceId === 'portal'
+          })[0].start,
+          Tiro: events.filter((data) =>{
+            return data.id === +info.event.id && data.resourceId === 'tiro'
+          })[0].start,
           id: info.event.id
         };
         buttonDataBase.openForm(row, 'FormClientsComponent');
@@ -41,12 +46,16 @@ export class DatePickerService {
           case 'portal':
             console.log(oldInfo)
             const row1 = {
-              Garaje: oldInfo.oldEvent.start,
+              Garaje: events.filter((data) =>{
+                return data.id === +oldInfo.event.id && data.resourceId === 'garaje'
+              })[0].start,
               Name: oldInfo.event._def.title,
               Observations: oldInfo.event.extendedProps.observacion,
               Phone: oldInfo.event.extendedProps.phone,
               Portal: oldInfo.event.start,
-              Tiro: oldInfo.oldEvent.start,
+              Tiro: events.filter((data) =>{
+                return data.id === +oldInfo.event.id && data.resourceId === 'tiro'
+              })[0].start,
               id: oldInfo.event.id // arreglar las fechas que no se están editando
             };
 
@@ -54,11 +63,15 @@ export class DatePickerService {
             break;
           case 'tiro':
             const row2 = {
-              Garaje: oldInfo.oldEvent.start,
+              Garaje: events.filter((data) =>{
+                return data.id === +oldInfo.event.id && data.resourceId === 'garaje'
+              })[0].start,
               Name: oldInfo.event._def.title,
               Observations: oldInfo.event.extendedProps.observacion,
               Phone: oldInfo.event.extendedProps.phone,
-              Portal: oldInfo.oldEvent.start,
+              Portal: events.filter((data) =>{
+                return data.id === +oldInfo.event.id && data.resourceId === 'tiro'
+              })[0].start,
               Tiro: oldInfo.event.start,
               id: oldInfo.event.id
             };
@@ -72,8 +85,12 @@ export class DatePickerService {
               Name: oldInfo.event._def.title,
               Observations: oldInfo.event.extendedProps.observacion,
               Phone: oldInfo.event.extendedProps.phone,
-              Portal: oldInfo.oldEvent.start,
-              Tiro: oldInfo.oldEvent.start,
+              Portal: events.filter((data) =>{
+                return data.id === +oldInfo.event.id && data.resourceId === 'portal'
+              })[0].start,
+              Tiro: events.filter((data) =>{
+                return data.id === +oldInfo.event.id && data.resourceId === 'tiro'
+              })[0].start,
               id: oldInfo.event.id
             };
             buttonDataBase.openForm(row3, 'FormClientsComponent');
@@ -92,7 +109,7 @@ export class DatePickerService {
         center: 'title',
         right: 'resourceTimelineThreeDays,timeGridWeek,dayGridMonth,listWeek, resourceDayGridDay'
       },
-      defaultView: 'resourceDayGridDay',
+      defaultView: 'dayGridMonth',
       views: {
         resourceTimelineThreeDays: {
           type: 'resourceTimeline',
