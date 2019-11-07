@@ -18,86 +18,86 @@ export class DatePickerService {
   ) {
 
   }
+  public infoClick (events:any ,info: any): any {
+    return  {
+      Garaje: events.filter((data) =>{
+        return data.id === +info.event.id && data.resourceId === 'garaje'
+      })[0].start,
+      Name: info.event._def.title,
+      Observations: info.event.extendedProps.observacion,
+      Phone: info.event.extendedProps.phone,
+      Portal: events.filter((data) =>{
+        return data.id === +info.event.id && data.resourceId === 'portal'
+      })[0].start,
+      Tiro: events.filter((data) =>{
+        return data.id === +info.event.id && data.resourceId === 'tiro'
+      })[0].start,
+      id: info.event.id
+    };
+  }
+
+  public placeInfoG(place: string, events: any, oldInfo: any) {
+    if(place === 'garaje') {
+      return oldInfo.event.start;
+    } else {
+      return events.filter((data) =>{
+        return data.id === +oldInfo.event.id && data.resourceId === 'garaje'
+      })[0].start
+    }
+  }
+  public placeInfoT(place: string, events: any, oldInfo: any) {
+    if(place === 'tiro') {
+      return oldInfo.event.start;
+    } else {
+      return events.filter((data) => {
+        return data.id === +oldInfo.event.id && data.resourceId === 'tiro'
+      })[0].start
+    }
+  }
+  public placeInfoP(place: string, events: any, oldInfo: any) {
+    if(place === 'portal') {
+      return oldInfo.event.start;
+    } else {
+       return events.filter((data) => {
+         return data.id === +oldInfo.event.id && data.resourceId === 'portal'
+      })[0].start
+    }
+  }
+
+  public infoDrag (events:any ,oldInfo: any, place: string): any {
+    return {
+      Garaje: this.placeInfoG(place, events, oldInfo),
+      Name: oldInfo.event._def.title,
+      Observations: oldInfo.event.extendedProps.observacion,
+      Phone: oldInfo.event.extendedProps.phone,
+      Portal:this.placeInfoP(place, events, oldInfo),
+      Tiro: this.placeInfoT(place, events, oldInfo),
+      id: oldInfo.event.id
+    };
+  }
+
   public inicialize(calendar , calendarEl: any , events:any, buttonDataBase: ButtonsNavigationComponent) {
     let draggableEl = document.getElementById('mydraggable');
     calendar = new Calendar(calendarEl, {
+
       schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
       plugins: [dayGridPlugin, listPlugin, timeGridPlugin, resourceTimelinePlugin, resourceDayGridPlugin, interactionPlugin, dayGrid],
-      eventClick: function(info) {
-        const row= {
-          Garaje: events.filter((data) =>{
-            return data.id === +info.event.id && data.resourceId === 'garaje'
-          })[0].start,
-          Name: info.event._def.title,
-          Observations: info.event.extendedProps.observacion,
-          Phone: info.event.extendedProps.phone,
-          Portal: events.filter((data) =>{
-            return data.id === +info.event.id && data.resourceId === 'portal'
-          })[0].start,
-          Tiro: events.filter((data) =>{
-            return data.id === +info.event.id && data.resourceId === 'tiro'
-          })[0].start,
-          id: info.event.id
-        };
-        buttonDataBase.openForm(row, 'FormClientsComponent');
+      eventClick: (info) => {
+        buttonDataBase.openForm(this.infoClick(events,info), 'FormClientsComponent');
       },
-      eventDrop: function(oldInfo) {
+      eventDrop: (oldInfo) => {
         switch (oldInfo.event._def.resourceIds[0]) {
           case 'portal':
-            console.log(oldInfo)
-            const row1 = {
-              Garaje: events.filter((data) =>{
-                return data.id === +oldInfo.event.id && data.resourceId === 'garaje'
-              })[0].start,
-              Name: oldInfo.event._def.title,
-              Observations: oldInfo.event.extendedProps.observacion,
-              Phone: oldInfo.event.extendedProps.phone,
-              Portal: oldInfo.event.start,
-              Tiro: events.filter((data) =>{
-                return data.id === +oldInfo.event.id && data.resourceId === 'tiro'
-              })[0].start,
-              id: oldInfo.event.id // arreglar las fechas que no se están editando
-            };
-
-            buttonDataBase.openForm(row1, 'FormClientsComponent');
+            buttonDataBase.openForm(this.infoDrag(events, oldInfo, 'portal'), 'FormClientsComponent');
             break;
           case 'tiro':
-            const row2 = {
-              Garaje: events.filter((data) =>{
-                return data.id === +oldInfo.event.id && data.resourceId === 'garaje'
-              })[0].start,
-              Name: oldInfo.event._def.title,
-              Observations: oldInfo.event.extendedProps.observacion,
-              Phone: oldInfo.event.extendedProps.phone,
-              Portal: events.filter((data) =>{
-                return data.id === +oldInfo.event.id && data.resourceId === 'tiro'
-              })[0].start,
-              Tiro: oldInfo.event.start,
-              id: oldInfo.event.id
-            };
-
-            buttonDataBase.openForm(row2, 'FormClientsComponent');
-
+            buttonDataBase.openForm(this.infoDrag(events, oldInfo, 'tiro'), 'FormClientsComponent');
             break;
           case 'garaje':
-            const row3 = {
-              Garaje: oldInfo.event.start,
-              Name: oldInfo.event._def.title,
-              Observations: oldInfo.event.extendedProps.observacion,
-              Phone: oldInfo.event.extendedProps.phone,
-              Portal: events.filter((data) =>{
-                return data.id === +oldInfo.event.id && data.resourceId === 'portal'
-              })[0].start,
-              Tiro: events.filter((data) =>{
-                return data.id === +oldInfo.event.id && data.resourceId === 'tiro'
-              })[0].start,
-              id: oldInfo.event.id
-            };
-            buttonDataBase.openForm(row3, 'FormClientsComponent');
+            buttonDataBase.openForm(this.infoDrag(events, oldInfo, 'garaje'), 'FormClientsComponent');
             break;
 
         }
-
       },
       droppable: true,
       now: new Date(),
