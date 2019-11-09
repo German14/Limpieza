@@ -14,6 +14,8 @@ import {DataServiceClients} from './serviceClients';
 
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import {DatePickerService} from "../datepicker/service/datePicker.service";
+import {isNullOrUndefined} from "util";
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -32,7 +34,9 @@ export class ServiceDialog implements OnInit{
                private injector: Injector,
                private dialog: MatDialog,
                private tableDataBase: DataService,
-               private tableDataBaseClient: DataServiceClients){
+               private tableDataBaseClient: DataServiceClients,
+               private DatePickerService: DatePickerService
+               ){
 
 
 
@@ -57,11 +61,13 @@ serviceClientUpdate(){
       this.dataClient = new MatTableDataSource(dataSources[0]);
       this.dataClient.sort = this.sort;
       this.dataClient.paginator = this.paginator;
-      this.tableDataBaseClient.newCoordinateClientForm.next(this.dataClient);
+      this.tableDataBaseClient.newCoordinateClientForm.next(this.dataClient)
+      this.DatePickerService.refresh.next('close')
     });
 
 }
-  public open(componentType: Type<any>, row) {
+  public open(componentType: Type<any>, row, oldInfo) {
+
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = row;
     dialogConfig.width = '500px';
@@ -75,10 +81,17 @@ serviceClientUpdate(){
       })
     }
     else if (componentType === FormClientsComponent) {
+
+      this.DatePickerService.refresh.next(row);
       const dialogRef = this.dialog.open(componentType, dialogConfig);
       dialogRef.afterClosed().subscribe(() => {
         if (dialogRef['_result'] === undefined) {
           this.serviceClientUpdate();
+        }
+        else if (dialogRef['_result'] === "") {
+          if(!isNullOrUndefined(oldInfo)){
+            oldInfo.revert();
+          }
         }
       })
     }

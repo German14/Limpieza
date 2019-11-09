@@ -99,6 +99,7 @@ export class DatepickerComponent implements OnInit {
 
     let calendarEl = document.getElementById('calendar');
 
+
     if (!isNullOrUndefined(this.firstParam)) {
       this.callServiceIndividual(calendar, calendarEl);
 

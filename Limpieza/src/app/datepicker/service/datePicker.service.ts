@@ -8,29 +8,44 @@ import resourceTimelinePlugin from "@fullcalendar/resource-timeline";
 import resourceDayGridPlugin from '@fullcalendar/resource-daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {ButtonsNavigationComponent} from "../../buttons-navigation/buttons-navigation.component";
-
+import {DataServiceClients} from "../../service/serviceClients";
+import {Subject} from 'rxjs/internal/Subject';
+import {MatTableDataSource} from "@angular/material";
+import {GithubIssue} from "../../service/service";
 
 @Injectable()
 export class DatePickerService {
   public buttonDataBase: ButtonsNavigationComponent;
+  public refresh = new Subject<any>();
+
+  public datepicker$=  this.refresh.asObservable();
+  public datapicker = new Subject<any>();
+  public datapicker$=  this.datapicker.asObservable();
+  dataClient: MatTableDataSource<GithubIssue>;
   constructor(
+
+    private tableDataBaseClient: DataServiceClients
 
   ) {
 
   }
+  ngOnInit() {
+
+  }
+
   public infoClick (events:any ,info: any): any {
     return  {
       Garaje: events.filter((data) =>{
-        return data.id === +info.event.id && data.resourceId === 'garaje'
+        return data.id == info.event.id && data.resourceId === 'garaje'
       })[0].start,
       Name: info.event._def.title,
       Observations: info.event.extendedProps.observacion,
       Phone: info.event.extendedProps.phone,
       Portal: events.filter((data) =>{
-        return data.id === +info.event.id && data.resourceId === 'portal'
+        return data.id == info.event.id && data.resourceId === 'portal'
       })[0].start,
       Tiro: events.filter((data) =>{
-        return data.id === +info.event.id && data.resourceId === 'tiro'
+        return data.id == info.event.id && data.resourceId === 'tiro'
       })[0].start,
       id: info.event.id
     };
@@ -41,7 +56,7 @@ export class DatePickerService {
       return oldInfo.event.start;
     } else {
       return events.filter((data) =>{
-        return data.id === +oldInfo.event.id && data.resourceId === 'garaje'
+        return data.id == oldInfo.event.id && data.resourceId === 'garaje'
       })[0].start
     }
   }
@@ -50,7 +65,7 @@ export class DatePickerService {
       return oldInfo.event.start;
     } else {
       return events.filter((data) => {
-        return data.id === +oldInfo.event.id && data.resourceId === 'tiro'
+        return data.id == oldInfo.event.id && data.resourceId === 'tiro'
       })[0].start
     }
   }
@@ -58,8 +73,8 @@ export class DatePickerService {
     if(place === 'portal') {
       return oldInfo.event.start;
     } else {
-       return events.filter((data) => {
-         return data.id === +oldInfo.event.id && data.resourceId === 'portal'
+      return events.filter((data) => {
+        return data.id == oldInfo.event.id && data.resourceId === 'portal'
       })[0].start
     }
   }
@@ -76,27 +91,43 @@ export class DatePickerService {
     };
   }
 
+  serviceClientUpdate(){
+    this.tableDataBaseClient.getRepoClients().subscribe(
+      (element) => {
+        const dataSources = Array.from( {length: 1 } , () => element);
+        this.dataClient = new MatTableDataSource(dataSources[0]);
+        this.tableDataBaseClient.newCoordinateClientForm.next(this.dataClient);
+      });
+
+  }
+
   public inicialize(calendar , calendarEl: any , events:any, buttonDataBase: ButtonsNavigationComponent) {
     let draggableEl = document.getElementById('mydraggable');
     calendar = new Calendar(calendarEl, {
-
       schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
       plugins: [dayGridPlugin, listPlugin, timeGridPlugin, resourceTimelinePlugin, resourceDayGridPlugin, interactionPlugin, dayGrid],
       eventClick: (info) => {
-        buttonDataBase.openForm(this.infoClick(events,info), 'FormClientsComponent');
+        buttonDataBase.openForm(this.infoClick(events,info), 'FormClientsComponent', undefined);
+
       },
       eventDrop: (oldInfo) => {
         switch (oldInfo.event._def.resourceIds[0]) {
           case 'portal':
-            buttonDataBase.openForm(this.infoDrag(events, oldInfo, 'portal'), 'FormClientsComponent');
+          {
+            buttonDataBase.openForm( this.infoDrag(events, oldInfo, 'portal'), 'FormClientsComponent' , oldInfo);
+          }
             break;
           case 'tiro':
-            buttonDataBase.openForm(this.infoDrag(events, oldInfo, 'tiro'), 'FormClientsComponent');
+          {
+
+            buttonDataBase.openForm( this.infoDrag(events, oldInfo, 'tiro'), 'FormClientsComponent', oldInfo);
+          }
             break;
           case 'garaje':
-            buttonDataBase.openForm(this.infoDrag(events, oldInfo, 'garaje'), 'FormClientsComponent');
+          {
+            buttonDataBase.openForm( this.infoDrag(events, oldInfo, 'garaje'), 'FormClientsComponent', oldInfo);
+          }
             break;
-
         }
       },
       droppable: true,
@@ -128,10 +159,11 @@ export class DatePickerService {
         {id: 'garaje', title: 'Garaje', eventColor: 'yellow'},
       ],
 
-      events: events,
+      events: events
     });
 
     calendar.render();
+
   }
 }
 

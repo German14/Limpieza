@@ -51,7 +51,7 @@ export class ClientsComponent implements OnInit {
   }
 
   deleteRow(row, table) {
-    this.ServiceDialog.open(DeleteComponent, row);
+    this.ServiceDialog.open(DeleteComponent, row, undefined);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {row:row, table:table};
     dialogConfig.disableClose = true;

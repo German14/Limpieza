@@ -20,7 +20,7 @@
         <!-- Title Column -->
         <ng-container matColumnDef="Name" >
           <th mat-header-cell *matHeaderCellDef>Nombre</th>
-          <td mat-cell *matCellDef="let row"  (click)="this.buttonDataBase.openForm(row, 'FormClientsComponent')" style="cursor:pointer">
+          <td mat-cell *matCellDef="let row"  (click)="this.buttonDataBase.openForm(row, 'FormClientsComponent', undefined)" style="cursor:pointer">
             {{row.Name}}
           </td>
         </ng-container>

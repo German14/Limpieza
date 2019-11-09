@@ -61,13 +61,13 @@ export class ButtonsNavigationComponent implements OnInit {
 
   }
 
-  openForm(row, extra){
-    console.log(row)
+  openForm(row, extra, oldInfo){
     if(isNullOrUndefined(extra)){
       if( this.input==='FormComponent' ){
         this.input= FormComponent;
       }
       else if( this.input==='FormClientsComponent' ){
+
         this.input= FormClientsComponent;
       }
     }
@@ -81,7 +81,7 @@ export class ButtonsNavigationComponent implements OnInit {
 
     }
 
-    this.ServiceDialog.open(this.input,row);
+    this.ServiceDialog.open(this.input,row , oldInfo);
   }
 
   exportAsXLSX() {
