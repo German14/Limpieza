@@ -62,7 +62,6 @@ serviceClientUpdate(){
       this.dataClient.sort = this.sort;
       this.dataClient.paginator = this.paginator;
       this.tableDataBaseClient.newCoordinateClientForm.next(this.dataClient)
-      this.DatePickerService.refresh.next('close')
     });
 
 }
@@ -81,8 +80,6 @@ serviceClientUpdate(){
       })
     }
     else if (componentType === FormClientsComponent) {
-
-      this.DatePickerService.refresh.next(row);
       const dialogRef = this.dialog.open(componentType, dialogConfig);
       dialogRef.afterClosed().subscribe(() => {
         if (dialogRef['_result'] === undefined) {

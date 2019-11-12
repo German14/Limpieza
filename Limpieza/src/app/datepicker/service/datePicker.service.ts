@@ -9,72 +9,62 @@ import resourceDayGridPlugin from '@fullcalendar/resource-daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {ButtonsNavigationComponent} from "../../buttons-navigation/buttons-navigation.component";
 import {DataServiceClients} from "../../service/serviceClients";
-import {Subject} from 'rxjs/internal/Subject';
 import {MatTableDataSource} from "@angular/material";
 import {GithubIssue} from "../../service/service";
+import {ServiceModalsService} from "../../service/interfaces/serviceModals.service";
 
 @Injectable()
 export class DatePickerService {
   public buttonDataBase: ButtonsNavigationComponent;
-  public refresh = new Subject<any>();
+  public dataClient: MatTableDataSource<GithubIssue>;
 
-  public datepicker$=  this.refresh.asObservable();
-  public datapicker = new Subject<any>();
-  public datapicker$=  this.datapicker.asObservable();
-  dataClient: MatTableDataSource<GithubIssue>;
-  constructor(
 
-    private tableDataBaseClient: DataServiceClients
-
-  ) {
-
-  }
-  ngOnInit() {
-
-  }
+  constructor( private tableDataBaseClient: DataServiceClients,
+               private serviceModal: ServiceModalsService ) {}
+  ngOnInit() {}
 
   public infoClick (events:any ,info: any): any {
     return  {
       Garaje: events.filter((data) =>{
-        return data.id == info.event.id && data.resourceId === 'garaje'
+        return data.id == info.event.id && data.resourceId === this.serviceModal.TypeGaraje;
       })[0].start,
       Name: info.event._def.title,
       Observations: info.event.extendedProps.observacion,
       Phone: info.event.extendedProps.phone,
       Portal: events.filter((data) =>{
-        return data.id == info.event.id && data.resourceId === 'portal'
+        return data.id == info.event.id && data.resourceId === this.serviceModal.TypePortal;
       })[0].start,
       Tiro: events.filter((data) =>{
-        return data.id == info.event.id && data.resourceId === 'tiro'
+        return data.id == info.event.id && data.resourceId === this.serviceModal.TypeTiro;
       })[0].start,
       id: info.event.id
     };
   }
 
   public placeInfoG(place: string, events: any, oldInfo: any) {
-    if(place === 'garaje') {
+    if(place === this.serviceModal.TypeGaraje) {
       return oldInfo.event.start;
     } else {
       return events.filter((data) =>{
-        return data.id == oldInfo.event.id && data.resourceId === 'garaje'
+        return data.id == oldInfo.event.id && data.resourceId === this.serviceModal.TypeGaraje
       })[0].start
     }
   }
   public placeInfoT(place: string, events: any, oldInfo: any) {
-    if(place === 'tiro') {
+    if(place === this.serviceModal.TypeTiro) {
       return oldInfo.event.start;
     } else {
       return events.filter((data) => {
-        return data.id == oldInfo.event.id && data.resourceId === 'tiro'
+        return data.id == oldInfo.event.id && data.resourceId === this.serviceModal.TypeTiro
       })[0].start
     }
   }
   public placeInfoP(place: string, events: any, oldInfo: any) {
-    if(place === 'portal') {
+    if(place === this.serviceModal.TypePortal) {
       return oldInfo.event.start;
     } else {
       return events.filter((data) => {
-        return data.id == oldInfo.event.id && data.resourceId === 'portal'
+        return data.id == oldInfo.event.id && data.resourceId === this.serviceModal.TypePortal
       })[0].start
     }
   }
@@ -107,25 +97,25 @@ export class DatePickerService {
       schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
       plugins: [dayGridPlugin, listPlugin, timeGridPlugin, resourceTimelinePlugin, resourceDayGridPlugin, interactionPlugin, dayGrid],
       eventClick: (info) => {
-        buttonDataBase.openForm(this.infoClick(events,info), 'FormClientsComponent', undefined);
+        buttonDataBase.openForm(this.infoClick(events,info), this.serviceModal.modalClient, undefined);
 
       },
       eventDrop: (oldInfo) => {
         switch (oldInfo.event._def.resourceIds[0]) {
-          case 'portal':
+          case this.serviceModal.TypePortal:
           {
-            buttonDataBase.openForm( this.infoDrag(events, oldInfo, 'portal'), 'FormClientsComponent' , oldInfo);
+            buttonDataBase.openForm( this.infoDrag(events, oldInfo, this.serviceModal.TypePortal),  this.serviceModal.modalClient , oldInfo);
           }
             break;
-          case 'tiro':
+          case this.serviceModal.TypeTiro:
           {
 
-            buttonDataBase.openForm( this.infoDrag(events, oldInfo, 'tiro'), 'FormClientsComponent', oldInfo);
+            buttonDataBase.openForm( this.infoDrag(events, oldInfo, this.serviceModal.TypeTiro),  this.serviceModal.modalClient, oldInfo);
           }
             break;
-          case 'garaje':
+          case this.serviceModal.TypeGaraje:
           {
-            buttonDataBase.openForm( this.infoDrag(events, oldInfo, 'garaje'), 'FormClientsComponent', oldInfo);
+            buttonDataBase.openForm( this.infoDrag(events, oldInfo, this.serviceModal.TypeGaraje),  this.serviceModal.modalClient, oldInfo);
           }
             break;
         }
@@ -154,9 +144,9 @@ export class DatePickerService {
       },
       resourceLabelText: 'Posibilidades',
       resources: [
-        {id: 'tiro', title: 'Tiro', eventColor: 'red'},
-        {id: 'portal', title: 'Portal', eventColor: 'green'},
-        {id: 'garaje', title: 'Garaje', eventColor: 'yellow'},
+        {id: this.serviceModal.TypeTiro, title: 'Tiro', eventColor: 'red'},
+        {id: this.serviceModal.TypePortal, title: 'Portal', eventColor: 'green'},
+        {id: this.serviceModal.TypeGaraje, title: 'Garaje', eventColor: 'yellow'},
       ],
 
       events: events

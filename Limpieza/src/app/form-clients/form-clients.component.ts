@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {DataServiceClients} from '../service/serviceClients';
-import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-form-clients',

@@ -13,14 +13,6 @@ export interface GithubIssue {
   Dias: string;
   Observations: string;
 }
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  color: string;
-}
-
-
 
 @Injectable()
 export class DataService {

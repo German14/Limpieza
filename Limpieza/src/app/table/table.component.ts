@@ -12,6 +12,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {ButtonsNavigationComponent} from '../buttons-navigation/buttons-navigation.component';
 import {ServiceDialog} from "../service/serviceDialog";
 import {DeleteComponent} from "../delete/delete.component";
+import {ServiceModalsService} from "../service/interfaces/serviceModals.service";
 
 @Component({
   selector: 'app-table',
@@ -22,8 +23,8 @@ export class TableComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  displayedColumns: string[] = ['id', 'Name', 'Phone', 'Portal', 'Dias', 'Observations', 'delete'];
-  data: MatTableDataSource<GithubIssue>;
+  public displayedColumns: string[] = ['id', 'Name', 'Phone', 'Portal', 'Dias', 'Observations', 'delete'];
+  public data: MatTableDataSource<GithubIssue>;
 
 
 
@@ -35,6 +36,7 @@ export class TableComponent implements OnInit {
               private tableDataBase: DataService,
               private buttonDataBase: ButtonsNavigationComponent,
               private ServiceDialog: ServiceDialog,
+              private serviceModal: ServiceModalsService
 
   ) {}
 

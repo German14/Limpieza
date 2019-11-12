@@ -14,7 +14,7 @@ import {
 import {ButtonNavigationModule} from '../buttons-navigation/button-navigation.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FileUploadModule} from '../file-upload/file-upload.module';
-
+import {ServiceModalsService} from '../service/interfaces/serviceModals.service';
 
 
 @NgModule({
@@ -31,8 +31,7 @@ import {FileUploadModule} from '../file-upload/file-upload.module';
     MatInputModule,
     ButtonNavigationModule,
     ReactiveFormsModule
-
-
-  ]
+  ],
+  providers: [ServiceModalsService]
 })
 export class TableModule { }
