@@ -7,6 +7,7 @@ import {DatepickerRoutingModule} from "./datepicker-routing.module";
 import {CalendarModule} from "angular-calendar";
 import {DatePickerService} from "./service/datePicker.service";
 import {ServiceModalsService} from "../service/interfaces/serviceModals.service";
+import {ServiceDatapickerService} from '../service/interfaces/serviceDatapicker.service';
 
 
 @NgModule({
@@ -22,6 +23,6 @@ import {ServiceModalsService} from "../service/interfaces/serviceModals.service"
     MatPaginatorModule,
     CalendarModule
   ],
-  providers: [DatePickerService,ServiceModalsService]
+  providers: [DatePickerService,ServiceModalsService,ServiceDatapickerService]
 })
 export class DatepickerModule { }
