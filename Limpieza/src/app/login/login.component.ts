@@ -53,7 +53,10 @@ export class LoginComponent implements OnInit {
         data =>
         {
           this.loading = false;
-          this.router.navigateByUrl('/sidenav/table');
+          this.router.navigate(['/sidenav/table'], {queryParams:{
+            username: data.name,
+              lastname: data.avatar
+            }});
           
         },
         error => {
