@@ -86,6 +86,11 @@ export class ClientsComponent implements OnInit {
         id: row.id,
       }});
   }
+  goToValidate() {
+   this.tableDataBaseClient.getUser().subscribe((test) => {
+     console.log(test)
+   });
+  }
 
 }
 

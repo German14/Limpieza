@@ -14,8 +14,11 @@ export class AuthenticationService {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
+  public href;
+  public requestUrl;
 
   public get currentUserValue(): User {
+    console.log(this.currentUserSubject.value)
     return this.currentUserSubject.value;
   }
 
@@ -38,6 +41,12 @@ export class AuthenticationService {
       }));
   }
 
+  goToValidate(email:string) {
+    this.href = 'http://localhost:3000/api/auth/email/verify/'+ email;
+    this.requestUrl = this.href;
+    console.log('hola',this.http.get (this.requestUrl))
+    return this.http.get (this.requestUrl);
+  }
   logout() {
 // remove user data from local storage for log out
     localStorage.removeItem('currentUser');

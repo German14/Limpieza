@@ -6,11 +6,13 @@ import {DatepickerComponent} from './datepicker/datepicker.component';
 import {SidenavComponent} from './components/sidenav/sidenav.component';
 import {SidenavModule} from './components/sidenav/sidenav.module';
 import {RegisterComponent} from "./register/register.component";
+import {ValidateComponent} from "./validate/validate.component";
 
 const routes: Routes = [
     { path: '', component: LoginComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'auth/email/verify/:email', component: ValidateComponent },
   {path: 'sidenav',
     component:SidenavComponent,
     children:[

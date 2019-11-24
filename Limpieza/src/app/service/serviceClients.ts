@@ -32,6 +32,14 @@ export class DataServiceClients {
     this.requestUrl = this.href;
     return this._httpClient.get (this.requestUrl);
   }
+
+  getUser(): Observable<any> {
+    this.href = 'http://localhost:3000/api/auth/email/verify/germangaristo1989@gmail.com';
+    this.requestUrl = this.href;
+    console.log('hola',this._httpClient.get (this.requestUrl))
+    return this._httpClient.get (this.requestUrl);
+  }
+
   getRepoClient(data): Observable <any> {
     this.href = 'http://localhost:3000/clients/'+ data.id;
     this.requestUrl = this.href;

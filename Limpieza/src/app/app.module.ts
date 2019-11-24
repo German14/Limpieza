@@ -43,6 +43,7 @@ import {ServiceSidenav} from "./service/serviceSidenav";
 import {RegisterModule} from "./register/register.module";
 import {DeleteModule} from "./delete/Delete.module";
 import {DatepickerModule} from './datepicker/datepicker.module';
+import {ValidateModule} from "./validate/validate.module";
 
 
 @NgModule({
@@ -50,7 +51,7 @@ import {DatepickerModule} from './datepicker/datepicker.module';
     AppComponent,
     FormComponent,
     LoginComponent,
-    FormClientsComponent
+    FormClientsComponent,
   ],
   imports: [
     MatCardModule,
@@ -84,6 +85,7 @@ import {DatepickerModule} from './datepicker/datepicker.module';
     RegisterModule,
     DeleteModule,
     DatepickerModule,
+    ValidateModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
