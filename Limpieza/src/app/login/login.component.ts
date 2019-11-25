@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../_service/AuthentificationService';
-import * as M from 'materialize-css'
+import * as M from 'materialize-css';
 
 @Component({
   selector: 'app-login',
@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
               }});
           }
           else {
+            M.toast({html: 'Usuario no validado, revise su email para validar'}, 5000);
             this.router.navigate(['/login']);
           }
 
@@ -67,7 +68,6 @@ export class LoginComponent implements OnInit {
         },
         error => {
           console.log(error);
-
           this.loading = true;
           this.message= error.statusText;
           this.error = error['message'];

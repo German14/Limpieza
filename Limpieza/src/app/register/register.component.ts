@@ -3,7 +3,7 @@ import {Validators, FormBuilder, FormGroup} from "@angular/forms";
 import {AuthenticationService} from '../_service/AuthentificationService';
 import {Router} from '@angular/router';
 import {first} from "rxjs/operators";
-import {DataService} from "../service/service";
+import * as M from 'materialize-css';
 
 @Component({
   selector: 'app-register',
@@ -56,7 +56,17 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this.router.navigate(['/login']);
+          console.log(data.value);
+          if (!data.value) {
+            this.loading = true;
+            M.toast({html: data.result}, 5000);
+
+          }
+          else {
+            this.loading = false;
+            this.router.navigate(['/login']);
+            M.toast({html: 'Registrado'}, 5000);
+          }
         },
         error => {
           this.loading = false;

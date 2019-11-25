@@ -27,7 +27,7 @@ export class ClientsComponent implements OnInit {
   public displayedColumns: string[] = ['id', 'Name', 'Phone','Tiro','Garaje', 'Portal', 'Observations', 'Delete', 'DateRow'];
   public dataClient: MatTableDataSource<GithubIssue>;
 
-
+  id: any = [];
 
   constructor(private httpClient: HttpClient, private dialog: MatDialog,
               private router: Router,
@@ -37,10 +37,7 @@ export class ClientsComponent implements OnInit {
               private tableDataBaseClient: DataServiceClients,
               private buttonDataBase: ButtonsNavigationComponent,
               private ServiceDialog: ServiceDialog,
-              private serviceModal:ServiceModalsService
-  ) {
-  }
-
+              private serviceModal:ServiceModalsService) {}
 
   ngOnInit() {
 
@@ -79,17 +76,10 @@ export class ClientsComponent implements OnInit {
     }
   }
 
-  id: any = [];
-
   dateRow(row){
     this.router.navigate(['sidenav/date'], { queryParams: {
         id: row.id,
       }});
-  }
-  goToValidate() {
-   this.tableDataBaseClient.getUser().subscribe((test) => {
-     console.log(test)
-   });
   }
 
 }
