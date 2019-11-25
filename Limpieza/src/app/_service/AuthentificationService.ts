@@ -38,7 +38,6 @@ export class AuthenticationService {
   register (data: string[]) {
     return this.http.post<any>('http://localhost:3000/api/register', { data: data })
       .pipe(map(user => {
-      console.log( 'register');
         return user;
       }));
   }
@@ -46,7 +45,6 @@ export class AuthenticationService {
   goToValidate(email:string) {
     this.href = 'http://localhost:3000/api/auth/email/verify/'+ email;
     this.requestUrl = this.href;
-    console.log('hola',this.http.get (this.requestUrl))
     return this.http.get (this.requestUrl);
   }
   logout() {

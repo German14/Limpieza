@@ -67,7 +67,6 @@ export class LoginComponent implements OnInit {
           
         },
         error => {
-          console.log(error);
           this.loading = true;
           this.message= error.statusText;
           this.error = error['message'];

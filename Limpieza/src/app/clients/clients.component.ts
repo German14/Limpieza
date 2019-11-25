@@ -70,7 +70,6 @@ export class ClientsComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataClient.filter = filterValue.trim().toLowerCase();
-
     if (this.dataClient.paginator) {
       this.dataClient.paginator.firstPage();
     }
@@ -81,7 +80,6 @@ export class ClientsComponent implements OnInit {
         id: row.id,
       }});
   }
-
 }
 
 

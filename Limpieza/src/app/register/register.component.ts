@@ -56,7 +56,6 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          console.log(data.value);
           if (!data.value) {
             this.loading = true;
             M.toast({html: data.result}, 5000);
