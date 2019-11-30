@@ -31,6 +31,13 @@ export class ServiceSidenav {
       url:'date',
       enable:true,
       icon: 'perm_contact_calendar'
+    },
+    {
+      id:'4',
+      name:'Configure',
+      url:'configure',
+      enable:true,
+      icon: 'contacts'
     }
     ];
 

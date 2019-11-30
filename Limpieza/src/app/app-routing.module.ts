@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './_service/AuthGuard';
-import {DatepickerComponent} from './datepicker/datepicker.component';
 import {SidenavComponent} from './components/sidenav/sidenav.component';
 import {SidenavModule} from './components/sidenav/sidenav.module';
 import {RegisterComponent} from "./register/register.component";
@@ -56,6 +55,15 @@ const routes: Routes = [
             m=>m.FileUploadModule
           )
       },
+      {
+        path: 'configure',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./configure-user/configure.module').then(
+            m=>m.ConfigureModule
+          )
+      },
+
       {
         path: 'logout',
         component: LoginComponent

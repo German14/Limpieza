@@ -44,6 +44,8 @@ import {RegisterModule} from "./register/register.module";
 import {DeleteModule} from "./delete/Delete.module";
 import {DatepickerModule} from './datepicker/datepicker.module';
 import {ValidateModule} from "./validate/validate.module";
+import { ConfigureUserComponent } from './configure-user/configure-user.component';
+import {ConfigureModule} from "./configure-user/configure.module";
 
 
 @NgModule({
@@ -86,6 +88,7 @@ import {ValidateModule} from "./validate/validate.module";
     DeleteModule,
     DatepickerModule,
     ValidateModule,
+    ConfigureModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
