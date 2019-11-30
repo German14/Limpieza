@@ -21,10 +21,6 @@ export class AppComponent {
       if(!isNullOrUndefined(x)){
         this.currentUser = x
       }
-        else{
-
-        this.router.navigate(['/login']);
-      }
     });
   }
 
