@@ -1,7 +1,9 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MAT_DIALOG_DATA, MatDialog} from "@angular/material";
+import {MatDialog} from "@angular/material";
 import {DataServiceClients} from "../service/serviceClients";
+import {AuthenticationService} from '../_service/AuthentificationService';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-configure-user',
@@ -12,11 +14,10 @@ export class ConfigureUserComponent implements OnInit {
 
   contactos: FormGroup;
   submitted = false;
-  titulo = 'Agregar / Editar nuevo Cliente';
-
   constructor(private formBuilder: FormBuilder,
               private service: DataServiceClients,
-              public dialog: MatDialog) {}
+              public dialog: MatDialog,
+              private authentification: AuthenticationService) {}
   ngOnInit() {
     this.contactos = this.formBuilder.group({
       id: ['', []],
@@ -24,12 +25,17 @@ export class ConfigureUserComponent implements OnInit {
       Apellido: ['', [Validators.required]],
       Email: ['', [Validators.required]],
       password: ['', [Validators.required]],
-
     });
- 
+
+    const currentUser = this.authentification.currentUserValue;
+    const decoded = jwt_decode(currentUser);
+    this.service.getRepoRegister(decoded.payload.email).subscribe((users) => {
+      this.contactos.patchValue({id: users[0].id, Name: users[0].name, Apellido: users[0].avatar, Email: users[0].email, password: users[0].password})
+    });
   }
 
   get f() { return this.contactos.controls; }
+
 
   onSubmit() {
     this.submitted = true;
