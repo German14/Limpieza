@@ -3,54 +3,75 @@
     <h3>Configuración usuario</h3>
   </mat-card>
   <mat-card  style="margin:25px; min-width: 607px; overflow: auto">
-  <form [formGroup]="contactos" (ngSubmit)="onSubmit()" style="padding: 15px;
-    border: 2px solid #4ecdc4;">
-    <div class="form-group" style="display: none">
-      <label>Id</label>
-      <input type="text" formControlName="id" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.id.errors }" />
-      <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
-        <div *ngIf="f.id.errors.required">Por favor, ingresa tus Id</div>
-      </div>
-    </div>
-    <div class="form-group row">
-      <div class=" col-lg-5">
-        <label>Nombre</label>
-        <input type="text" formControlName="Name"  style="font-size: 13px;" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" />
-        <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
-          <div *ngIf="f.Name.errors.required">El nombre es obligatorio</div>
-          <div *ngIf="f.Name.errors.Name">Por favor, ingresa tu Nombre</div>
-        </div>
-      </div>
-      <div class=" col-lg-5">
-        <label>Apellido</label>
-        <input type="text" formControlName="Apellido"  style="font-size: 13px;" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.Apellido.errors }" />
-        <div *ngIf="submitted && f.Apellido.errors" class="invalid-feedback">
-          <div *ngIf="f.Apellido.errors.required">El apellido es obligatorio</div>
-          <div *ngIf="f.Apellido.errors.Apellido">Por favor, ingresa tu Apellido</div>
-        </div>
-      </div>
-      <div class=" col-lg-5">
-        <label>Email</label>
-        <input type="text" formControlName="Email"  style="font-size: 13px;" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" />
-        <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
-          <div *ngIf="f.Email.errors.required">El Email es obligatorio</div>
-          <div *ngIf="f.Email.errors.Apellido">Por favor, ingresa tu Email</div>
-        </div>
-      </div>
-      <div class=" col-lg-5">
-        <label>Contraseña</label>
-        <input type="password" formControlName="password"  style="font-size: 13px;" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-          <div *ngIf="f.Pass.errors.required">La contraseña es obligatorio</div>
-          <div *ngIf="f.Pass.errors.password">Por favor, ingresa tu Contraseña</div>
-        </div>
-      </div>
-    </div>
 
-    <div class="form-group">
-      <button type="submit"  class="btn btn-primary">Actualizar</button>
-    </div>
-  </form>
+    <form [formGroup]="contactos" (ngSubmit)="onSubmit()" style="padding: 15px;
+    border: 2px solid #4ecdc4;">
+      <div class="form-group " style="display: none">
+        <label>Id</label>
+        <label>
+          <input type="text" formControlName="id" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.id.errors }" />
+        </label>
+        <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
+          <div *ngIf="f.id.errors.required">Por favor, ingresa tus Id</div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class=" col-lg-5 ">
+
+          <div class="input-field">
+            <i class="material-icons prefix">perm_identity</i>
+            <label for="names">Nombre</label>
+            <input type="text" formControlName="Name" name="names" id="names"
+                   style="font-size: 13px;" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.Name.errors }" />
+            <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+              <div *ngIf="f.Name.errors.required">El nombre es obligatorio</div>
+              <div *ngIf="f.Name.errors.Name">Por favor, ingresa tu Nombre</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class=" input-field">
+            <i class="material-icons prefix">person_pin</i>
+            <label for="apellido">Apellido</label>
+            <input type="text" formControlName="Apellido" name="apellido" id="apellido" style="font-size: 13px;" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.Apellido.errors }" />
+            <div *ngIf="submitted && f.Apellido.errors" class="invalid-feedback">
+              <div *ngIf="f.Apellido.errors.required">El apellido es obligatorio</div>
+              <div *ngIf="f.Apellido.errors.Apellido">Por favor, ingresa tu Apellido</div>
+            </div>
+          </div>
+        </div>
+        <div class=" col-lg-5">
+          <div class=" input-field">
+            <i class="material-icons prefix">email</i>
+            <label for="email">Email</label>
+            <input type="text" formControlName="Email" name="email" id="email"  style="font-size: 13px;" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" />
+            <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+              <div *ngIf="f.Email.errors.required">El Email es obligatorio</div>
+              <div *ngIf="f.Email.errors.Apellido">Por favor, ingresa tu Email</div>
+            </div>
+          </div>
+        </div>
+        <div class=" col-lg-5">
+          <div class=" input-field">
+            <i class="material-icons prefix">mode_edit</i>
+            <label for="pass">Contraseña</label>
+            <input type="password" id="pass" name="pass" formControlName="password"  style="font-size: 13px;" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.password.errors }"  [maxLength]="20"/>
+            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+              <div *ngIf="f.Pass.errors.required">La contraseña es obligatorio</div>
+              <div *ngIf="f.Pass.errors.password">Por favor, ingresa tu Contraseña</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <p class="center-align">
+          <button class="waves-effect waves-light btn" type="submit" >
+            <i class="material-icons right">send</i>
+            Actualizar
+          </button>
+        </p>
+      </div>
+    </form>
   </mat-card>
 </div>
 

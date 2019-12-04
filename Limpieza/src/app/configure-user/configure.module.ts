@@ -9,7 +9,6 @@ import {
   MatTableModule
 } from '@angular/material';
 import {ButtonNavigationModule} from '../buttons-navigation/button-navigation.module';
-import {ServiceModalsService} from "../service/interfaces/serviceModals.service";
 import {ConfigureUserComponent} from "./configure-user.component";
 import {ConfigureUserRoutingModule} from "./configureUser-routing.module";
 import {ReactiveFormsModule} from "@angular/forms";
@@ -30,6 +29,6 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatDatepickerModule,
     MatDialogModule
   ],
-  providers:[ServiceModalsService]
+  providers:[]
 })
 export class ConfigureModule { }

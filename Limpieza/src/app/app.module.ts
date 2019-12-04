@@ -46,6 +46,7 @@ import {DatepickerModule} from './datepicker/datepicker.module';
 import {ValidateModule} from "./validate/validate.module";
 import { ConfigureUserComponent } from './configure-user/configure-user.component';
 import {ConfigureModule} from "./configure-user/configure.module";
+import {ServiceRegister} from './service/serviceRegister';
 
 
 @NgModule({
@@ -101,6 +102,7 @@ import {ConfigureModule} from "./configure-user/configure.module";
     ButtonsNavigationComponent,
     ServiceDialog,
     ServiceSidenav,
+    ServiceRegister,
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
 
   ],

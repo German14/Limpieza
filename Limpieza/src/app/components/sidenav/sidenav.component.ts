@@ -3,7 +3,7 @@ import {MediaMatcher} from '@angular/cdk/layout';
 import {AuthenticationService} from '../../_service/AuthentificationService';
 import {ServiceSidenav} from "../../service/serviceSidenav";
 import {ActivatedRoute} from "@angular/router";
-
+import * as jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -20,7 +20,8 @@ export class SidenavComponent implements OnInit,OnDestroy {
   constructor(media: MediaMatcher, changeDetectorRef: ChangeDetectorRef,
               private authorization: AuthenticationService,
               private serviceSidenav: ServiceSidenav,
-              private route: ActivatedRoute
+              private route: ActivatedRoute,
+              private authentification: AuthenticationService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this.mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -32,10 +33,10 @@ export class SidenavComponent implements OnInit,OnDestroy {
 
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe(params => {
-      this.user = params.get('username');
-      this.lastname= params.get('lastname');
-    })
+    const currentUser = this.authentification.currentUserValue;
+    const decoded = jwt_decode(currentUser);
+    this.user = decoded.payload.username;
+    this.lastname = decoded.payload.lastname
   }
 
 }

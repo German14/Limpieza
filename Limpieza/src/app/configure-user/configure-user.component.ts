@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MatDialog} from "@angular/material";
-import {DataServiceClients} from "../service/serviceClients";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MatDialog} from '@angular/material';
+import {DataServiceClients} from '../service/serviceClients';
 import {AuthenticationService} from '../_service/AuthentificationService';
 import * as jwt_decode from 'jwt-decode';
+import {ServiceRegister} from '../service/serviceRegister';
 
 @Component({
   selector: 'app-configure-user',
@@ -15,7 +16,7 @@ export class ConfigureUserComponent implements OnInit {
   contactos: FormGroup;
   submitted = false;
   constructor(private formBuilder: FormBuilder,
-              private service: DataServiceClients,
+              private service: ServiceRegister,
               public dialog: MatDialog,
               private authentification: AuthenticationService) {}
   ngOnInit() {
@@ -29,8 +30,15 @@ export class ConfigureUserComponent implements OnInit {
 
     const currentUser = this.authentification.currentUserValue;
     const decoded = jwt_decode(currentUser);
-    this.service.getRepoRegister(decoded.payload.email).subscribe((users) => {
-      this.contactos.patchValue({id: users[0].id, Name: users[0].name, Apellido: users[0].avatar, Email: users[0].email, password: users[0].password})
+    this.service.getRepoRegister(decoded.payload.email).subscribe((users) =>{
+      this.contactos.patchValue(
+        {
+          id: users[0].id,
+          Name: users[0].name,
+          Apellido: users[0].avatar,
+          Email: users[0].email,
+          password: users[0].password
+        });
     });
   }
 
@@ -42,7 +50,17 @@ export class ConfigureUserComponent implements OnInit {
     if (this.contactos.invalid) {
       return;
     }
-    this.dialog.closeAll();
+
+    const register = {
+      id:this.contactos.value.id,
+      name: this.contactos.value.Name,
+      avatar: this.contactos.value.Apellido,
+      email: this.contactos.value.Email,
+      password: this.contactos.value.password,
+      enable: true
+    };
+    this.service.updateUser(register);
+
   }
 
 }
