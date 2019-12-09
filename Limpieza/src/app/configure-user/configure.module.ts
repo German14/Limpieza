@@ -9,9 +9,9 @@ import {
   MatTableModule
 } from '@angular/material';
 import {ButtonNavigationModule} from '../buttons-navigation/button-navigation.module';
-import {ConfigureUserComponent} from "./configure-user.component";
-import {ConfigureUserRoutingModule} from "./configureUser-routing.module";
-import {ReactiveFormsModule} from "@angular/forms";
+import {ConfigureUserComponent} from './configure-user.component';
+import {ConfigureUserRoutingModule} from './configureUser-routing.module';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -29,6 +29,6 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatDatepickerModule,
     MatDialogModule
   ],
-  providers:[]
+  providers: []
 })
 export class ConfigureModule { }

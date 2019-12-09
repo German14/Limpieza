@@ -31,7 +31,7 @@ export class FormClientsComponent implements OnInit {
     this.contacto.patchValue({id: this.data.id , Name: this.data.Name, Phone: this.data.Phone,
       Garaje: this.data.Garaje,
       Tiro: this.data.Tiro,
-      Portal:this.data.Portal,
+      Portal: this.data.Portal,
       Observations: this.data.Observations});
   }
 

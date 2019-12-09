@@ -1,12 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Calendar} from '@fullcalendar/core';
-import {DataServiceClients} from "../service/serviceClients";
+import {DataServiceClients} from '../service/serviceClients';
 import {ActivatedRoute} from '@angular/router';
-import {isNullOrUndefined} from "util";
-import {DatePickerService} from "./service/datePicker.service";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import {Button} from "selenium-webdriver";
-import {ButtonsNavigationComponent} from "../buttons-navigation/buttons-navigation.component";
+import {isNullOrUndefined} from 'util';
+import {DatePickerService} from './service/datePicker.service';
+import {ButtonsNavigationComponent} from '../buttons-navigation/buttons-navigation.component';
 
 @Component({
   selector: 'app-datepicker',
@@ -16,17 +13,17 @@ import {ButtonsNavigationComponent} from "../buttons-navigation/buttons-navigati
 
 export class DatepickerComponent implements OnInit {
 
-  events : any[] = [];
+  events: any[] = [];
   private  firstParam: string;
   constructor(private service: DataServiceClients , private route: ActivatedRoute,
-              private DatePickerService: DatePickerService,
-              private ButtonsNavigationComponent:ButtonsNavigationComponent) {
+              private datePickerService: DatePickerService,
+              private buttonsNavigationComponent: ButtonsNavigationComponent) {
     this.firstParam = this.route.snapshot.queryParamMap.get('id');
   }
 
   callServiceIndividual(calendar, calendarEl) {
-    this.service.getRepoClient({ id: this.firstParam}).subscribe((value ) =>{
-      value.map(data =>{
+    this.service.getRepoClient({ id: this.firstParam}).subscribe((value ) => {
+      value.map(data => {
         this.events.push({
           id: this.firstParam,
           resourceId: 'portal',
@@ -56,13 +53,13 @@ export class DatepickerComponent implements OnInit {
           observacion: data.Observations
         });
       });
-      this.DatePickerService.inicialize(calendar, calendarEl, this.events, this.ButtonsNavigationComponent);
-    })
+      this.datePickerService.inicialize(calendar, calendarEl, this.events, this.buttonsNavigationComponent);
+    });
   }
 
   callServiceGeneric(calendar, calendarEl) {
-    this.service.getRepoClients().subscribe((value ) =>{
-      value.map(data =>{
+    this.service.getRepoClients().subscribe((value ) => {
+      value.map(data => {
         this.events.push({
           id: data.id,
           resourceId: 'portal',
@@ -91,20 +88,18 @@ export class DatepickerComponent implements OnInit {
           observacion: data.Observations
         });
       });
-      this.DatePickerService.inicialize(calendar, calendarEl, this.events, this.ButtonsNavigationComponent);
+      this.datePickerService.inicialize(calendar, calendarEl, this.events, this.buttonsNavigationComponent);
     });
   }
+
   ngOnInit(): void {
-    let calendar: Calendar;
-
-    let calendarEl = document.getElementById('calendar');
-
-
+    const calendar: any = [];
+    const calendarEl = document.getElementById('calendar');
     if (!isNullOrUndefined(this.firstParam)) {
       this.callServiceIndividual(calendar, calendarEl);
 
-       } else {
-      this.callServiceGeneric(calendar,calendarEl);
+    } else {
+      this.callServiceGeneric(calendar, calendarEl);
     }
 
   }

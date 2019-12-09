@@ -1,26 +1,26 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {AuthGuard} from './_service/AuthGuard';
 import {SidenavComponent} from './components/sidenav/sidenav.component';
 import {SidenavModule} from './components/sidenav/sidenav.module';
-import {RegisterComponent} from "./register/register.component";
-import {ValidateComponent} from "./validate/validate.component";
+import {RegisterComponent} from './register/register.component';
+import {ValidateComponent} from './validate/validate.component';
 
 const routes: Routes = [
-    { path: '', component: LoginComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'auth/email/verify/:email', component: ValidateComponent },
+  { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'auth/email/verify/:email', component: ValidateComponent },
   {path: 'sidenav',
-    component:SidenavComponent,
-    children:[
+    component: SidenavComponent,
+    children: [
       {
         path: 'table',
         canActivate: [AuthGuard],
         loadChildren: () =>
           import('./table/table.module').then(
-            m=>m.TableModule
+            m => m.TableModule
           )
       },
       {
@@ -28,7 +28,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () =>
           import('./clients/client.module').then(
-            m=>m.ClientModule
+            m => m.ClientModule
           )
       },
       {
@@ -36,7 +36,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () =>
           import('./parseador/parseador.module').then(
-            m=>m.ParseadorModule
+            m => m.ParseadorModule
           )
       },
       {
@@ -44,7 +44,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () =>
           import('./datepicker/datepicker.module').then(
-            m=>m.DatepickerModule
+            m => m.DatepickerModule
           )
       },
       {
@@ -52,7 +52,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () =>
           import('./file-upload/file-upload.module').then(
-            m=>m.FileUploadModule
+            m => m.FileUploadModule
           )
       },
       {
@@ -60,7 +60,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () =>
           import('./configure-user/configure.module').then(
-            m=>m.ConfigureModule
+            m => m.ConfigureModule
           )
       },
 

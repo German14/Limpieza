@@ -4,7 +4,7 @@ import {ClientsComponent} from './clients.component';
 import {ClientRoutingModule} from './client-routing.module';
 import {MatCardModule, MatInputModule, MatPaginatorModule, MatSortModule, MatTableModule} from '@angular/material';
 import {ButtonNavigationModule} from '../buttons-navigation/button-navigation.module';
-import {ServiceModalsService} from "../service/interfaces/serviceModals.service";
+import {ServiceModalsService} from '../service/interfaces/serviceModals.service';
 
 
 @NgModule({
@@ -19,6 +19,6 @@ import {ServiceModalsService} from "../service/interfaces/serviceModals.service"
     MatSortModule,
     MatPaginatorModule
   ],
-  providers:[ServiceModalsService]
+  providers: [ServiceModalsService]
 })
 export class ClientModule { }

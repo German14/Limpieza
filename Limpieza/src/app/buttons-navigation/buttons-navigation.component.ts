@@ -11,7 +11,7 @@ import {isNullOrUndefined} from 'util';
 
 
 @Component({
-  selector: 'buttonNavigation',
+  selector: 'app-button-navigation',
   templateUrl: './buttons-navigation.component.html',
   styleUrls: ['./buttons-navigation.component.scss']
 })
@@ -30,7 +30,7 @@ export class ButtonsNavigationComponent implements OnInit {
     private dialog: MatDialog,
     private authorization: AuthenticationService,
     private router: Router,
-    private ServiceDialog: ServiceDialog,
+    private serviceDialog: ServiceDialog,
 
   ) { }
 
@@ -61,36 +61,30 @@ export class ButtonsNavigationComponent implements OnInit {
 
   }
 
-  openForm(row, extra, oldInfo){
-    if(isNullOrUndefined(extra)){
-      if( this.input==='FormComponent' ){
-        this.input= FormComponent;
+  openForm(row, extra?, oldInfo?) {
+    if (isNullOrUndefined(extra)) {
+      if (this.input === 'FormComponent' ) {
+        this.input = FormComponent;
+      } else if ( this.input === 'FormClientsComponent' ) {
+        this.input = FormClientsComponent;
       }
-      else if( this.input==='FormClientsComponent' ){
-
-        this.input= FormClientsComponent;
-      }
-    }
-    else{
-      if(extra === 'FormComponent' ){
-        this.input= FormComponent;
-      }
-      else if(extra ==='FormClientsComponent' ){
-        this.input= FormClientsComponent;
+    } else {
+      if (extra === 'FormComponent' ) {
+        this.input = FormComponent;
+      } else if (extra === 'FormClientsComponent' ) {
+        this.input = FormClientsComponent;
       }
 
     }
 
-    this.ServiceDialog.open(this.input,row , oldInfo);
+    this.serviceDialog.open(this.input, row , oldInfo);
   }
 
   exportAsXLSX() {
-    if(this.export === 'tableComponent'){
-
-      this.ServiceDialog.exportAsExcelFile(this.data.data, 'Trabajadores');
-    }
-    else {
-      this.ServiceDialog.exportAsExcelFile(this.dataClient.data, 'Clientes');
+    if (this.export === 'tableComponent') {
+      this.serviceDialog.exportAsExcelFile(this.data.data, 'Trabajadores');
+    } else {
+      this.serviceDialog.exportAsExcelFile(this.dataClient.data, 'Clientes');
     }
   }
 

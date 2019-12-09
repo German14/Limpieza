@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {MatPaginatorModule} from '@angular/material/paginator'
+import {MatPaginatorModule} from '@angular/material/paginator';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
@@ -15,7 +15,7 @@ import {
   MatTableModule,
   MatToolbarModule
 } from '@angular/material';
-import {CdkTableModule} from '@angular/cdk/table'
+import {CdkTableModule} from '@angular/cdk/table';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -38,14 +38,13 @@ import {TableModule} from './table/table.module';
 import {ButtonNavigationModule} from './buttons-navigation/button-navigation.module';
 import {ClientModule} from './clients/client.module';
 import {FileUploadModule} from './file-upload/file-upload.module';
-import {ParseadorModule} from "./parseador/parseador.module";
-import {ServiceSidenav} from "./service/serviceSidenav";
-import {RegisterModule} from "./register/register.module";
-import {DeleteModule} from "./delete/Delete.module";
+import {ParseadorModule} from './parseador/parseador.module';
+import {ServiceSidenav} from './service/serviceSidenav';
+import {RegisterModule} from './register/register.module';
+import {DeleteModule} from './delete/Delete.module';
 import {DatepickerModule} from './datepicker/datepicker.module';
-import {ValidateModule} from "./validate/validate.module";
-import { ConfigureUserComponent } from './configure-user/configure-user.component';
-import {ConfigureModule} from "./configure-user/configure.module";
+import {ValidateModule} from './validate/validate.module';
+import {ConfigureModule} from './configure-user/configure.module';
 import {ServiceRegister} from './service/serviceRegister';
 
 

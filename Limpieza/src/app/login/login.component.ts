@@ -15,13 +15,13 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  error:string;
-  message:string;
+  error: string;
+  message: string;
 
   constructor(  private formBuilder: FormBuilder,
                 private route: ActivatedRoute,
                 private router: Router,
-                private authenticationService : AuthenticationService
+                private authenticationService: AuthenticationService
 
   ) { }
 
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       username: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 
   }
 
@@ -39,37 +39,33 @@ export class LoginComponent implements OnInit {
   get fval() { return this.loginForm.controls; }
 
   keyDownFunction(event) {
-    if(event.keyCode == 13) {
+    if (event.keyCode === 13) {
       this.onFormSubmit();
     }
   }
   onFormSubmit() {
     this.submitted = true;
-    if(this.loginForm.invalid){
+    if (this.loginForm.invalid) {
       return;
     }
     this.authenticationService.login(this.fval.username.value, this.fval.password.value)
       .subscribe(
-        data =>
-        {
+        data => {
           this.loading = false;
-          if(data.enable === true){
-            this.router.navigate(['/sidenav/table'], {queryParams:{
+          if (data.enable === true) {
+            this.router.navigate(['/sidenav/table'], {queryParams: {
                 username: data.name,
                 lastname: data.avatar
               }});
-          }
-          else {
+          } else {
             M.toast({html: 'Usuario no validado, revise su email para validar'}, 5000);
             this.router.navigate(['/login']);
           }
-
-          
         },
         error => {
           this.loading = true;
-          this.message= error.statusText;
-          this.error = error['message'];
+          this.message = error.statusText;
+          this.error = error.message;
           M.toast({html: this.message}, 5000);
 
         });

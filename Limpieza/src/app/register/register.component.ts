@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Validators, FormBuilder, FormGroup} from "@angular/forms";
+import {Validators, FormBuilder, FormGroup} from '@angular/forms';
 import {AuthenticationService} from '../_service/AuthentificationService';
 import {Router} from '@angular/router';
-import {first} from "rxjs/operators";
+import {first} from 'rxjs/operators';
 import * as M from 'materialize-css';
 
 @Component({
@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
 
 
   keyDownFunction(event) {
-    if(event.keyCode == 13) {
+    if (event.keyCode === 13) {
       this.onSubmit();
     }
   }
@@ -59,9 +59,7 @@ export class RegisterComponent implements OnInit {
           if (!data.value) {
             this.loading = true;
             M.toast({html: data.result}, 5000);
-
-          }
-          else {
+          } else {
             this.loading = false;
             this.router.navigate(['/login']);
             M.toast({html: 'Registrado'}, 5000);

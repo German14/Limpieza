@@ -5,14 +5,13 @@ import {MatDialog, MatDialogConfig} from '@angular/material';
 import {DataService, GithubIssue} from '../service/service';
 import {AuthenticationService} from '../_service/AuthentificationService';
 import {ActivatedRoute, Router} from '@angular/router';
-import * as jwt_decode from 'jwt-decode';
 
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {ButtonsNavigationComponent} from '../buttons-navigation/buttons-navigation.component';
-import {ServiceDialog} from "../service/serviceDialog";
-import {DeleteComponent} from "../delete/delete.component";
-import {ServiceModalsService} from "../service/interfaces/serviceModals.service";
+import {ServiceDialog} from '../service/serviceDialog';
+import {DeleteComponent} from '../delete/delete.component';
+import {ServiceModalsService} from '../service/interfaces/serviceModals.service';
 
 @Component({
   selector: 'app-table',
@@ -26,8 +25,6 @@ export class TableComponent implements OnInit {
   public displayedColumns: string[] = ['id', 'Name', 'Phone', 'Portal', 'Dias', 'Observations', 'delete'];
   public data: MatTableDataSource<GithubIssue>;
 
-
-
   constructor(private httpClient: HttpClient,
               private dialog: MatDialog,
               private router: Router,
@@ -35,26 +32,25 @@ export class TableComponent implements OnInit {
               private authorization: AuthenticationService,
               private tableDataBase: DataService,
               private buttonDataBase: ButtonsNavigationComponent,
-              private ServiceDialog: ServiceDialog,
+              private serviceDialog: ServiceDialog,
               private serviceModal: ServiceModalsService
 
   ) {}
 
   ngOnInit() {
-
-    this.tableDataBase.newCoordinateForm$.subscribe((value =>{
+    this.tableDataBase.newCoordinateForm$.subscribe((value => {
       const dataSources = Array.from( {length: 1 } , () => value.data);
       this.data = new MatTableDataSource(dataSources[0]);
       this.data.sort = this.sort;
       this.data.paginator = this.paginator;
-    }))
+    }));
   }
 
 
   deleteRow(row, table) {
-    this.ServiceDialog.open(DeleteComponent, row,undefined);
+    this.serviceDialog.open(DeleteComponent, row);
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {row: row, table:table};
+    dialogConfig.data = { row, table};
     dialogConfig.disableClose = true;
 
     const dialogRef = this.dialog.open(DeleteComponent, dialogConfig);
@@ -68,7 +64,7 @@ export class TableComponent implements OnInit {
             this.data.paginator = this.paginator;
           });
       }
-    })
+    });
 
   }
 

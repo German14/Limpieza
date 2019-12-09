@@ -1,19 +1,11 @@
-import {ApplicationModule, NgModule} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import {
-  MatCardModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatPaginatorModule,
-  MatSortModule,
-  MatTableModule
-} from "@angular/material";
-import {ButtonNavigationModule} from "../buttons-navigation/button-navigation.module";
-import {ReactiveFormsModule} from "@angular/forms";
+import {MatCardModule, MatFormFieldModule, MatInputModule, MatPaginatorModule, MatSortModule, MatTableModule} from '@angular/material';
+import {ButtonNavigationModule} from '../buttons-navigation/button-navigation.module';
+import {ReactiveFormsModule} from '@angular/forms';
 import {FileUploadComponent} from './file-upload.component';
-import {FileUploadRoutingModule} from "./file-upload-routing.module";
-
+import {FileUploadRoutingModule} from './file-upload-routing.module';
 
 
 @NgModule({

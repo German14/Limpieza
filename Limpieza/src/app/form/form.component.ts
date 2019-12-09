@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MAT_DIALOG_DATA, MatCalendar, MatDialog} from '@angular/material';
 import {DataService} from '../service/service';
-import * as M from 'materialize-css'
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',

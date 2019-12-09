@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material';
-import {DataServiceClients} from '../service/serviceClients';
 import {AuthenticationService} from '../_service/AuthentificationService';
 import * as jwt_decode from 'jwt-decode';
 import {ServiceRegister} from '../service/serviceRegister';
@@ -30,7 +29,7 @@ export class ConfigureUserComponent implements OnInit {
 
     const currentUser = this.authentification.currentUserValue;
     const decoded = jwt_decode(currentUser);
-    this.service.getRepoRegister(decoded.payload.email).subscribe((users) =>{
+    this.service.getRepoRegister(decoded.payload.email).subscribe((users) => {
       this.contactos.patchValue(
         {
           id: users[0].id,
@@ -52,7 +51,7 @@ export class ConfigureUserComponent implements OnInit {
     }
 
     const register = {
-      id:this.contactos.value.id,
+      id: this.contactos.value.id,
       name: this.contactos.value.Name,
       avatar: this.contactos.value.Apellido,
       email: this.contactos.value.Email,

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ValidateComponent} from "./validate.component";
+import {ValidateComponent} from './validate.component';
 
 
 const routes: Routes = [{path: '', component: ValidateComponent}];

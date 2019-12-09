@@ -11,9 +11,9 @@ import {AuthenticationService} from '../_service/AuthentificationService';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {ButtonsNavigationComponent} from '../buttons-navigation/buttons-navigation.component';
-import {DeleteComponent} from "../delete/delete.component";
-import {ServiceDialog} from "../service/serviceDialog";
-import {ServiceModalsService} from "../service/interfaces/serviceModals.service";
+import {DeleteComponent} from '../delete/delete.component';
+import {ServiceDialog} from '../service/serviceDialog';
+import {ServiceModalsService} from '../service/interfaces/serviceModals.service';
 
 @Component({
   selector: 'app-clients',
@@ -24,7 +24,7 @@ export class ClientsComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  public displayedColumns: string[] = ['id', 'Name', 'Phone','Tiro','Garaje', 'Portal', 'Observations', 'Delete', 'DateRow'];
+  public displayedColumns: string[] = ['id', 'Name', 'Phone', 'Tiro', 'Garaje', 'Portal', 'Observations', 'Delete', 'DateRow'];
   public dataClient: MatTableDataSource<GithubIssue>;
 
   id: any = [];
@@ -36,23 +36,23 @@ export class ClientsComponent implements OnInit {
               private tableDataBase: DataService,
               private tableDataBaseClient: DataServiceClients,
               private buttonDataBase: ButtonsNavigationComponent,
-              private ServiceDialog: ServiceDialog,
-              private serviceModal:ServiceModalsService) {}
+              private serviceDialog: ServiceDialog,
+              private serviceModal: ServiceModalsService) {}
 
   ngOnInit() {
 
-    this.tableDataBaseClient.newCoordinateClientForm$.subscribe((value =>{
+    this.tableDataBaseClient.newCoordinateClientForm$.subscribe((value => {
       const dataSources = Array.from( {length: 1 } , () => value.data);
       this.dataClient = new MatTableDataSource(dataSources[0]);
       this.dataClient.sort = this.sort;
       this.dataClient.paginator = this.paginator;
-    }))
+    }));
   }
 
   deleteRow(row, table) {
-    this.ServiceDialog.open(DeleteComponent, row, undefined);
+    this.serviceDialog.open(DeleteComponent, row, undefined);
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = {row:row, table:table};
+    dialogConfig.data = {row, table};
     dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(DeleteComponent, dialogConfig);
     dialogRef.afterClosed().subscribe((value) => {
@@ -65,7 +65,7 @@ export class ClientsComponent implements OnInit {
             this.dataClient.paginator = this.paginator;
           });
       }
-    })
+    });
   }
 
   applyFilter(filterValue: string) {
@@ -75,7 +75,7 @@ export class ClientsComponent implements OnInit {
     }
   }
 
-  dateRow(row){
+  dateRow(row) {
     this.router.navigate(['sidenav/date'], { queryParams: {
         id: row.id,
       }});

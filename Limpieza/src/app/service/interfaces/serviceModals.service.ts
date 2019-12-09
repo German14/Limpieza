@@ -5,12 +5,12 @@ export class ServiceModalsService {
 
   public modalClient = 'FormClientsComponent';
   public modalWorker = 'FormComponent';
-  public TypeGaraje= 'garaje';
-  public TypePortal= 'portal';
+  public TypeGaraje = 'garaje';
+  public TypePortal = 'portal';
   public TypeTiro = 'tiro';
   public exportWorker = 'tableComponent';
   public exportClient = 'clientComponent';
-  public clientComponent = 'ClientComponent'
+  public clientComponent = 'ClientComponent';
 
 
 }

@@ -14,6 +14,6 @@ import {ButtonsNavigationComponent} from './buttons-navigation.component';
     MatListModule,
     RouterModule,
   ],
-  exports:[ButtonsNavigationComponent]
+  exports: [ButtonsNavigationComponent]
 })
 export class ButtonNavigationModule { }

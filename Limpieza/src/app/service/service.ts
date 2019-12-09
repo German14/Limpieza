@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
-import * as M from 'materialize-css'
+import * as M from 'materialize-css';
 
 
 
@@ -19,7 +19,7 @@ export class DataService {
 
   /** An Table database that the data source uses to retrieve data for the table. */
   public newCoordinateForm = new Subject<any>();
-  public newCoordinateForm$=  this.newCoordinateForm.asObservable();
+  public newCoordinateForm$ =  this.newCoordinateForm.asObservable();
 
 
   constructor(private httpClient: HttpClient) {}
@@ -34,23 +34,23 @@ export class DataService {
   }
 
 
-  PostRepoIssues(data){
+  PostRepoIssues(data) {
     this.href = 'http://localhost:3000/users';
     this.requestUrl = this.href;
     if (data.id === undefined) {
-      return this.httpClient.post (this.requestUrl, data).subscribe((value)=>{
+      return this.httpClient.post (this.requestUrl, data).subscribe((value) => {
 
         M.toast({html: value['result']}, 3000);
-      }, error =>{
+      }, error => {
         M.toast({html: error.error.message}, 3000);
       });
     } else {
       this.href = 'http://localhost:3000/users/' + data.id;
       this.requestUrl = this.href;
-      this.httpClient.put (this.requestUrl, data).subscribe((value)=>{
+      this.httpClient.put (this.requestUrl, data).subscribe((value) => {
 
         M.toast({html: value['result']}, 3000);
-      }, error =>{
+      }, error => {
         M.toast({html: error.error.message}, 3000);
       });
     }
@@ -59,9 +59,9 @@ export class DataService {
   DeleteRepoIssues(data) {
     this.href = 'http://localhost:3000/users/' + data.id ;
     this.requestUrl = this.href;
-    return this.httpClient.delete (this.requestUrl, data).subscribe((value)=>{
+    return this.httpClient.delete (this.requestUrl, data).subscribe((value) => {
       M.toast({html: value['result']}, 3000);
-    }, error =>{
+    }, error => {
       M.toast({html: error.error.message}, 3000);
     });
   }
@@ -76,6 +76,7 @@ export class DataService {
         if (!file) {
           return;
         }
+        // tslint:disable-next-line:only-arrow-functions
         reader.onloadend = function(e) {
           const contents = e.target['result'];
           obs.next(contents);

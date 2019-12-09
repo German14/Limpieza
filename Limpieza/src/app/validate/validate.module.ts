@@ -12,8 +12,8 @@ import {
 import {ButtonNavigationModule} from '../buttons-navigation/button-navigation.module';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FileUploadModule} from '../file-upload/file-upload.module';
-import {ValidateRoutingModule} from "./validate-routing.module";
-import {ValidateComponent} from "./validate.component";
+import {ValidateRoutingModule} from './validate-routing.module';
+import {ValidateComponent} from './validate.component';
 
 
 

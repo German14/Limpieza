@@ -8,11 +8,11 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatTableModule
-} from "@angular/material";
-import {ButtonNavigationModule} from "../buttons-navigation/button-navigation.module";
-import {ReactiveFormsModule} from "@angular/forms";
-import {DeleteComponent} from "./delete.component";
-import {DeleteRoutingModule} from "./delete-routing.module";
+} from '@angular/material';
+import {ButtonNavigationModule} from '../buttons-navigation/button-navigation.module';
+import {ReactiveFormsModule} from '@angular/forms';
+import {DeleteComponent} from './delete.component';
+import {DeleteRoutingModule} from './delete-routing.module';
 
 
 

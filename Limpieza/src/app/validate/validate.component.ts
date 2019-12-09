@@ -14,7 +14,7 @@ export class ValidateComponent implements OnInit {
   validateForm: FormGroup;
   loading = false;
   submitted = false;
-  email:any;
+  email: any;
   constructor(  private formBuilder: FormBuilder,
                 private router: Router,
                 private authenticationService: AuthenticationService,
@@ -32,7 +32,7 @@ export class ValidateComponent implements OnInit {
 
 
   keyDownFunction(event) {
-    if(event.keyCode == 13) {
+    if (event.keyCode === 13) {
       this.onSubmit();
     }
   }

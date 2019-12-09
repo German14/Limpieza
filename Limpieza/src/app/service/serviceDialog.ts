@@ -1,10 +1,4 @@
-import {
-  ApplicationRef,
-  ComponentFactoryResolver,
-  Injectable,
-  Injector, OnInit,
-  Type, ViewChild,
-} from '@angular/core'
+import {ApplicationRef, ComponentFactoryResolver, Injectable, Injector, OnInit, Type, ViewChild,} from '@angular/core';
 
 import {MatDialog, MatDialogConfig, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {DataService, GithubIssue} from './service';
@@ -14,8 +8,7 @@ import {DataServiceClients} from './serviceClients';
 
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
-import {DatePickerService} from "../datepicker/service/datePicker.service";
-import {isNullOrUndefined} from "util";
+import {isNullOrUndefined} from 'util';
 
 const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 const EXCEL_EXTENSION = '.xlsx';
@@ -24,7 +17,7 @@ const EXCEL_EXTENSION = '.xlsx';
   providedIn: 'root'
 })
 
-export class ServiceDialog implements OnInit{
+export class ServiceDialog implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   data: MatTableDataSource<GithubIssue>;
@@ -34,38 +27,33 @@ export class ServiceDialog implements OnInit{
                private injector: Injector,
                private dialog: MatDialog,
                private tableDataBase: DataService,
-               private tableDataBaseClient: DataServiceClients,
-               private DatePickerService: DatePickerService
-               ){
+               private tableDataBaseClient: DataServiceClients) {}
 
+  // tslint:disable-next-line:contextual-lifecycle
+  ngOnInit() {
+    this.tableDataBase.getRepoIssues().subscribe(
+      (element) => {
+        const dataSources = Array.from( {length: 1 } , () => element);
+        this.data = new MatTableDataSource(dataSources[0]);
+        this.data.sort = this.sort;
+        this.data.paginator = this.paginator;
 
-
+        this.tableDataBase.newCoordinateForm.next(this.data);
+      });
   }
 
-ngOnInit(){
-  this.tableDataBase.getRepoIssues().subscribe(
-    (element) => {
-      const dataSources = Array.from( {length: 1 } , () => element);
-      this.data = new MatTableDataSource(dataSources[0]);
-      this.data.sort = this.sort;
-      this.data.paginator = this.paginator;
+  serviceClientUpdate() {
+    this.tableDataBaseClient.getRepoClients().subscribe(
+      (element) => {
+        const dataSources = Array.from( {length: 1 } , () => element);
+        this.dataClient = new MatTableDataSource(dataSources[0]);
+        this.dataClient.sort = this.sort;
+        this.dataClient.paginator = this.paginator;
+        this.tableDataBaseClient.newCoordinateClientForm.next(this.dataClient);
+      });
 
-      this.tableDataBase.newCoordinateForm.next(this.data);
-    });
-}
-
-serviceClientUpdate(){
-  this.tableDataBaseClient.getRepoClients().subscribe(
-    (element) => {
-      const dataSources = Array.from( {length: 1 } , () => element);
-      this.dataClient = new MatTableDataSource(dataSources[0]);
-      this.dataClient.sort = this.sort;
-      this.dataClient.paginator = this.paginator;
-      this.tableDataBaseClient.newCoordinateClientForm.next(this.dataClient)
-    });
-
-}
-  public open(componentType: Type<any>, row, oldInfo) {
+  }
+  public open(componentType: Type<any>, row, oldInfo?) {
 
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = row;
@@ -77,27 +65,25 @@ serviceClientUpdate(){
         if (dialogRef['_result'] === undefined) {
           this.ngOnInit();
         }
-      })
-    }
-    else if (componentType === FormClientsComponent) {
+      });
+    } else if (componentType === FormClientsComponent) {
       const dialogRef = this.dialog.open(componentType, dialogConfig);
       dialogRef.afterClosed().subscribe(() => {
         if (dialogRef['_result'] === undefined) {
           this.serviceClientUpdate();
-        }
-        else if (dialogRef['_result'] === "") {
-          if(!isNullOrUndefined(oldInfo)){
+        } else if (dialogRef['_result'] === '') {
+          if (!isNullOrUndefined(oldInfo)) {
             oldInfo.revert();
           }
         }
-      })
+      });
     }
   }
 
 
   public exportAsExcelFile(json: any[], excelFileName: string): void {
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const workbook: XLSX.WorkBook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
     const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     this.saveAsExcelFile(excelBuffer, excelFileName);
   }

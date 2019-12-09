@@ -16,10 +16,9 @@ export class AppComponent {
     private router: Router,
     private authenticationService: AuthenticationService
   ) {
-    this.authenticationService.currentUser.subscribe(x =>
-    {
+    this.authenticationService.currentUser.subscribe(x => {
       if (!isNullOrUndefined(x)) {
-        this.currentUser = x
+        this.currentUser = x;
       }
     });
   }

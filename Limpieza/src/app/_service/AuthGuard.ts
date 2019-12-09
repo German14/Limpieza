@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import {AuthenticationService} from './AuthentificationService';
 import * as jwt_decode from 'jwt-decode';
-import {isNullOrUndefined} from "util";
+import {isNullOrUndefined} from 'util';
 
-export const TOKEN_NAME: string = 'jwt_token';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
@@ -16,9 +15,9 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authenticationService.currentUserValue;
     const decoded = jwt_decode(currentUser);
-    if(!isNullOrUndefined(currentUser)) {
-      if((decoded.exp)*1000 > Date.now()){
-        return true
+    if (!isNullOrUndefined(currentUser)) {
+      if ((decoded.exp) * 1000 > Date.now()) {
+        return true;
       }
     }
 
