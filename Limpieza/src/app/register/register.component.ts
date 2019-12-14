@@ -4,7 +4,7 @@ import {AuthenticationService} from '../_service/AuthentificationService';
 import {Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import * as M from 'materialize-css';
-
+import * as sha1 from 'js-sha1';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -52,6 +52,7 @@ export class RegisterComponent implements OnInit {
     }
 
     this.loading = true;
+
     this.authenticationService.register(this.registerForm.value)
       .pipe(first())
       .subscribe(

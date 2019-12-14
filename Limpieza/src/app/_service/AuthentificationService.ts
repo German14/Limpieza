@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {User} from '../_model/userModel';
+import * as sha1 from 'js-sha1';
+
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -28,7 +30,11 @@ export class AuthenticationService {
   public get currentUserValueValidate(): User {
     return this.currentUserValidateSubject.value;
   }
-  login(username: string, password: string) {
+  login(username: string, passwordform: string) {
+    sha1(passwordform);
+    const hash = sha1.create();
+    hash.update(sha1(passwordform));
+    const password = hash.hex();
     return this.http.post<any>('http://localhost:3000/api/login', { username, password })
       .pipe(map(user => {
         if (user.access_token && user.enable) {
@@ -43,15 +49,25 @@ export class AuthenticationService {
       }));
   }
 
-  register (data: string[]) {
-    return this.http.post<any>('http://localhost:3000/api/register', { data: data })
+  register(datas: any) {
+    sha1(datas.password);
+    const hash = sha1.create();
+    hash.update(sha1(datas.password));
+    const password = hash.hex();
+    const data = {
+      name: datas.name,
+      avatar: datas.avatar,
+      email: datas.email,
+      password
+    };
+    return this.http.post<any>('http://localhost:3000/registrar/register', { data })
       .pipe(map(user => {
         return user;
       }));
   }
 
-  goToValidate(email:string) {
-    this.href = 'http://localhost:3000/api/auth/email/verify/'+ email;
+  goToValidate(email: string) {
+    this.href = 'http://localhost:3000/registrar/auth/email/verify/' + email;
     this.requestUrl = this.href;
     return this.http.get (this.requestUrl);
   }
