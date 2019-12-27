@@ -46,6 +46,7 @@ import {DatepickerModule} from './datepicker/datepicker.module';
 import {ValidateModule} from './validate/validate.module';
 import {ConfigureModule} from './configure-user/configure.module';
 import {ServiceRegister} from './service/serviceRegister';
+import {ServiceServer} from './_service/serviceServer';
 
 
 @NgModule({
@@ -102,6 +103,7 @@ import {ServiceRegister} from './service/serviceRegister';
     ServiceDialog,
     ServiceSidenav,
     ServiceRegister,
+    ServiceServer,
     {provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true},
 
   ],

@@ -19,6 +19,7 @@ export class DatepickerComponent implements OnInit {
               private datePickerService: DatePickerService,
               private buttonsNavigationComponent: ButtonsNavigationComponent) {
     this.firstParam = this.route.snapshot.queryParamMap.get('id');
+    console.log(this.firstParam)
   }
 
   callServiceIndividual(calendar, calendarEl) {

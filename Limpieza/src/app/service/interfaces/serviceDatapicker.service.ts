@@ -12,16 +12,16 @@ export class ServiceDatapickerService {
   public infoClick(events: any , info: any): any {
     return  {
       Garaje: events.filter((data) => {
-        return (data.id === +info.event.id) && (data.resourceId === this.serviceModal.TypeGaraje);
+        return (+data.id === +info.event.id) && (data.resourceId === this.serviceModal.TypeGaraje);
       })[0].start,
       Name: info.event._def.title,
       Observations: info.event.extendedProps.observacion,
       Phone: info.event.extendedProps.phone,
       Portal: events.filter((data) => {
-        return (data.id === +info.event.id) && (data.resourceId === this.serviceModal.TypePortal);
+        return (+data.id === +info.event.id) && (data.resourceId === this.serviceModal.TypePortal);
       })[0].start,
       Tiro: events.filter((data) => {
-        return (data.id === +info.event.id) && (data.resourceId === this.serviceModal.TypeTiro);
+        return (+data.id === +info.event.id) && (data.resourceId === this.serviceModal.TypeTiro);
       })[0].start,
       id: info.event.id
     };
@@ -32,7 +32,7 @@ export class ServiceDatapickerService {
       return oldInfo.event.start;
     } else {
       return events.filter((data) => {
-        return (data.id === +oldInfo.event.id) && (data.resourceId === this.serviceModal.TypeGaraje);
+        return (+data.id === +oldInfo.event.id) && (data.resourceId === this.serviceModal.TypeGaraje);
       })[0].start;
     }
   }
@@ -41,7 +41,7 @@ export class ServiceDatapickerService {
       return oldInfo.event.start;
     } else {
       return events.filter((data) => {
-        return (data.id === +oldInfo.event.id) && (data.resourceId === this.serviceModal.TypeTiro);
+        return (+data.id === +oldInfo.event.id) && (data.resourceId === this.serviceModal.TypeTiro);
       })[0].start;
     }
   }
@@ -50,7 +50,7 @@ export class ServiceDatapickerService {
       return oldInfo.event.start;
     } else {
       return events.filter((data) => {
-        return (data.id === +oldInfo.event.id) && (data.resourceId === this.serviceModal.TypePortal);
+        return (+data.id === +oldInfo.event.id) && (data.resourceId === this.serviceModal.TypePortal);
       })[0].start;
     }
   }

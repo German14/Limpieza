@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import {User} from '../_model/userModel';
 import * as sha1 from 'js-sha1';
+import {ServiceServer} from './serviceServer';
 
 
 @Injectable({ providedIn: 'root' })
@@ -14,7 +15,7 @@ export class AuthenticationService {
   public currentUser: Observable<User>;
   public currentUserValidate: Observable<User>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private serverUri: ServiceServer) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUserValidateSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
@@ -35,7 +36,7 @@ export class AuthenticationService {
     const hash = sha1.create();
     hash.update(sha1(passwordform));
     const password = hash.hex();
-    return this.http.post<any>('http://localhost:3000/api/login', { username, password })
+    return this.http.post<any>(this.serverUri.urlLocal + 'api/login', { username, password })
       .pipe(map(user => {
         if (user.access_token && user.enable) {
           localStorage.setItem('currentUser', JSON.stringify(user.access_token));
@@ -60,14 +61,14 @@ export class AuthenticationService {
       email: datas.email,
       password
     };
-    return this.http.post<any>('http://localhost:3000/registrar/register', { data })
+    return this.http.post<any>(this.serverUri.urlLocal + 'registrar/register', { data })
       .pipe(map(user => {
         return user;
       }));
   }
 
   goToValidate(email: string) {
-    this.href = 'http://localhost:3000/registrar/auth/email/verify/' + email;
+    this.href = this.serverUri.urlLocal + 'registrar/auth/email/verify/' + email;
     this.requestUrl = this.href;
     return this.http.get (this.requestUrl);
   }

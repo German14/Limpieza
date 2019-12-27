@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import * as M from 'materialize-css';
+import {ServiceServer} from '../_service/serviceServer';
 
 
 
@@ -22,20 +23,20 @@ export class DataService {
   public newCoordinateForm$ =  this.newCoordinateForm.asObservable();
 
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private serverUri: ServiceServer) {}
   public href;
   public requestUrl;
   public data;
 
   getRepoIssues(): Observable<any> {
-    this.href = 'http://localhost:3000/users';
+    this.href = this.serverUri.urlLocal + 'users';
     this.requestUrl = this.href;
     return this.httpClient.get (this.requestUrl);
   }
 
 
   PostRepoIssues(data) {
-    this.href = 'http://localhost:3000/users';
+    this.href = this.serverUri.urlLocal + 'users';
     this.requestUrl = this.href;
     if (data.id === undefined) {
       return this.httpClient.post (this.requestUrl, data).subscribe((value) => {
@@ -45,7 +46,7 @@ export class DataService {
         M.toast({html: error.error.message}, 3000);
       });
     } else {
-      this.href = 'http://localhost:3000/users/' + data.id;
+      this.href = this.serverUri.urlLocal + 'users/' + data.id;
       this.requestUrl = this.href;
       this.httpClient.put (this.requestUrl, data).subscribe((value) => {
 
@@ -57,7 +58,7 @@ export class DataService {
   }
 
   DeleteRepoIssues(data) {
-    this.href = 'http://localhost:3000/users/' + data.id ;
+    this.href = this.serverUri.urlLocal + 'users/' + data.id ;
     this.requestUrl = this.href;
     return this.httpClient.delete (this.requestUrl, data).subscribe((value) => {
       M.toast({html: value['result']}, 3000);
